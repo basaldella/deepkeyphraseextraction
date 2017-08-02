@@ -1,5 +1,5 @@
+from utils import tokenizer as tk
 import logging
-import nltk
 import os
 
 
@@ -175,7 +175,7 @@ class Hulth(Dataset):
         for doc in os.listdir("%s/%s" % (self.path, folder)):
             if doc.endswith(".abstr"):
                 content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
-                content = nltk.word_tokenize(content)
+                content = tk.tokenize(content)
                 documents[doc[:doc.find('.')]] = content
 
         return documents
@@ -199,7 +199,7 @@ class Hulth(Dataset):
                 doc_id = doc[:doc.find('.')]
                 for answer in retrieved_answers:
                     answer = answer.strip()
-                    tokenized_answer = nltk.word_tokenize(answer)
+                    tokenized_answer = tk.tokenize(answer)
                     if doc_id not in answers:
                         answers[doc_id] = [tokenized_answer]
                     else:
