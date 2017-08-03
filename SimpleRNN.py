@@ -1,19 +1,20 @@
+from keras.layers import Bidirectional,Dense,Dropout,Embedding,LSTM,TimeDistributed
+from keras.models import Sequential, load_model
+from keras import regularizers
 from data.datasets import Hulth
-from utils import glove, preprocessing
-import data.datasets as ds
+from utils import preprocessing, postprocessing
 import logging
 import numpy as np
+import os
 
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
-from keras.models import Sequential
-from keras.layers import Bidirectional,Dense,Dropout,Embedding,LSTM,TimeDistributed
-from keras import regularizers
-
+SAVE_MODEL = False
+MODEL_PATH = "models/simplernn.model"
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
 EMBEDDINGS_SIZE = 50
+BATCH_SIZE = 32
+EPOCHS = 1
 
 logging.basicConfig(
     format='%(asctime)s\t%(levelname)s\t%(message)s',
@@ -23,91 +24,59 @@ data = Hulth("data/Hulth2003")
 
 train_doc, train_answer = data.load_train()
 test_doc, test_answer = data.load_test()
-train_answer_seq = ds.make_sequential(train_doc,train_answer)
-test_answer_seq = ds.make_sequential(test_doc,test_answer)
 
-# Transform the documents to sequence
-documents_full = []
-train_txts = []
-test_txts = []
-train_y = []
-test_y = []
+train_x,train_y,test_x,test_y,embedding_matrix = preprocessing.\
+    prepare_sequential(train_doc, train_answer, test_doc, test_answer,
+                       tokenizer_filter=FILTER,
+                       max_document_length=MAX_DOCUMENT_LENGTH,
+                       max_vocabulary_size=MAX_VOCABULARY_SIZE,
+                       embeddings_size=EMBEDDINGS_SIZE)
 
-# re-join the tokens obtained with NLTK
-# and split them with Keras' preprocessing tools
-# to obtain a word sequence
+# weigh training examples: everything that's not class 0 (not kp)
+# gets a heavier score
+train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
+train_y_weights[train_y_weights > 0] = 10
+train_y_weights[train_y_weights < 1] = 1
 
-for key, doc in train_doc.items():
-    txt = ' '.join(doc)
-    documents_full.append(txt)
-    train_txts.append(txt)
-    train_y.append(train_answer_seq[key])
-for key,doc in test_doc.items():
-    txt = ' '.join(doc)
-    documents_full.append(txt)
-    test_txts.append(txt)
-    test_y.append(test_answer_seq[key])
 
-tokenizer = Tokenizer(num_words=MAX_VOCABULARY_SIZE, filters=FILTER)
-tokenizer.fit_on_texts(documents_full)
 
-logging.info("Dictionary fitting completed. Found %s unique tokens" % len(tokenizer.word_index))
-
-# Now we can prepare the actual input
-train_x = tokenizer.texts_to_sequences(train_txts)
-test_x = tokenizer.texts_to_sequences(test_txts)
-
-logging.info("Longest training document : %s tokens" % len(max(train_x, key=len)))
-logging.info("Longest test document :     %s tokens" % len(max(test_x, key=len)))
-
-train_x = np.asarray(pad_sequences(train_x, maxlen=MAX_DOCUMENT_LENGTH,padding='post',truncating='post'))
-train_y = pad_sequences(train_y, maxlen=MAX_DOCUMENT_LENGTH,padding='post',truncating='post')
-train_y = preprocessing.make_categorical(train_y)
-
-test_x = np.asarray(pad_sequences(test_x, maxlen=MAX_DOCUMENT_LENGTH,padding='post',truncating='post'))
-test_y = pad_sequences(test_y, maxlen=MAX_DOCUMENT_LENGTH,padding='post',truncating='post')
-test_y = preprocessing.make_categorical(test_y)
-
-logging.info("Training set samples size : %s", np.shape(train_x))
-logging.info("Training set answers size : %s", np.shape(train_y))
-logging.info("Test set samples size : %s", np.shape(test_x))
-logging.info("Test set answers size : %s ", np.shape(test_y))
-
-# prepare the matrix for the embedding layer
-word_index = tokenizer.word_index
-embeddings_index = glove.load_glove('', EMBEDDINGS_SIZE)
-
-num_words = min(MAX_VOCABULARY_SIZE, len(word_index))
-embedding_matrix = np.zeros((num_words, EMBEDDINGS_SIZE))
-for word, i in word_index.items():
-    if i >= num_words:
-        continue
-    embedding_vector = embeddings_index.get(word)
-    if embedding_vector is not None:
-        # words not found in embedding index will be all-zeros.
-        embedding_matrix[i] = embedding_vector
-
-embedding_layer = Embedding(num_words,
+embedding_layer = Embedding(np.shape(embedding_matrix)[0],
                             EMBEDDINGS_SIZE,
                             weights=[embedding_matrix],
                             input_length=MAX_DOCUMENT_LENGTH,
                             trainable=False)
 
-logging.info("Building model...")
-model = Sequential()
+if not os.path.isfile(MODEL_PATH) :
 
-model.add(embedding_layer)
-model.add(Bidirectional(LSTM(500,activation='tanh', recurrent_activation='hard_sigmoid', return_sequences=True))) # il primo parametro sono le "unita": dimensioni dello spazio di output
-model.add(Dropout(0.25))
-model.add(TimeDistributed(Dense(200, activation='relu',kernel_regularizer=regularizers.l2(0.01))))
-model.add(Dropout(0.25))
-model.add(TimeDistributed(Dense(3, activation='softmax')))
+    logging.info("Building model...")
+    model = Sequential()
 
-logging.info("Compiling the model...")
-model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'],
-              sample_weight_mode="temporal")
-print(model.summary())
+    model.add(embedding_layer)
+    model.add(Bidirectional(LSTM(500,activation='tanh', recurrent_activation='hard_sigmoid', return_sequences=True)))
+    model.add(Dropout(0.25))
+    model.add(TimeDistributed(Dense(200, activation='relu',kernel_regularizer=regularizers.l2(0.01))))
+    model.add(Dropout(0.25))
+    model.add(TimeDistributed(Dense(3, activation='softmax')))
 
-batch_size = 32
-epochs = 1
-history = model.fit(train_x, train_y, epochs=epochs, batch_size=batch_size)
+    logging.info("Compiling the model...")
+    model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'],
+                  sample_weight_mode="temporal")
+    print(model.summary())
+
+    history = model.fit(train_x, train_y, epochs=EPOCHS, batch_size=BATCH_SIZE,sample_weight=train_y_weights)
+
+    if SAVE_MODEL :
+        model.save(MODEL_PATH)
+        logging.info("Model saved in %s", MODEL_PATH)
+
+else :
+    logging.warning("Found existing model in ",MODEL_PATH)
+    model = load_model(MODEL_PATH)
+    logging.info("Completed loading model from file")
+
+
+output = model.predict(x=train_x, batch_size=BATCH_SIZE, verbose=1)
+logging.info("Shape of output array: %s",np.shape(output))
+
+obtained_tokens = postprocessing.undo_sequential(train_x,output)
+print(obtained_tokens)[0]
