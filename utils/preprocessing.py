@@ -51,17 +51,19 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
         test_txts.append(txt)
         test_y.append(test_answer_seq[key])
 
+    logging.debug("Fitting dictionary on %s documents..." % len(documents_full))
+
     tokenizer = Tokenizer(num_words=max_vocabulary_size, filters=tokenizer_filter)
     tokenizer.fit_on_texts(documents_full)
 
-    logging.info("Dictionary fitting completed. Found %s unique tokens" % len(tokenizer.word_index))
+    logging.debug("Dictionary fitting completed. Found %s unique tokens" % len(tokenizer.word_index))
 
     # Now we can prepare the actual input
     train_x = tokenizer.texts_to_sequences(train_txts)
     test_x = tokenizer.texts_to_sequences(test_txts)
 
-    logging.info("Longest training document : %s tokens" % len(max(train_x, key=len)))
-    logging.info("Longest test document :     %s tokens" % len(max(test_x, key=len)))
+    logging.debug("Longest training document : %s tokens" % len(max(train_x, key=len)))
+    logging.debug("Longest test document :     %s tokens" % len(max(test_x, key=len)))
 
     train_x = np.asarray(pad_sequences(train_x, maxlen=max_document_length, padding='post', truncating='post'))
     train_y = pad_sequences(train_y, maxlen=max_document_length, padding='post', truncating='post')
@@ -71,10 +73,10 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
     test_y = pad_sequences(test_y, maxlen=max_document_length, padding='post', truncating='post')
     test_y = make_categorical(test_y)
 
-    logging.info("Training set samples size : %s", np.shape(train_x))
-    logging.info("Training set answers size : %s", np.shape(train_y))
-    logging.info("Test set samples size : %s", np.shape(test_x))
-    logging.info("Test set answers size : %s ", np.shape(test_y))
+    logging.debug("Training set samples size : %s", np.shape(train_x))
+    logging.debug("Training set answers size : %s", np.shape(train_y))
+    logging.debug("Test set samples size : %s", np.shape(test_x))
+    logging.debug("Test set answers size : %s ", np.shape(test_y))
 
     # prepare the matrix for the embedding layer
     word_index = tokenizer.word_index
@@ -90,7 +92,7 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
             # words not found in embedding index will be all-zeros.
             embedding_matrix[i] = embedding_vector
 
-    return train_x,train_y,test_x,test_y,embedding_matrix
+    return train_x, train_y, test_x, test_y, embedding_matrix
 
 
 def make_sequential(documents, answers):

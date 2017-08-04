@@ -2,28 +2,42 @@ from keras.layers import Bidirectional,Dense,Dropout,Embedding,LSTM,TimeDistribu
 from keras.models import Sequential, load_model
 from keras import regularizers
 from data.datasets import Hulth
-from utils import preprocessing, postprocessing
+from utils import info, preprocessing, postprocessing
 import logging
 import numpy as np
 import os
 
-SAVE_MODEL = False
-MODEL_PATH = "models/simplernn.model"
+# LOGGING CONFIGURATION
+
+logging.basicConfig(
+    format='%(asctime)s\t%(levelname)s\t%(message)s',
+    level=logging.DEBUG)
+
+info.log_versions()
+
+# END LOGGING CONFIGURATION
+
+# GLOBAL VARIABLES
+
+SAVE_MODEL = True
+MODEL_PATH = "models/simplernn.h5"
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
 EMBEDDINGS_SIZE = 50
 BATCH_SIZE = 32
-EPOCHS = 1
+EPOCHS = 10
 
-logging.basicConfig(
-    format='%(asctime)s\t%(levelname)s\t%(message)s',
-    level=logging.INFO)
+# END GLOBAL VARIABLES
+
+logging.info("Loading dataset...")
 
 data = Hulth("data/Hulth2003")
 
 train_doc, train_answer = data.load_train()
 test_doc, test_answer = data.load_test()
+
+logging.info("Dataset loaded. Preprocessing data...")
 
 train_x,train_y,test_x,test_y,embedding_matrix = preprocessing.\
     prepare_sequential(train_doc, train_answer, test_doc, test_answer,
@@ -38,18 +52,18 @@ train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot represent
 train_y_weights[train_y_weights > 0] = 10
 train_y_weights[train_y_weights < 1] = 1
 
+logging.info("Data preprocessing complete.")
 
+if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
-embedding_layer = Embedding(np.shape(embedding_matrix)[0],
-                            EMBEDDINGS_SIZE,
-                            weights=[embedding_matrix],
-                            input_length=MAX_DOCUMENT_LENGTH,
-                            trainable=False)
-
-if not os.path.isfile(MODEL_PATH) :
-
-    logging.info("Building model...")
+    logging.debug("Building the network...")
     model = Sequential()
+
+    embedding_layer = Embedding(np.shape(embedding_matrix)[0],
+                                EMBEDDINGS_SIZE,
+                                weights=[embedding_matrix],
+                                input_length=MAX_DOCUMENT_LENGTH,
+                                trainable=False)
 
     model.add(embedding_layer)
     model.add(Bidirectional(LSTM(500,activation='tanh', recurrent_activation='hard_sigmoid', return_sequences=True)))
@@ -58,11 +72,12 @@ if not os.path.isfile(MODEL_PATH) :
     model.add(Dropout(0.25))
     model.add(TimeDistributed(Dense(3, activation='softmax')))
 
-    logging.info("Compiling the model...")
+    logging.info("Compiling the network...")
     model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'],
                   sample_weight_mode="temporal")
     print(model.summary())
 
+    logging.info("Fitting the network...")
     history = model.fit(train_x, train_y, epochs=EPOCHS, batch_size=BATCH_SIZE,sample_weight=train_y_weights)
 
     if SAVE_MODEL :
@@ -70,13 +85,13 @@ if not os.path.isfile(MODEL_PATH) :
         logging.info("Model saved in %s", MODEL_PATH)
 
 else :
-    logging.warning("Found existing model in ",MODEL_PATH)
+    logging.info("Loading existing model from %s...",MODEL_PATH)
     model = load_model(MODEL_PATH)
     logging.info("Completed loading model from file")
 
 
-output = model.predict(x=train_x, batch_size=BATCH_SIZE, verbose=1)
-logging.info("Shape of output array: %s",np.shape(output))
+logging.info("Predicting on test set...")
+output = model.predict(x=test_x, verbose=1)
+logging.debug("Shape of output array: %s",np.shape(output))
 
 obtained_tokens = postprocessing.undo_sequential(train_x,output)
-print(obtained_tokens)[0]

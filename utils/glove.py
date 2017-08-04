@@ -5,7 +5,11 @@ import logging
 
 def load_glove(glove_dir,size):
     embeddings_index = {}
-    f = open(os.path.join(glove_dir, ('glove.6B.%sd.txt' % size)))
+    glove_path = ('glove.6B.%sd.txt' % size)
+
+    logging.debug("Loading GloVe pre-trained embeddings from %s" % glove_path)
+
+    f = open(os.path.join(glove_dir, glove_path))
     for line in f:
         values = line.split()
         word = values[0]
@@ -13,6 +17,6 @@ def load_glove(glove_dir,size):
         embeddings_index[word] = coefs
     f.close()
 
-    logging.info('Found %s word vectors.' % len(embeddings_index))
+    logging.debug('Total embeddings found: %s.' % len(embeddings_index))
 
     return embeddings_index
