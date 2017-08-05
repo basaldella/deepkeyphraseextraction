@@ -82,7 +82,10 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
     word_index = tokenizer.word_index
     embeddings_index = glove.load_glove('', embeddings_size)
 
-    num_words = min(max_vocabulary_size, len(word_index))
+    num_words = min(max_vocabulary_size, 1 + len(word_index))
+
+    logging.debug("Building embedding matrix of size [%s,%s]..." % (num_words,embeddings_size))
+
     embedding_matrix = np.zeros((num_words, embeddings_size))
     for word, i in word_index.items():
         if i >= num_words:
