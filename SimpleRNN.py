@@ -95,3 +95,8 @@ output = model.predict(x=test_x, verbose=1)
 logging.debug("Shape of output array: %s",np.shape(output))
 
 obtained_tokens = postprocessing.undo_sequential(train_x,output)
+obtained_words = postprocessing.get_words(test_doc,obtained_tokens)
+
+
+print("Ha")
+
