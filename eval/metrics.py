@@ -12,11 +12,11 @@ def precision(reference,obtained):
 
         for ref_tokens in reference_kps_tokens:
             reference_kp = ' '.join(ref_tokens)
-            reference_kps.append(reference_kp)
+            reference_kps.append(reference_kp.lower())
 
         for obt_tokens in obtained_kps_tokens:
             obt_string = ' '.join(obt_tokens)
-            if obt_string in reference_kps:
+            if obt_string.lower() in reference_kps:
                 true_positives += 1
             else:
                 false_positives += 1

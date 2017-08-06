@@ -2,7 +2,7 @@ from keras.layers import Bidirectional,Dense,Dropout,Embedding,LSTM,TimeDistribu
 from keras.models import Sequential, load_model
 from keras import regularizers
 from data.datasets import Hulth
-from eval import metrics
+from eval import keras_metrics, metrics
 from utils import info, preprocessing, postprocessing
 import logging
 import numpy as np
@@ -20,12 +20,12 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/simplernn.h5"
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
-EMBEDDINGS_SIZE = 50
+EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
 EPOCHS = 10
 
@@ -110,8 +110,21 @@ recall = metrics.recall(test_answer,obtained_words)
 f1 = metrics.f1(precision,recall)
 
 print("###    Obtained Scores    ###")
+print("###     (full dataset)    ###")
 print("###")
-print("### Precision : %3.3f" % precision)
-print("### Recall    : %3.3f" % recall)
-print("### F1        : %3.3f" % f1)
+print("### Precision : %.4f" % precision)
+print("### Recall    : %.4f" % recall)
+print("### F1        : %.4f" % f1)
+print("###                       ###")
+
+keras_precision = keras_metrics.keras_precision(test_y,output)
+keras_recall = keras_metrics.keras_recall(test_y,output)
+keras_f1 = keras_metrics.keras_f1(test_y,output)
+
+print("###    Obtained Scores    ###")
+print("###    (fixed dataset)    ###")
+print("###")
+print("### Precision : %.4f" % keras_precision)
+print("### Recall    : %.4f" % keras_recall)
+print("### F1        : %.4f" % keras_f1)
 print("###                       ###")
