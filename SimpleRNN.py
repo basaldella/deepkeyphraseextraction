@@ -2,6 +2,7 @@ from keras.layers import Bidirectional,Dense,Dropout,Embedding,LSTM,TimeDistribu
 from keras.models import Sequential, load_model
 from keras import regularizers
 from data.datasets import Hulth
+from eval import metrics
 from utils import info, preprocessing, postprocessing
 import logging
 import numpy as np
@@ -11,7 +12,7 @@ import os
 
 logging.basicConfig(
     format='%(asctime)s\t%(levelname)s\t%(message)s',
-    level=logging.DEBUG)
+    level=logging.INFO)
 
 info.log_versions()
 
@@ -19,7 +20,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/simplernn.h5"
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
@@ -37,6 +38,9 @@ data = Hulth("data/Hulth2003")
 train_doc, train_answer = data.load_train()
 test_doc, test_answer = data.load_test()
 
+# Sanity check
+# logging.info("Sanity check: %s",metrics.precision(test_answer,test_answer))
+
 logging.info("Dataset loaded. Preprocessing data...")
 
 train_x,train_y,test_x,test_y,embedding_matrix = preprocessing.\
@@ -45,6 +49,10 @@ train_x,train_y,test_x,test_y,embedding_matrix = preprocessing.\
                        max_document_length=MAX_DOCUMENT_LENGTH,
                        max_vocabulary_size=MAX_VOCABULARY_SIZE,
                        embeddings_size=EMBEDDINGS_SIZE)
+
+logging.info("Maximum possible recall: %s",
+             metrics.recall(test_answer,
+                               postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_x, test_y))))
 
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
@@ -97,6 +105,13 @@ logging.debug("Shape of output array: %s",np.shape(output))
 obtained_tokens = postprocessing.undo_sequential(train_x,output)
 obtained_words = postprocessing.get_words(test_doc,obtained_tokens)
 
+precision = metrics.precision(test_answer,obtained_words)
+recall = metrics.recall(test_answer,obtained_words)
+f1 = metrics.f1(precision,recall)
 
-print("Ha")
-
+print("###    Obtained Scores    ###")
+print("###")
+print("### Precision : %3.3f" % precision)
+print("### Recall    : %3.3f" % recall)
+print("### F1        : %3.3f" % f1)
+print("###                       ###")

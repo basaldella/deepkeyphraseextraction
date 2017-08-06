@@ -91,6 +91,16 @@ class Dataset(object):
 
 
 class Hulth(Dataset):
+    """
+    Dataset from Annette Hulth's "Improved Automatic Keyword Extraction
+    Given More Linguistic Knowledge"
+
+    Note: to make the results obtained with this dataset comparable to
+    the ones described in Hulth's paper, only the "uncontrolled" terms
+    are used.
+
+    Full-text here: http://www.aclweb.org/anthology/W03-1028
+    """
     def __init__(self, path):
         super().__init__("Hulth, 2003", path)
 
@@ -129,7 +139,7 @@ class Hulth(Dataset):
         answers = {}
 
         for doc in os.listdir("%s/%s" % (self.path, folder)):
-            if doc.endswith(".contr") or doc.endswith(".uncontr"):
+            if doc.endswith(".uncontr"):
                 content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
                 retrieved_answers = content.split(';')
                 doc_id = doc[:doc.find('.')]

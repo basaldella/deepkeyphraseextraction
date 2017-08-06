@@ -1,3 +1,4 @@
+import itertools
 import numpy as np
 
 
@@ -30,5 +31,11 @@ def get_words(docs, selections):
             else:
                 in_word = False
             k += 1
+
+        # remove duplicate selections
+        obtained_words_doc.sort()
+        obtained_words_doc = list(w for w, _ in itertools.groupby(obtained_words_doc))
         obtained_words[doc] = obtained_words_doc
         i += 1
+
+    return obtained_words

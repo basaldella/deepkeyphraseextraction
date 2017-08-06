@@ -3,7 +3,7 @@ import keras.preprocessing.text
 import nltk
 
 tokenizers = Enum("Tokenizers","nltk keras")
-tokenizer = tokenizers.nltk
+tokenizer = tokenizers.keras
 
 def tokenize(string):
     """
