@@ -22,16 +22,17 @@ class MetricsCallback(keras.callbacks.Callback):
         print("")
         print("###   Validation Scores   ###")
         print("###")
-        print("### Batch     : %s" % epoch)
+        print("### Epoch     : %s" % (epoch+1))
         print("### Precision : %.4f" % precision)
         print("### Recall    : %.4f" % recall)
         print("### F1        : %.4f" % f1)
         print("###                       ###")
 
-        self.epoch.append(epoch)
+        self.epoch.append(epoch+1)
         self.history.setdefault("precision", []).append(precision)
         self.history.setdefault("recall", []).append(recall)
         self.history.setdefault("f1", []).append(f1)
+
 
 def keras_precision(y_true,y_pred) :
 

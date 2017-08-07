@@ -3,7 +3,7 @@ from keras.models import Sequential, load_model
 from keras import regularizers
 from data.datasets import Hulth
 from eval import keras_metrics, metrics
-from utils import info, preprocessing, postprocessing, plots
+from utils import info, preprocessing, postprocessing, plots, tokenizer as tk
 import logging
 import numpy as np
 import os
@@ -20,7 +20,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/simplernn.h5"
 SHOW_PLOTS = True
 
@@ -28,18 +28,20 @@ SHOW_PLOTS = True
 
 # PARAMETERS for networks, tokenizers, etc...
 
+tokenizer = tk.tokenizers.keras
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
 EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
-EPOCHS = 10
+EPOCHS = 8
 
 # END PARAMETERS
 
 logging.info("Loading dataset...")
 
 data = Hulth("data/Hulth2003")
+data.tokenizer = tokenizer
 
 train_doc, train_answer = data.load_train()
 test_doc, test_answer = data.load_test()

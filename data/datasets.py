@@ -17,6 +17,7 @@ class Dataset(object):
         self.train_answers = None
         self.validation_documents = None
         self.validation_answers = None
+        self.tokenizer = tk.tokenizers.keras
 
         logging.debug("Initialized dataset %s from folder %s" %
                      (self.name, self.path))
@@ -156,7 +157,7 @@ class Hulth(Dataset):
         for doc in os.listdir("%s/%s" % (self.path, folder)):
             if doc.endswith(".abstr"):
                 content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
-                content = tk.tokenize(content)
+                content = tk.tokenize(content,self.tokenizer)
                 documents[doc[:doc.find('.')]] = content
 
         return documents
@@ -180,7 +181,7 @@ class Hulth(Dataset):
                 doc_id = doc[:doc.find('.')]
                 for answer in retrieved_answers:
                     answer = answer.strip()
-                    tokenized_answer = tk.tokenize(answer)
+                    tokenized_answer = tk.tokenize(answer,self.tokenizer)
                     if doc_id not in answers:
                         answers[doc_id] = [tokenized_answer]
                     else:
