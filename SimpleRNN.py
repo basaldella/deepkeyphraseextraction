@@ -3,7 +3,7 @@ from keras.models import Sequential, load_model
 from keras import regularizers
 from data.datasets import Hulth
 from eval import keras_metrics, metrics
-from utils import info, preprocessing, postprocessing
+from utils import info, preprocessing, postprocessing, plots
 import logging
 import numpy as np
 import os
@@ -12,7 +12,7 @@ import os
 
 logging.basicConfig(
     format='%(asctime)s\t%(levelname)s\t%(message)s',
-    level=logging.INFO)
+    level=logging.DEBUG)
 
 info.log_versions()
 
@@ -20,8 +20,14 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/simplernn.h5"
+SHOW_PLOTS = True
+
+# END GLOBAL VARIABLES
+
+# PARAMETERS for networks, tokenizers, etc...
+
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
@@ -29,7 +35,7 @@ EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
 EPOCHS = 10
 
-# END GLOBAL VARIABLES
+# END PARAMETERS
 
 logging.info("Loading dataset...")
 
@@ -37,14 +43,15 @@ data = Hulth("data/Hulth2003")
 
 train_doc, train_answer = data.load_train()
 test_doc, test_answer = data.load_test()
+val_doc, val_answer = data.load_validation()
 
 # Sanity check
 # logging.info("Sanity check: %s",metrics.precision(test_answer,test_answer))
 
 logging.info("Dataset loaded. Preprocessing data...")
 
-train_x,train_y,test_x,test_y,embedding_matrix = preprocessing.\
-    prepare_sequential(train_doc, train_answer, test_doc, test_answer,
+train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
+    prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
                        tokenizer_filter=FILTER,
                        max_document_length=MAX_DOCUMENT_LENGTH,
                        max_vocabulary_size=MAX_VOCABULARY_SIZE,
@@ -86,7 +93,13 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
     print(model.summary())
 
     logging.info("Fitting the network...")
-    history = model.fit(train_x, train_y, epochs=EPOCHS, batch_size=BATCH_SIZE,sample_weight=train_y_weights)
+    history = model.fit(train_x, train_y,
+                        validation_data=(val_x,val_y),
+                        epochs=EPOCHS, batch_size=BATCH_SIZE,sample_weight=train_y_weights)
+
+    if SHOW_PLOTS :
+        plots.plot_accuracy(history)
+        plots.plot_loss(history)
 
     if SAVE_MODEL :
         model.save(MODEL_PATH)

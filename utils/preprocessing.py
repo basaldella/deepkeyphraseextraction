@@ -6,28 +6,37 @@ import logging
 import numpy as np
 
 
-def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
+def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
                        max_document_length=1000,
                        max_vocabulary_size=50000,
                        embeddings_size=50,
                        tokenizer_filter='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n'):
     """
-    Prepares a dataset for use by a sequential, categorical model.
+        Prepares a dataset for use by a sequential, categorical model.
 
-    :param train_doc: the training documents
-    :param train_answer: the KPs for the training documents
-    :param test_doc: the test documents
-    :param test_answer: the KPs for the test documents
-    :param max_document_length: the maximum length of the documents (shorter documents will be padded!)
-    :param max_vocabulary_size: the maximum size of the vocabulary to use
-    (i.e. we keep only the top max_vocabulary_size words)
-    :param embeddings_size: the size of the GLoVE embeddings to use
-    :param tokenizer_filter: the filter of the tokenizer to use
-    :return:
-    """
+        :param train_doc: the training documents
+        :param train_answer: the KPs for the training documents
+        :param test_doc: the test documents
+        :param test_answer: the KPs for the test documents
+        :param val_doc: the validation documents (can be None)
+        :param val_answer: the KPs for the validation documents (can be None)
+        :param max_document_length: the maximum length of the documents (shorter documents will be padded!)
+        :param max_vocabulary_size: the maximum size of the vocabulary to use
+        (i.e. we keep only the top max_vocabulary_size words)
+        :param embeddings_size: the size of the GLoVE embeddings to use
+        :param tokenizer_filter: the filter of the tokenizer to use
+        :return:
+        """
 
     train_answer_seq = make_sequential(train_doc, train_answer)
     test_answer_seq = make_sequential(test_doc, test_answer)
+
+    # Prepare validation return data
+    val_x = None
+    val_y = None
+
+    if val_doc and val_answer:
+        val_answer_seq = make_sequential(val_doc, val_answer)
 
     # Transform the documents to sequence
     documents_full = []
@@ -35,6 +44,10 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
     test_txts = []
     train_y = []
     test_y = []
+
+    if val_doc and val_answer:
+        val_txts = []
+        val_y = []
 
     # re-join the tokens obtained with NLTK
     # and split them with Keras' preprocessing tools
@@ -51,6 +64,13 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
         test_txts.append(txt)
         test_y.append(test_answer_seq[key])
 
+    if val_doc and val_answer:
+        for key, doc in val_doc.items():
+            txt = ' '.join(doc)
+            documents_full.append(txt)
+            val_txts.append(txt)
+            val_y.append(val_answer_seq[key])
+
     logging.debug("Fitting dictionary on %s documents..." % len(documents_full))
 
     tokenizer = Tokenizer(num_words=max_vocabulary_size, filters=tokenizer_filter)
@@ -61,9 +81,13 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
     # Now we can prepare the actual input
     train_x = tokenizer.texts_to_sequences(train_txts)
     test_x = tokenizer.texts_to_sequences(test_txts)
+    if val_doc and val_answer:
+        val_x = tokenizer.texts_to_sequences(val_txts)
 
-    logging.debug("Longest training document : %s tokens" % len(max(train_x, key=len)))
-    logging.debug("Longest test document :     %s tokens" % len(max(test_x, key=len)))
+    logging.debug("Longest training document :   %s tokens" % len(max(train_x, key=len)))
+    logging.debug("Longest test document :       %s tokens" % len(max(test_x, key=len)))
+    if val_doc and val_answer:
+        logging.debug("Longest validation document : %s tokens" % len(max(val_x, key=len)))
 
     train_x = np.asarray(pad_sequences(train_x, maxlen=max_document_length, padding='post', truncating='post'))
     train_y = pad_sequences(train_y, maxlen=max_document_length, padding='post', truncating='post')
@@ -73,10 +97,20 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
     test_y = pad_sequences(test_y, maxlen=max_document_length, padding='post', truncating='post')
     test_y = make_categorical(test_y)
 
-    logging.debug("Training set samples size : %s", np.shape(train_x))
-    logging.debug("Training set answers size : %s", np.shape(train_y))
-    logging.debug("Test set samples size : %s", np.shape(test_x))
-    logging.debug("Test set answers size : %s ", np.shape(test_y))
+    if val_doc and val_answer:
+        val_x = np.asarray(pad_sequences(val_x, maxlen=max_document_length, padding='post', truncating='post'))
+        val_y = pad_sequences(val_y, maxlen=max_document_length, padding='post', truncating='post')
+        val_y = make_categorical(val_y)
+
+
+    logging.debug("Training set samples size   : %s", np.shape(train_x))
+    logging.debug("Training set answers size   : %s", np.shape(train_y))
+    logging.debug("Test set samples size       : %s", np.shape(test_x))
+    logging.debug("Test set answers size       : %s ", np.shape(test_y))
+
+    if val_doc and val_answer:
+        logging.debug("Validation set samples size : %s", np.shape(val_x))
+        logging.debug("Validation set answers size : %s ", np.shape(val_y))
 
     # prepare the matrix for the embedding layer
     word_index = tokenizer.word_index
@@ -84,7 +118,7 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
 
     num_words = min(max_vocabulary_size, 1 + len(word_index))
 
-    logging.debug("Building embedding matrix of size [%s,%s]..." % (num_words,embeddings_size))
+    logging.debug("Building embedding matrix of size [%s,%s]..." % (num_words, embeddings_size))
 
     embedding_matrix = np.zeros((num_words, embeddings_size))
     for word, i in word_index.items():
@@ -95,7 +129,7 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,
             # words not found in embedding index will be all-zeros.
             embedding_matrix[i] = embedding_vector
 
-    return train_x, train_y, test_x, test_y, embedding_matrix
+    return train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix
 
 
 def make_sequential(documents, answers):

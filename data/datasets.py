@@ -15,6 +15,8 @@ class Dataset(object):
         self.test_answers = None
         self.train_documents = None
         self.train_answers = None
+        self.validation_documents = None
+        self.validation_answers = None
 
         logging.debug("Initialized dataset %s from folder %s" %
                      (self.name, self.path))
@@ -48,6 +50,21 @@ class Dataset(object):
     def _load_train_answers(self):
         """
         Loads the answers for the train documents.
+        :return: a list of answers.
+        """
+        raise NotImplementedError
+
+    def _load_validation_documents(self):
+        """
+        Loads the validation documents.
+
+        :return: a list of documents.
+        """
+        raise NotImplementedError
+
+    def _load_validation_answers(self):
+        """
+        Loads the answers for the validation documents.
         :return: a list of answers.
         """
         raise NotImplementedError
@@ -89,6 +106,24 @@ class Dataset(object):
 
         return self.train_documents, self.train_answers
 
+
+    def load_validation(self):
+        """
+        Loads the validation documents and their answers.
+        :return: a tuple containing the validation documents and the training answers.
+        """
+        if not self.validation_documents:
+            self.validation_documents = self._load_validation_documents()
+
+        if not self.validation_answers:
+            self.validation_answers = self._load_validation_answers()
+
+        assert (len(self.validation_documents) == len(self.validation_answers)), \
+            "You have not enough (or too many) validation answers for your documents!"
+
+        logging.debug("Loaded validation set for dataset %s" % self.name)
+
+        return self.validation_documents, self.validation_answers
 
 class Hulth(Dataset):
     """
@@ -159,8 +194,15 @@ class Hulth(Dataset):
     def _load_train_documents(self):
         return self.__load_documents("Training")
 
+    def _load_validation_documents(self):
+        return self.__load_documents("Validation")
+
     def _load_test_answers(self):
         return self.__load_answers("Test")
 
     def _load_train_answers(self):
         return self.__load_answers("Training")
+
+    def _load_validation_answers(self):
+        return self.__load_answers("Validation")
+
