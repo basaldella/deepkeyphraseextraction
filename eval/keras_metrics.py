@@ -1,4 +1,37 @@
+import keras
 import numpy as np
+
+
+class MetricsCallback(keras.callbacks.Callback):
+
+    def __init__(self,val_x,val_y):
+        self.val_x = val_x
+        self.val_y = val_y
+        self.epoch = []
+        self.history = {}
+
+    def on_epoch_end(self, epoch, logs={}):
+
+        # Predict on the validation data
+        y_pred = self.model.predict(self.val_x)
+
+        precision = keras_precision(self.val_y,y_pred)
+        recall = keras_recall(self.val_y, y_pred)
+        f1 = keras_f1(self.val_y, y_pred)
+
+        print("")
+        print("###   Validation Scores   ###")
+        print("###")
+        print("### Batch     : %s" % epoch)
+        print("### Precision : %.4f" % precision)
+        print("### Recall    : %.4f" % recall)
+        print("### F1        : %.4f" % f1)
+        print("###                       ###")
+
+        self.epoch.append(epoch)
+        self.history.setdefault("precision", []).append(precision)
+        self.history.setdefault("recall", []).append(recall)
+        self.history.setdefault("f1", []).append(f1)
 
 def keras_precision(y_true,y_pred) :
 

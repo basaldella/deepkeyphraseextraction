@@ -92,14 +92,20 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                   sample_weight_mode="temporal")
     print(model.summary())
 
+    metrics_callback = keras_metrics.MetricsCallback(val_x,val_y)
+
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
                         validation_data=(val_x,val_y),
-                        epochs=EPOCHS, batch_size=BATCH_SIZE,sample_weight=train_y_weights)
+                        epochs=EPOCHS,
+                        batch_size=BATCH_SIZE,
+                        sample_weight=train_y_weights,
+                        callbacks=[metrics_callback])
 
     if SHOW_PLOTS :
         plots.plot_accuracy(history)
         plots.plot_loss(history)
+        plots.plot_prf(metrics_callback)
 
     if SAVE_MODEL :
         model.save(MODEL_PATH)
