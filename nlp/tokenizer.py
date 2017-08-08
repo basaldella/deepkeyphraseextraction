@@ -15,7 +15,7 @@ def tokenize_set(documents,answers,tokenizer):
     for doc, answers in answers.items():
         for answer in answers :
             if doc not in tokenized_answers:
-                tokenized_answers[doc] = tokenize(answer,tokenizer)
+                tokenized_answers[doc] = [tokenize(answer,tokenizer)]
             else:
                 tokenized_answers[doc].append(tokenize(answer,tokenizer))
 
