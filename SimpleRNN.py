@@ -65,10 +65,6 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
                        max_vocabulary_size=MAX_VOCABULARY_SIZE,
                        embeddings_size=EMBEDDINGS_SIZE)
 
-logging.info("Maximum possible recall: %s",
-             metrics.recall(test_answer,
-                               postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_x, test_y))))
-
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
 train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
@@ -76,6 +72,9 @@ train_y_weights[train_y_weights > 0] = 10
 train_y_weights[train_y_weights < 1] = 1
 
 logging.info("Data preprocessing complete.")
+logging.info("Maximum possible recall: %s",
+             metrics.recall(test_answer,
+                               postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_y))))
 
 if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
@@ -129,7 +128,7 @@ logging.info("Predicting on test set...")
 output = model.predict(x=test_x, verbose=1)
 logging.debug("Shape of output array: %s",np.shape(output))
 
-obtained_tokens = postprocessing.undo_sequential(train_x,output)
+obtained_tokens = postprocessing.undo_sequential(output)
 obtained_words = postprocessing.get_words(test_doc,obtained_tokens)
 
 precision = metrics.precision(test_answer,obtained_words)

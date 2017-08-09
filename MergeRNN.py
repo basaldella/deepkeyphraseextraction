@@ -23,7 +23,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/mergernn.h5"
 SHOW_PLOTS = True
 
@@ -35,9 +35,9 @@ tokenizer = tk.tokenizers.keras
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
-EMBEDDINGS_SIZE = 50
+EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
-EPOCHS = 10
+EPOCHS = 20
 
 # END PARAMETERS
 
@@ -65,10 +65,6 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
                        max_vocabulary_size=MAX_VOCABULARY_SIZE,
                        embeddings_size=EMBEDDINGS_SIZE)
 
-logging.info("Maximum possible recall: %s",
-             metrics.recall(test_answer,
-                               postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_x, test_y))))
-
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
 train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
@@ -76,6 +72,9 @@ train_y_weights[train_y_weights > 0] = 10
 train_y_weights[train_y_weights < 1] = 1
 
 logging.info("Data preprocessing complete.")
+logging.info("Maximum possible recall: %s",
+             metrics.recall(test_answer,
+                               postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_y))))
 
 if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
@@ -88,7 +87,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                         input_length=MAX_DOCUMENT_LENGTH,
                         trainable=False)(summary)
 
-    encoded_summary = layers.LSTM(EMBEDDINGS_SIZE)\
+
+    encoded_summary = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE/2)))\
+        (encoded_summary)
+    encoded_summary = layers.Dropout(0.25)(encoded_summary)
+    encoded_summary = layers.Dense(EMBEDDINGS_SIZE) \
         (encoded_summary)
     encoded_summary = layers.RepeatVector(MAX_DOCUMENT_LENGTH)(encoded_summary)
 
@@ -100,7 +103,9 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                         trainable=False)(document)
 
     merged = layers.add([encoded_summary, encoded_document])
-    merged = layers.LSTM(EMBEDDINGS_SIZE,return_sequences=True)(merged)
+    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE/2),return_sequences=True))(merged)
+    merged = layers.Dropout(0.3)(merged)
+    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE /4), return_sequences=True))(merged)
     merged = layers.Dropout(0.3)(merged)
     prediction = layers.TimeDistributed(layers.Dense(3,activation='softmax'))(merged)
 
@@ -140,7 +145,7 @@ logging.info("Predicting on test set...")
 output = model.predict(x=[test_x,test_x], verbose=1)
 logging.debug("Shape of output array: %s",np.shape(output))
 
-obtained_tokens = postprocessing.undo_sequential(train_x,output)
+obtained_tokens = postprocessing.undo_sequential(output)
 obtained_words = postprocessing.get_words(test_doc,obtained_tokens)
 
 precision = metrics.precision(test_answer,obtained_words)
@@ -165,4 +170,19 @@ print("###")
 print("### Precision : %.4f" % keras_precision)
 print("### Recall    : %.4f" % keras_recall)
 print("### F1        : %.4f" % keras_f1)
+print("###                       ###")
+
+clean_words = postprocessing.get_valid_patterns(obtained_words)
+
+precision = metrics.precision(test_answer,clean_words)
+recall = metrics.recall(test_answer,clean_words)
+f1 = metrics.f1(precision,recall)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset,        ###")
+print("###  pos patterns filter) ###")
+print("###")
+print("### Precision : %.4f" % precision)
+print("### Recall    : %.4f" % recall)
+print("### F1        : %.4f" % f1)
 print("###                       ###")

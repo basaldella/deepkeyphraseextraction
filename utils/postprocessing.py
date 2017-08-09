@@ -1,15 +1,22 @@
 import itertools
 import numpy as np
+from nlp import chunker
 
 
-def undo_sequential(documents,output):
+def undo_sequential(output):
+    """
+    Transforms a 3D one-hot array of the type (documents,token,category)
+    in a 2D array of the type (documents,token_category).
 
+    :param output: a one-hot 3D array
+    :return: a 2D array
+    """
     return np.argmax(output,axis=2)
 
 
 def get_words(docs, selections):
     """
-    Gets the words selected in the provided documents.
+    Gets the selected words in the provided documents.
 
     :param docs: the document to analyze
     :param selections: the words selected in the documents
@@ -39,3 +46,23 @@ def get_words(docs, selections):
         i += 1
 
     return obtained_words
+
+
+def get_valid_patterns(answer_set):
+    """
+    Remove the answers from a set that do NOT match the keyphrase part-of-speech patterns.
+
+    :param answer_set: a dictionary of documents and tokenized keyphrases
+    :return: a dicionary of documents and tokenized keyphrases that match the part-of-speech patterns
+    """
+
+    doc_filtered = {}
+
+    for doc, kps in answer_set.items():
+        doc_filtered[doc] = []
+        for kp in kps:
+            for valid_kp in chunker.extract_valid_tokens(kp):
+                doc_filtered[doc].append(valid_kp)
+
+    return doc_filtered
+

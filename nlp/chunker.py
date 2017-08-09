@@ -33,8 +33,19 @@ def extract_candidates(document,tokenizer):
     :return: the list of candidate keyphrases for the input document
     """
 
-    tokenized_doc = tk.tokenize(document,tokenizer)
-    postagged_doc = nltk.pos_tag(tokenized_doc)
+    return extract_valid_tokens(tk.tokenize(document,tokenizer))
+
+
+def extract_valid_tokens(tokens):
+    """
+    Given a list of tokens, returns the subsets of such list which are potential keyphrases according to
+    the provided part-of-speech patterns.
+
+    :param document: the token list to analyze
+    :return: the list of candidate keyphrases for the input document
+    """
+
+    postagged_doc = nltk.pos_tag(tokens)
 
     kp_rule_1 = ChunkRule(KP_REGEX_1,"")
     kp_rule_2 = ChunkRule(KP_REGEX_2, "")

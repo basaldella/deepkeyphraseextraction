@@ -77,9 +77,9 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
 
 logging.debug("Calculating metrics...")
 
-train_answer_after_postproc = postprocessing.get_words(train_doc,postprocessing.undo_sequential(train_x, train_y))
-test_answer_after_postproc = postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_x, test_y))
-val_answer_after_postproc = postprocessing.get_words(val_doc,postprocessing.undo_sequential(val_x, val_y))
+train_answer_after_postproc = postprocessing.get_words(train_doc,postprocessing.undo_sequential(train_y))
+test_answer_after_postproc = postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_y))
+val_answer_after_postproc = postprocessing.get_words(val_doc,postprocessing.undo_sequential(val_y))
 
 logging.info("~~~  Training set  ~~~ ")
 logging.info("Maximum possible recall (total/actual): %s", metrics.recall(train_answer,train_answer_after_postproc))
@@ -158,7 +158,7 @@ logging.info("Predicting on test set...")
 output = model.predict(x=test_x, verbose=1)
 logging.debug("Shape of output array: %s",np.shape(output))
 
-obtained_tokens = postprocessing.undo_sequential(train_x,output)
+obtained_tokens = postprocessing.undo_sequential(output)
 obtained_words = postprocessing.get_words(test_doc,obtained_tokens)
 
 precision = metrics.precision(test_answer,obtained_words)
