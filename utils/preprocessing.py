@@ -2,6 +2,7 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing.text import Tokenizer
 from keras.utils import np_utils
 from utils import glove
+from nlp import tokenizer as tk, dictionary as dict
 import logging
 import numpy as np
 
@@ -10,6 +11,7 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
                        max_document_length=1000,
                        max_vocabulary_size=50000,
                        embeddings_size=50,
+                       tokenizer = tk.tokenizers.keras,
                        tokenizer_filter='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n'):
     """
         Prepares a dataset for use by a sequential, categorical model.
@@ -24,6 +26,7 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
         :param max_vocabulary_size: the maximum size of the vocabulary to use
         (i.e. we keep only the top max_vocabulary_size words)
         :param embeddings_size: the size of the GLoVE embeddings to use
+        :param tokenizer: which tokenizer to use
         :param tokenizer_filter: the filter of the tokenizer to use
         :return:
         """
@@ -73,7 +76,7 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
 
     logging.debug("Fitting dictionary on %s documents..." % len(documents_full))
 
-    tokenizer = Tokenizer(num_words=max_vocabulary_size, filters=tokenizer_filter)
+    tokenizer = Tokenizer(num_words=max_vocabulary_size)
     tokenizer.fit_on_texts(documents_full)
 
     logging.debug("Dictionary fitting completed. Found %s unique tokens" % len(tokenizer.word_index))
