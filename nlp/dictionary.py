@@ -48,11 +48,10 @@ class Dictionary(object):
         """
         texts_sequences = []
         for text in texts:
-            texts_sequences.append(self.text_to_sequences(text))
+            texts_sequences.append(self.token_list_to_sequence(text))
         return texts_sequences
 
-
-    def text_to_sequences(self, tokens):
+    def token_list_to_sequence(self, tokens):
         """Transforms each text in texts in a sequence of integers.
 
         Only top "num_words" most frequent words will be taken into account.

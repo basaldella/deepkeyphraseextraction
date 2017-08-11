@@ -34,6 +34,7 @@ SHOW_PLOTS = True
 tokenizer = tk.tokenizers.nltk
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
+MAX_ANSWER_LENGTH = 10
 MAX_VOCABULARY_SIZE = 20000
 EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
@@ -53,55 +54,24 @@ train_doc, train_answer = tk.tokenize_set(train_doc_str,train_answer_str,tokeniz
 test_doc, test_answer = tk.tokenize_set(test_doc_str,test_answer_str,tokenizer)
 val_doc, val_answer = tk.tokenize_set(val_doc_str,val_answer_str,tokenizer)
 
-logging.info("Generating candidate keyphrases...")
+logging.info("Dataset loaded. Generating candidate keyphrases...")
 
 train_candidates = chunker.extract_candidates_from_set(train_doc_str,tokenizer)
 test_candidates = chunker.extract_candidates_from_set(test_doc_str,tokenizer)
 val_candidates = chunker.extract_candidates_from_set(val_doc_str,tokenizer)
 
-logging.info("Candidates recall on training set   : %.4f", metrics.recall(train_answer,train_candidates))
-logging.info("Candidates recall on test set       : %.4f", metrics.recall(test_answer,test_candidates))
-logging.info("Candidates recall on validation set : %.4f", metrics.recall(val_answer,val_candidates))
+logging.debug("Candidates recall on training set   : %.4f", metrics.recall(train_answer,train_candidates))
+logging.debug("Candidates recall on test set       : %.4f", metrics.recall(test_answer,test_candidates))
+logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_answer,val_candidates))
 
-# Sanity check
-# logging.info("Sanity check: %s",metrics.precision(test_answer,test_answer))
-
-logging.info("Dataset loaded. Preprocessing data...")
+logging.info("Candidates generated. Preprocessing data...")
 
 train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
-    prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
-                       max_document_length=MAX_DOCUMENT_LENGTH,
-                       max_vocabulary_size=MAX_VOCABULARY_SIZE,
-                       embeddings_size=EMBEDDINGS_SIZE)
-
-logging.debug("Calculating metrics...")
-
-train_answer_after_postproc = postprocessing.get_words(train_doc,postprocessing.undo_sequential(train_y))
-test_answer_after_postproc = postprocessing.get_words(test_doc,postprocessing.undo_sequential(test_y))
-val_answer_after_postproc = postprocessing.get_words(val_doc,postprocessing.undo_sequential(val_y))
-
-logging.info("~~~  Training set  ~~~ ")
-logging.info("Maximum possible recall (total/actual): %s", metrics.recall(train_answer,train_answer_after_postproc))
-logging.info("Maximum possible recall (total/candidates): %s", metrics.recall(train_answer,train_candidates))
-logging.info("Maximum possible recall (actual/candidates): %s", metrics.recall(train_answer_after_postproc,train_candidates))
-
-logging.info("~~~    Test set    ~~~ ")
-logging.info("Maximum possible recall (total/actual): %s", metrics.recall(test_answer,test_answer_after_postproc))
-logging.info("Maximum possible recall (total/candidates): %s", metrics.recall(test_answer,test_candidates))
-logging.info("Maximum possible recall (actual/candidates): %s", metrics.recall(test_answer_after_postproc,test_candidates))
-
-logging.info("~~~ Validation set ~~~ ")
-logging.info("Maximum possible recall (total/actual): %s", metrics.recall(val_answer,val_answer_after_postproc))
-logging.info("Maximum possible recall (total/candidates): %s", metrics.recall(val_answer,val_candidates))
-logging.info("Maximum possible recall (actual/candidates): %s", metrics.recall(val_answer_after_postproc,val_candidates))
-
-
-
-# weigh training examples: everything that's not class 0 (not kp)
-# gets a heavier score
-train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
-train_y_weights[train_y_weights > 0] = 10
-train_y_weights[train_y_weights < 1] = 1
+    prepare_answer(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
+                   max_document_length=MAX_DOCUMENT_LENGTH,
+                   max_answer_length=MAX_ANSWER_LENGTH,
+                   max_vocabulary_size=MAX_VOCABULARY_SIZE,
+                   embeddings_size=EMBEDDINGS_SIZE)
 
 logging.info("Data preprocessing complete.")
 
@@ -135,7 +105,6 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                         validation_data=(val_x,val_y),
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
-                        sample_weight=train_y_weights,
                         callbacks=[metrics_callback])
 
     if SHOW_PLOTS :
