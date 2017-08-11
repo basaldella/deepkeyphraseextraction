@@ -23,7 +23,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/mergernn.h5"
 SHOW_PLOTS = True
 
@@ -31,13 +31,13 @@ SHOW_PLOTS = True
 
 # PARAMETERS for networks, tokenizers, etc...
 
-tokenizer = tk.tokenizers.keras
+tokenizer = tk.tokenizers.nltk
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
 EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
-EPOCHS = 20
+EPOCHS = 10
 
 # END PARAMETERS
 
@@ -60,8 +60,6 @@ logging.info("Dataset loaded. Preprocessing data...")
 
 train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
     prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
-                       tokenizer = tokenizer,
-                       tokenizer_filter=FILTER,
                        max_document_length=MAX_DOCUMENT_LENGTH,
                        max_vocabulary_size=MAX_VOCABULARY_SIZE,
                        embeddings_size=EMBEDDINGS_SIZE)

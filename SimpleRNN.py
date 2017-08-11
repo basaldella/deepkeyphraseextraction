@@ -31,11 +31,11 @@ SHOW_PLOTS = True
 
 # PARAMETERS for networks, tokenizers, etc...
 
-tokenizer = tk.tokenizers.keras
+tokenizer = tk.tokenizers.nltk
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_VOCABULARY_SIZE = 20000
-EMBEDDINGS_SIZE = 50
+EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
 EPOCHS = 10
 
@@ -60,8 +60,6 @@ logging.info("Dataset loaded. Preprocessing data...")
 
 train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
     prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
-                       tokenizer=tokenizer,
-                       tokenizer_filter=FILTER,
                        max_document_length=MAX_DOCUMENT_LENGTH,
                        max_vocabulary_size=MAX_VOCABULARY_SIZE,
                        embeddings_size=EMBEDDINGS_SIZE)
@@ -89,9 +87,9 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                                 trainable=False)
 
     model.add(embedding_layer)
-    model.add(Bidirectional(LSTM(75,activation='tanh', recurrent_activation='hard_sigmoid', return_sequences=True)))
+    model.add(Bidirectional(LSTM(150,activation='tanh', recurrent_activation='hard_sigmoid', return_sequences=True)))
     model.add(Dropout(0.25))
-    model.add(TimeDistributed(Dense(25, activation='relu',kernel_regularizer=regularizers.l2(0.01))))
+    model.add(TimeDistributed(Dense(150, activation='relu',kernel_regularizer=regularizers.l2(0.01))))
     model.add(Dropout(0.25))
     model.add(TimeDistributed(Dense(3, activation='softmax')))
 
@@ -154,4 +152,19 @@ print("###")
 print("### Precision : %.4f" % keras_precision)
 print("### Recall    : %.4f" % keras_recall)
 print("### F1        : %.4f" % keras_f1)
+print("###                       ###")
+
+clean_words = postprocessing.get_valid_patterns(obtained_words)
+
+precision = metrics.precision(test_answer,clean_words)
+recall = metrics.recall(test_answer,clean_words)
+f1 = metrics.f1(precision,recall)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset,        ###")
+print("###  pos patterns filter) ###")
+print("###")
+print("### Precision : %.4f" % precision)
+print("### Recall    : %.4f" % recall)
+print("### F1        : %.4f" % f1)
 print("###                       ###")

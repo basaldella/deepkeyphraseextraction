@@ -70,8 +70,6 @@ logging.info("Dataset loaded. Preprocessing data...")
 
 train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
     prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
-                       tokenizer = tokenizer,
-                       tokenizer_filter=FILTER,
                        max_document_length=MAX_DOCUMENT_LENGTH,
                        max_vocabulary_size=MAX_VOCABULARY_SIZE,
                        embeddings_size=EMBEDDINGS_SIZE)

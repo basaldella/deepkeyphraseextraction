@@ -65,9 +65,8 @@ class Dictionary(object):
             Yields individual sequences.
         """
         vect = []
-        for seq in tokens:
-            
-            for w in seq:
+        for w in tokens:
+
                 i = self.word_index.get(w)
                 if i is not None:
                     if self.num_words and i >= self.num_words:

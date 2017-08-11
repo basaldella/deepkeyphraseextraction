@@ -10,9 +10,7 @@ import numpy as np
 def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
                        max_document_length=1000,
                        max_vocabulary_size=50000,
-                       embeddings_size=50,
-                       tokenizer = tk.tokenizers.keras,
-                       tokenizer_filter='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n'):
+                       embeddings_size=50):
     """
         Prepares a dataset for use by a sequential, categorical model.
 
@@ -43,8 +41,6 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
 
     # Transform the documents to sequence
     documents_full = []
-    train_txts = []
-    test_txts = []
     train_y = []
     test_y = []
 
@@ -57,35 +53,29 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
     # to obtain a word sequence
 
     for key, doc in train_doc.items():
-        txt = ' '.join(doc)
-        documents_full.append(txt)
-        train_txts.append(txt)
+        documents_full.append(token for token in doc)
         train_y.append(train_answer_seq[key])
     for key, doc in test_doc.items():
-        txt = ' '.join(doc)
-        documents_full.append(txt)
-        test_txts.append(txt)
+        documents_full.append(token for token in doc)
         test_y.append(test_answer_seq[key])
 
     if val_doc and val_answer:
         for key, doc in val_doc.items():
-            txt = ' '.join(doc)
-            documents_full.append(txt)
-            val_txts.append(txt)
+            documents_full.append(token for token in doc)
             val_y.append(val_answer_seq[key])
 
     logging.debug("Fitting dictionary on %s documents..." % len(documents_full))
 
-    tokenizer = Tokenizer(num_words=max_vocabulary_size)
+    tokenizer = dict.Dictionary(num_words=max_vocabulary_size)
     tokenizer.fit_on_texts(documents_full)
 
     logging.debug("Dictionary fitting completed. Found %s unique tokens" % len(tokenizer.word_index))
 
     # Now we can prepare the actual input
-    train_x = tokenizer.texts_to_sequences(train_txts)
-    test_x = tokenizer.texts_to_sequences(test_txts)
+    train_x = tokenizer.texts_to_sequences(train_doc.values())
+    test_x = tokenizer.texts_to_sequences(test_doc.values())
     if val_doc and val_answer:
-        val_x = tokenizer.texts_to_sequences(val_txts)
+        val_x = tokenizer.texts_to_sequences(val_doc.values())
 
     logging.debug("Longest training document :   %s tokens" % len(max(train_x, key=len)))
     logging.debug("Longest test document :       %s tokens" % len(max(test_x, key=len)))
