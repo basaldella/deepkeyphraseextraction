@@ -150,11 +150,17 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
         test and validation set, and an embedding matrix for an Embedding layer
         """
 
+    train_answer_seq = make_sequential(train_doc, train_answer)
+    test_answer_seq = make_sequential(test_doc, test_answer)
+
     # Prepare validation return data
     val_x = None
     val_y = None
 
+    if val_doc and val_answer:
+        val_answer_seq = make_sequential(val_doc, val_answer)
 
+    # Transform the documents to sequence
     documents_full = []
     train_y = []
     test_y = []
@@ -162,13 +168,18 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
     if val_doc and val_answer:
         val_y = []
 
+
     for key, doc in train_doc.items():
         documents_full.append(token for token in doc)
+        train_y.append(train_answer_seq[key])
     for key, doc in test_doc.items():
         documents_full.append(token for token in doc)
+        test_y.append(test_answer_seq[key])
+
     if val_doc and val_answer:
         for key, doc in val_doc.items():
             documents_full.append(token for token in doc)
+            val_y.append(val_answer_seq[key])
 
     logging.debug("Fitting dictionary on %s documents..." % len(documents_full))
 
@@ -182,7 +193,6 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
     test_x = dictionary.texts_to_sequences(test_doc.values())
     if val_doc and val_answer:
         val_x = dictionary.texts_to_sequences(val_doc.values())
-
 
     logging.debug("Longest training document :   %s tokens" % len(max(train_x, key=len)))
     logging.debug("Longest test document :       %s tokens" % len(max(test_x, key=len)))
@@ -201,7 +211,6 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
         val_x = np.asarray(pad_sequences(val_x, maxlen=max_document_length, padding='post', truncating='post'))
         val_y = pad_sequences(val_y, maxlen=max_document_length, padding='post', truncating='post')
         val_y = make_categorical(val_y)
-
 
     logging.debug("Training set samples size   : %s", np.shape(train_x))
     logging.debug("Training set answers size   : %s", np.shape(train_y))
