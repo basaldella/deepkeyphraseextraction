@@ -34,7 +34,7 @@ SHOW_PLOTS = True
 tokenizer = tk.tokenizers.nltk
 FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
-MAX_ANSWER_LENGTH = 10
+MAX_ANSWER_LENGTH = 12
 MAX_VOCABULARY_SIZE = 20000
 EMBEDDINGS_SIZE = 300
 BATCH_SIZE = 32
@@ -67,7 +67,9 @@ logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_a
 logging.info("Candidates generated. Preprocessing data...")
 
 train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
-    prepare_answer(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
+    prepare_answer(train_doc, train_answer, train_candidates,
+                   test_doc, test_answer, test_candidates,
+                   val_doc,val_answer, val_candidates,
                    max_document_length=MAX_DOCUMENT_LENGTH,
                    max_answer_length=MAX_ANSWER_LENGTH,
                    max_vocabulary_size=MAX_VOCABULARY_SIZE,

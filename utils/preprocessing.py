@@ -6,7 +6,9 @@ import logging
 import numpy as np
 
 
-def prepare_answer(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
+def prepare_answer(train_doc, train_answer, train_candidates,
+                   test_doc, test_answer, test_candidates,
+                   val_doc=None,val_answer=None, val_candidates=None,
                    max_document_length=1000,
                    max_answer_length=20,
                    max_vocabulary_size=50000,
@@ -16,12 +18,15 @@ def prepare_answer(train_doc, train_answer, test_doc, test_answer,val_doc,val_an
 
         :param train_doc: the training documents
         :param train_answer: the KPs for the training documents
+        :param train_candidates: the candidate KPs for the training documents
         :param test_doc: the test documents
         :param test_answer: the KPs for the test documents
+        :param test_candidates: the candidate KPs for the test documents
         :param val_doc: the validation documents (can be None)
         :param val_answer: the KPs for the validation documents (can be None)
+        :param val_candidates: the candidate KPs for the validation documents (can be None)
         :param max_document_length: the maximum length of the documents (shorter documents will be truncated!)
-        :param max_document_length: the maximum length of the answers (shorter answers will be truncated!)
+        :param max_answer_length: the maximum length of the answers (shorter answers will be truncated!)
         :param max_vocabulary_size: the maximum size of the vocabulary to use
         (i.e. we keep only the top max_vocabulary_size words)
         :param embeddings_size: the size of the GLoVE embeddings to use
@@ -30,20 +35,24 @@ def prepare_answer(train_doc, train_answer, test_doc, test_answer,val_doc,val_an
         """
 
     # Prepare validation return data
-    val_x = None
+    val_q = None
+    val_a = None
     val_y = None
 
-    # Transform the documents to sequence
-    documents_full = []
-    train_x = []
-    test_x = []
+    # Prepare the return values: lists that will hold questions (documents), answers (keyphrases), and truth values
+    train_q = []
+    test_q = []
+    train_a = []
+    test_a = []
     train_y = []
     test_y = []
 
     if val_doc and val_answer:
-        val_x = []
+        val_q = []
+        val_a = []
         val_y = []
 
+    documents_full = []
     for key, doc in train_doc.items():
         documents_full.append(token for token in doc)
     for key, doc in test_doc.items():
@@ -60,54 +69,56 @@ def prepare_answer(train_doc, train_answer, test_doc, test_answer,val_doc,val_an
 
     logging.debug("Dictionary fitting completed. Found %s unique tokens" % len(dictionary.word_index))
 
-    # Pair up each document with a candidate keyphrase
-
+    # Pair up each document with a candidate keyphrase and its truth value
     for key, document in train_doc.items():
         doc_sequence = dictionary.token_list_to_sequence(document)
-        for kp in train_answer[key]:
-            train_x.append(doc_sequence)
-            train_y.append(dictionary.token_list_to_sequence(kp))
+        for kp in train_candidates[key]:
+            train_q.append(doc_sequence)
+            train_a.append(dictionary.token_list_to_sequence(kp))
+            train_y.append(1 if kp in train_answer[key] else 0)
 
     for key, document in test_doc.items():
         doc_sequence = dictionary.token_list_to_sequence(document)
-        for kp in test_answer[key]:
-            test_x.append(doc_sequence)
-            test_y.append(dictionary.token_list_to_sequence(kp))
+        for kp in test_candidates[key]:
+            test_q.append(doc_sequence)
+            test_a.append(dictionary.token_list_to_sequence(kp))
+            test_y.append(1 if kp in test_answer[key] else 0)
 
     if val_doc and val_answer:
         for key, document in val_doc.items():
             doc_sequence = dictionary.token_list_to_sequence(document)
-            for kp in val_answer[key]:
-                val_x.append(doc_sequence)
-                val_y.append(dictionary.token_list_to_sequence(kp))
+            for kp in val_candidates[key]:
+                val_q.append(doc_sequence)
+                val_a.append(dictionary.token_list_to_sequence(kp))
+                val_y.append(1 if kp in val_answer[key] else 0)
 
-    logging.debug("Longest training document   :   %s tokens" % len(max(train_x, key=len)))
-    logging.debug("Longest training answer     :   %s tokens" % len(max(train_y, key=len)))
-    logging.debug("Longest test document       :   %s tokens" % len(max(test_x, key=len)))
-    logging.debug("Longest test answer         :   %s tokens" % len(max(test_y, key=len)))
+    logging.debug("Longest training document   :   %s tokens" % len(max(train_q, key=len)))
+    logging.debug("Longest training answer     :   %s tokens" % len(max(train_a, key=len)))
+    logging.debug("Longest test document       :   %s tokens" % len(max(test_q, key=len)))
+    logging.debug("Longest test answer         :   %s tokens" % len(max(test_a, key=len)))
     if val_doc and val_answer:
 
-        logging.debug("Longest validation document : %s tokens" % len(max(val_x, key=len)))
-        logging.debug("Longest validation answer   : %s tokens" % len(max(val_y, key=len)))
+        logging.debug("Longest validation document : %s tokens" % len(max(val_q, key=len)))
+        logging.debug("Longest validation answer   : %s tokens" % len(max(val_a, key=len)))
 
-    train_x = np.asarray(pad_sequences(train_x, maxlen=max_document_length, padding='post', truncating='post'))
-    train_y = np.asarray(pad_sequences(train_y, maxlen=max_answer_length, padding='post', truncating='post'))
+    train_q = np.asarray(pad_sequences(train_q, maxlen=max_document_length, padding='post', truncating='post'))
+    train_a = np.asarray(pad_sequences(train_a, maxlen=max_answer_length, padding='post', truncating='post'))
 
-    test_x = np.asarray(pad_sequences(test_x, maxlen=max_document_length, padding='post', truncating='post'))
-    test_y = np.asarray(pad_sequences(test_y, maxlen=max_answer_length, padding='post', truncating='post'))
-
-    if val_doc and val_answer:
-        val_x = np.asarray(pad_sequences(val_x, maxlen=max_document_length, padding='post', truncating='post'))
-        val_y = np.asarray(pad_sequences(val_y, maxlen=max_answer_length, padding='post', truncating='post'))
-
-    logging.debug("Training set samples size   : %s", np.shape(train_x))
-    logging.debug("Training set answers size   : %s", np.shape(train_y))
-    logging.debug("Test set samples size       : %s", np.shape(test_x))
-    logging.debug("Test set answers size       : %s ", np.shape(test_y))
+    train_q = np.asarray(pad_sequences(test_q, maxlen=max_document_length, padding='post', truncating='post'))
+    test_a = np.asarray(pad_sequences(test_a, maxlen=max_answer_length, padding='post', truncating='post'))
 
     if val_doc and val_answer:
-        logging.debug("Validation set samples size : %s", np.shape(val_x))
-        logging.debug("Validation set answers size : %s ", np.shape(val_y))
+        val_q = np.asarray(pad_sequences(val_q, maxlen=max_document_length, padding='post', truncating='post'))
+        val_a = np.asarray(pad_sequences(val_a, maxlen=max_answer_length, padding='post', truncating='post'))
+
+    logging.debug("Training set documents size   : %s", np.shape(train_q))
+    logging.debug("Training set answers size     : %s", np.shape(train_a))
+    logging.debug("Test set documents size       : %s", np.shape(test_q))
+    logging.debug("Test set answers size         : %s ", np.shape(test_a))
+
+    if val_doc and val_answer:
+        logging.debug("Validation set documents size : %s", np.shape(val_q))
+        logging.debug("Validation set answers size   : %s ", np.shape(val_a))
 
     # prepare the matrix for the embedding layer
     word_index = dictionary.word_index
@@ -126,7 +137,7 @@ def prepare_answer(train_doc, train_answer, test_doc, test_answer,val_doc,val_an
             # words not found in embedding index will be all-zeros.
             embedding_matrix[i] = embedding_vector
 
-    return train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix
+    return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, embedding_matrix
 
 
 def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
@@ -330,3 +341,16 @@ def make_categorical(x):
         i += 1
 
     return new_x
+
+
+def tokens_to_words(tokens,word_index):
+    """
+    Debug utility that prints the words associated to the provided indices.
+
+    :param tokens: a list of integers
+    :param word_index: a word index in the form { "string", index }
+    """
+    for token in tokens :
+        for key, value in word_index.items():
+            if value == token:
+                print(key)
