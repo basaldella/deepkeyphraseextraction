@@ -75,14 +75,14 @@ def prepare_answer(train_doc, train_answer, train_candidates,
         for kp in train_candidates[key]:
             train_q.append(doc_sequence)
             train_a.append(dictionary.token_list_to_sequence(kp))
-            train_y.append(1 if kp in train_answer[key] else 0)
+            train_y.append([0,1] if kp in train_answer[key] else [1,0])
 
     for key, document in test_doc.items():
         doc_sequence = dictionary.token_list_to_sequence(document)
         for kp in test_candidates[key]:
             test_q.append(doc_sequence)
             test_a.append(dictionary.token_list_to_sequence(kp))
-            test_y.append(1 if kp in test_answer[key] else 0)
+            test_y.append([0,1] if kp in test_answer[key] else [1,0])
 
     if val_doc and val_answer:
         for key, document in val_doc.items():
@@ -90,7 +90,7 @@ def prepare_answer(train_doc, train_answer, train_candidates,
             for kp in val_candidates[key]:
                 val_q.append(doc_sequence)
                 val_a.append(dictionary.token_list_to_sequence(kp))
-                val_y.append(1 if kp in val_answer[key] else 0)
+                val_y.append([0,1] if kp in val_answer[key] else [1,0])
 
     logging.debug("Longest training document   :   %s tokens" % len(max(train_q, key=len)))
     logging.debug("Longest training answer     :   %s tokens" % len(max(train_a, key=len)))
@@ -104,7 +104,7 @@ def prepare_answer(train_doc, train_answer, train_candidates,
     train_q = np.asarray(pad_sequences(train_q, maxlen=max_document_length, padding='post', truncating='post'))
     train_a = np.asarray(pad_sequences(train_a, maxlen=max_answer_length, padding='post', truncating='post'))
 
-    train_q = np.asarray(pad_sequences(test_q, maxlen=max_document_length, padding='post', truncating='post'))
+    test_q = np.asarray(pad_sequences(test_q, maxlen=max_document_length, padding='post', truncating='post'))
     test_a = np.asarray(pad_sequences(test_a, maxlen=max_answer_length, padding='post', truncating='post'))
 
     if val_doc and val_answer:
