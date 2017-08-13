@@ -92,10 +92,10 @@ def prepare_answer(train_doc, train_answer, train_candidates,
                 val_a.append(dictionary.token_list_to_sequence(kp))
                 val_y.append([0,1] if kp in val_answer[key] else [1,0])
 
-    logging.debug("Longest training document   :   %s tokens" % len(max(train_q, key=len)))
-    logging.debug("Longest training answer     :   %s tokens" % len(max(train_a, key=len)))
-    logging.debug("Longest test document       :   %s tokens" % len(max(test_q, key=len)))
-    logging.debug("Longest test answer         :   %s tokens" % len(max(test_a, key=len)))
+    logging.debug("Longest training document   : %s tokens" % len(max(train_q, key=len)))
+    logging.debug("Longest training answer     : %s tokens" % len(max(train_a, key=len)))
+    logging.debug("Longest test document       : %s tokens" % len(max(test_q, key=len)))
+    logging.debug("Longest test answer         : %s tokens" % len(max(test_a, key=len)))
     if val_doc and val_answer:
 
         logging.debug("Longest validation document : %s tokens" % len(max(val_q, key=len)))
@@ -137,7 +137,7 @@ def prepare_answer(train_doc, train_answer, train_candidates,
             # words not found in embedding index will be all-zeros.
             embedding_matrix[i] = embedding_vector
 
-    return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, embedding_matrix
+    return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, embedding_matrix, dictionary
 
 
 def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
@@ -205,8 +205,8 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
     if val_doc and val_answer:
         val_x = dictionary.texts_to_sequences(val_doc.values())
 
-    logging.debug("Longest training document :   %s tokens" % len(max(train_x, key=len)))
-    logging.debug("Longest test document :       %s tokens" % len(max(test_x, key=len)))
+    logging.debug("Longest training document : %s tokens" % len(max(train_x, key=len)))
+    logging.debug("Longest test document :     %s tokens" % len(max(test_x, key=len)))
     if val_doc and val_answer:
         logging.debug("Longest validation document : %s tokens" % len(max(val_x, key=len)))
 
@@ -342,15 +342,3 @@ def make_categorical(x):
 
     return new_x
 
-
-def tokens_to_words(tokens,word_index):
-    """
-    Debug utility that prints the words associated to the provided indices.
-
-    :param tokens: a list of integers
-    :param word_index: a word index in the form { "string", index }
-    """
-    for token in tokens :
-        for key, value in word_index.items():
-            if value == token:
-                print(key)

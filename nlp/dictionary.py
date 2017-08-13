@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+
 class Dictionary(object):
     """Dictionary utility class. This class is a lightweight version of the Keras text preprocessing module
     (see https://github.com/fchollet/keras/blob/master/keras/preprocessing/text.py), designed to work on
@@ -17,6 +18,7 @@ class Dictionary(object):
 
         self.word_counts = OrderedDict()
         self.word_index = {}
+        self.reverse_word_index = None
         self.num_words = num_words
         self.document_count = 0
 
@@ -74,3 +76,26 @@ class Dictionary(object):
                         vect.append(i)
         return vect
 
+    def tokens_to_words(self, tokens):
+        """
+        Utility that prints the words associated to the provided indices.
+
+        :param tokens: a list of integers
+        """
+
+        if not self.reverse_word_index:
+            self.build_reverse_word_index()
+
+        words = []
+
+        for token in tokens:
+            if token != 0:
+                words.append(self.reverse_word_index[token])
+
+        return words
+
+    def build_reverse_word_index(self):
+
+        self.reverse_word_index = {}
+        for key, value in self.word_index.items():
+            self.reverse_word_index[value] = key

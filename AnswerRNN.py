@@ -65,7 +65,7 @@ logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_a
 
 logging.info("Candidates generated. Preprocessing data...")
 
-train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
+train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix, dictionary = preprocessing.\
     prepare_answer(train_doc, train_answer, train_candidates,
                    test_doc, test_answer, test_candidates,
                    val_doc,val_answer, val_candidates,
@@ -136,11 +136,10 @@ else :
 
 
 logging.info("Predicting on test set...")
-output = model.predict(x=test_x, verbose=1)
+output = model.predict(x=test_x, verbose=1,batch_size=512)
 logging.debug("Shape of output array: %s",np.shape(output))
 
-obtained_tokens = postprocessing.undo_sequential(output)
-obtained_words = postprocessing.get_words(test_doc,obtained_tokens)
+obtained_words = postprocessing.get_answers(test_candidates,test_x,output,dictionary)
 
 precision = metrics.precision(test_answer,obtained_words)
 recall = metrics.recall(test_answer,obtained_words)
@@ -154,9 +153,9 @@ print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
 print("###                       ###")
 
-keras_precision = keras_metrics.keras_precision(test_y,output)
-keras_recall = keras_metrics.keras_recall(test_y,output)
-keras_f1 = keras_metrics.keras_f1(test_y,output)
+keras_precision = keras_metrics.keras_precision_qa(test_y,output)
+keras_recall = keras_metrics.keras_recall_qa(test_y,output)
+keras_f1 = keras_metrics.keras_f1_qa(test_y,output)
 
 print("###    Obtained Scores    ###")
 print("###    (fixed dataset)    ###")

@@ -141,3 +141,23 @@ def keras_f1(y_true,y_pred):
     p = keras_precision(y_true,y_pred)
     r = keras_recall(y_true,y_pred)
     return (2*(p * r)) / (p + r)
+
+
+def keras_precision_qa(y_true,y_pred) :
+    y_true = np.argmax(y_true,axis=1)
+    y_pred = np.argmax(y_pred,axis=1)
+
+    return np.count_nonzero(np.in1d(np.where(y_pred), np.where(y_true))) / np.count_nonzero(y_pred)
+
+
+def keras_recall_qa(y_true,y_pred) :
+    y_true = np.argmax(y_true,axis=1)
+    y_pred = np.argmax(y_pred,axis=1)
+
+    return np.count_nonzero(np.in1d(np.where(y_true), np.where(y_pred))) / np.count_nonzero(y_true)
+
+
+def keras_f1_qa(y_true,y_pred):
+    p = keras_precision_qa(y_true,y_pred)
+    r = keras_recall_qa(y_true,y_pred)
+    return (2*(p * r)) / (p + r)

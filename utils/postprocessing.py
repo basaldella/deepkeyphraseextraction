@@ -66,3 +66,40 @@ def get_valid_patterns(answer_set):
 
     return doc_filtered
 
+
+def get_answers(candidate_tokens,predict_set,predict_result,dictionary):
+    """
+    Build the dictionary of the selected answer for a QA-based network.
+
+    :param candidate_tokens: the dictionary of the documents and their candidate KPs
+    :param predict_set: the input of the network
+    :param predict_result: the output of the network
+    :param dictionary: the previously-fit word index
+    :return: the dictionary of the selected KPs
+    """
+
+    # Here the ideas is: we go through the dictionary of the candidates, we find the corresponding
+    # model input, and we add the candidate to the answer set if the model predicted class 1 (i.e. that the candidate
+    # was a correct KP
+
+    # First, get the actual predictions: flatten the (num_samples,2) array to a (num_samples) one
+    # This way transform a 2D array e.g. [[0.6,0.4] ... [0.2,0.8]] to a 1D array e.g. [0...1]
+    predictions_flattened = np.argmax(predict_result, axis=1)
+
+    i = 0
+    answers = {}
+    for doc_id, candidate_list in candidate_tokens.items() :
+        answers[doc_id] = []
+        for candidate in candidate_list:
+
+            # Sanity check: was the order preserved?
+            assert candidate == dictionary.tokens_to_words(predict_set[1][i])
+
+            if predictions_flattened[i] == 1 :
+                answers[doc_id].append(candidate)
+
+            i += 1
+
+    return answers
+
+
