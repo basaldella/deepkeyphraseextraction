@@ -34,6 +34,38 @@ class MetricsCallback(keras.callbacks.Callback):
         self.history.setdefault("f1", []).append(f1)
 
 
+class MetricsCallbackQA(keras.callbacks.Callback):
+
+    def __init__(self,val_x,val_y,batch_size = 128):
+        self.val_x = val_x
+        self.val_y = val_y
+        self.epoch = []
+        self.history = {}
+        self.batch_size = batch_size
+
+    def on_epoch_end(self, epoch, logs={}):
+
+        # Predict on the validation data
+        y_pred = self.model.predict(self.val_x,batch_size=self.batch_size,verbose=1)
+
+        precision = keras_precision_qa(self.val_y,y_pred)
+        recall = keras_recall_qa(self.val_y, y_pred)
+        f1 = keras_f1_qa(self.val_y, y_pred)
+
+        print("")
+        print("###   Validation Scores   ###")
+        print("###")
+        print("### Epoch     : %s" % (epoch+1))
+        print("### Precision : %.4f" % precision)
+        print("### Recall    : %.4f" % recall)
+        print("### F1        : %.4f" % f1)
+        print("###                       ###")
+
+        self.epoch.append(epoch+1)
+        self.history.setdefault("precision", []).append(precision)
+        self.history.setdefault("recall", []).append(recall)
+        self.history.setdefault("f1", []).append(f1)
+
 def keras_precision(y_true,y_pred) :
 
     true_positives = 0

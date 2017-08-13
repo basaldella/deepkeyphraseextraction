@@ -26,7 +26,8 @@ info.log_versions()
 SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn.h5"
 SHOW_PLOTS = True
-SAMPLE_SIZE = 5000 # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+SAMPLE_SIZE = 5120      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+KP_CLASS_WEIGHT = 10.   # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
 
@@ -37,9 +38,9 @@ FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_ANSWER_LENGTH = 12
 MAX_VOCABULARY_SIZE = 20000
-EMBEDDINGS_SIZE = 50
+EMBEDDINGS_SIZE = 100
 BATCH_SIZE = 128
-EPOCHS = 1
+EPOCHS = 20
 
 # END PARAMETERS
 
@@ -106,6 +107,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
     # end sampling.
 
+    # Class weights
+
+    class_weights = {0: 1.,
+                     1: KP_CLASS_WEIGHT}
+
     logging.debug("Building the network...")
     document = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
     encoded_document = layers.Embedding(np.shape(embedding_matrix)[0],
@@ -143,11 +149,15 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
     model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
     print(model.summary())
 
+    metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y)
+
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
                         validation_data=(val_x, val_y),
                         epochs=EPOCHS,
-                        batch_size=BATCH_SIZE)
+                        batch_size=BATCH_SIZE,
+                        class_weight = class_weights,
+                        callbacks=[metrics_callback])
 
     if SHOW_PLOTS :
         plots.plot_accuracy(history)
