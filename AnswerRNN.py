@@ -1,5 +1,6 @@
 import logging
 import os
+import random
 
 import numpy as np
 from keras import layers
@@ -22,9 +23,10 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn.h5"
 SHOW_PLOTS = True
+SAMPLE_SIZE = 5000 # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 
 # END GLOBAL VARIABLES
 
@@ -35,7 +37,7 @@ FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
 MAX_DOCUMENT_LENGTH = 550
 MAX_ANSWER_LENGTH = 12
 MAX_VOCABULARY_SIZE = 20000
-EMBEDDINGS_SIZE = 100
+EMBEDDINGS_SIZE = 50
 BATCH_SIZE = 128
 EPOCHS = 1
 
@@ -77,6 +79,32 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix, dictionary = preproc
 logging.info("Data preprocessing complete.")
 
 if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
+
+    # Dataset sampling
+
+    if 0 < SAMPLE_SIZE < np.shape(train_x[0])[0]:
+
+        logging.warning("Training network on %s samples" % SAMPLE_SIZE)
+        samples_indices = random.sample(range(np.shape(train_x[0])[0]), SAMPLE_SIZE)
+
+        train_x_doc_sample = np.zeros((SAMPLE_SIZE, MAX_DOCUMENT_LENGTH))
+        train_x_answer_sample = np.zeros((SAMPLE_SIZE, MAX_ANSWER_LENGTH))
+        train_y_sample = np.zeros((SAMPLE_SIZE, 2))
+
+        i = 0
+        for j in samples_indices:
+            train_x_doc_sample[i] = train_x[0][j]
+            train_x_answer_sample[i] = train_x[1][j]
+            train_y_sample[i] = train_y[j]
+            i += 1
+
+        train_x = [train_x_doc_sample, train_x_answer_sample]
+        train_y = train_y_sample
+
+        logging.debug("Sampled Training set documents size : %s", np.shape(train_x[0]))
+        logging.debug("Sampled Training set answers size   : %s", np.shape(train_x[1]))
+
+    # end sampling.
 
     logging.debug("Building the network...")
     document = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
