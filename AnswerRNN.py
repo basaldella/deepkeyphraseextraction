@@ -23,10 +23,10 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/answerrnn.h5"
 SHOW_PLOTS = True
-SAMPLE_SIZE = 5120      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+SAMPLE_SIZE = -1      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 10.   # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
@@ -40,7 +40,7 @@ MAX_ANSWER_LENGTH = 12
 MAX_VOCABULARY_SIZE = 20000
 EMBEDDINGS_SIZE = 100
 BATCH_SIZE = 128
-EPOCHS = 20
+EPOCHS = 15
 
 # END PARAMETERS
 
