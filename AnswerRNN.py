@@ -1,8 +1,28 @@
-import logging
-import os
-import random
-
 import numpy as np
+import random as rn
+
+# The below is necessary in Python 3.2.3 onwards to
+# have reproducible behavior for certain hash-based operations.
+# See these references for further details:
+# https://docs.python.org/3.4/using/cmdline.html#envvar-PYTHONHASHSEED
+# https://github.com/fchollet/keras/issues/2280#issuecomment-306959926
+
+import os
+os.environ['PYTHONHASHSEED'] = '0'
+
+# The below is necessary for starting Numpy generated random numbers
+# in a well-defined initial state.
+
+np.random.seed(42)
+
+# The below is necessary for starting core Python generated random numbers
+# in a well-defined state.
+
+rn.seed(12345)
+
+
+import logging
+
 from keras import layers
 from keras.models import Model, load_model
 
@@ -25,8 +45,9 @@ info.log_versions()
 
 SAVE_MODEL = True
 MODEL_PATH = "models/answerrnn.h5"
+MODEL_PREFIX = "models/answerrnn"
 SHOW_PLOTS = True
-SAMPLE_SIZE = -1      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+SAMPLE_SIZE = 5000      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 10.   # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
@@ -79,14 +100,14 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix, dictionary = preproc
 
 logging.info("Data preprocessing complete.")
 
-if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
+if not SAVE_MODEL or not os.path.isfile(MODEL_PREFIX + ".arch.json") :
 
     # Dataset sampling
 
     if 0 < SAMPLE_SIZE < np.shape(train_x[0])[0]:
 
         logging.warning("Training network on %s samples" % SAMPLE_SIZE)
-        samples_indices = random.sample(range(np.shape(train_x[0])[0]), SAMPLE_SIZE)
+        samples_indices = rn.sample(range(np.shape(train_x[0])[0]), SAMPLE_SIZE)
 
         train_x_doc_sample = np.zeros((SAMPLE_SIZE, MAX_DOCUMENT_LENGTH))
         train_x_answer_sample = np.zeros((SAMPLE_SIZE, MAX_ANSWER_LENGTH))
@@ -166,10 +187,19 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
     if SAVE_MODEL :
         model.save(MODEL_PATH)
         logging.info("Model saved in %s", MODEL_PATH)
+        model.save_weights(MODEL_PREFIX + ".weights.h5")
+        model_json = model.to_json()
+        with open(MODEL_PREFIX + ".arch.json", "w") as json_file:
+            json_file.write(model_json)
 
 else :
     logging.info("Loading existing model from %s...",MODEL_PATH)
-    model = load_model(MODEL_PATH)
+    #model = load_model(MODEL_PATH)
+    with open(MODEL_PREFIX + ".arch.json", "r") as json_file:
+        json_string = json_file.read()
+    from keras.models import model_from_json
+    model = model_from_json(json_string)
+    model.load_weights(MODEL_PREFIX + ".weights.h5")
     logging.info("Completed loading model from file")
 
 
