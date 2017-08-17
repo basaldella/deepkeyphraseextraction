@@ -1,5 +1,27 @@
-import logging
+import numpy as np
+import random as rn
+
+# The below is necessary in Python 3.2.3 onwards to
+# have reproducible behavior for certain hash-based operations.
+# See these references for further details:
+# https://docs.python.org/3.4/using/cmdline.html#envvar-PYTHONHASHSEED
+# https://github.com/fchollet/keras/issues/2280#issuecomment-306959926
+
 import os
+os.environ['PYTHONHASHSEED'] = '01'
+
+# The below is necessary for starting Numpy generated random numbers
+# in a well-defined initial state.
+
+np.random.seed(421)
+
+# The below is necessary for starting core Python generated random numbers
+# in a well-defined state.
+
+rn.seed(123451)
+
+
+import logging
 
 import numpy as np
 from keras import regularizers
