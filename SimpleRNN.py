@@ -8,17 +8,17 @@ import random as rn
 # https://github.com/fchollet/keras/issues/2280#issuecomment-306959926
 
 import os
-os.environ['PYTHONHASHSEED'] = '0'
+os.environ['PYTHONHASHSEED'] = '01'
 
 # The below is necessary for starting Numpy generated random numbers
 # in a well-defined initial state.
 
-np.random.seed(42)
+np.random.seed(421)
 
 # The below is necessary for starting core Python generated random numbers
 # in a well-defined state.
 
-rn.seed(12345)
+rn.seed(123451)
 
 
 import logging
@@ -27,7 +27,7 @@ from keras import regularizers
 from keras.layers import Bidirectional, Dense, Dropout, Embedding, LSTM, TimeDistributed
 from keras.models import Sequential, load_model
 
-from data.datasets import Hulth
+from data.datasets import *
 from eval import keras_metrics, metrics
 from nlp import tokenizer as tk
 from utils import info, preprocessing, postprocessing, plots
@@ -50,21 +50,35 @@ SHOW_PLOTS = True
 
 # END GLOBAL VARIABLES
 
-# PARAMETERS for networks, tokenizers, etc...
+# Dataset and hyperparameters for each dataset
 
-tokenizer = tk.tokenizers.nltk
-FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
-MAX_DOCUMENT_LENGTH = 550
-MAX_VOCABULARY_SIZE = 20000
-EMBEDDINGS_SIZE = 300
-BATCH_SIZE = 32
-EPOCHS = 10
+DATASET = Semeval2017
+
+if DATASET == Semeval2017:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Semeval2017"
+    MAX_DOCUMENT_LENGTH = 400
+    MAX_VOCABULARY_SIZE = 20000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 32
+    EPOCHS = 10
+elif DATASET == Hulth:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Hulth2003"
+    MAX_DOCUMENT_LENGTH = 550
+    MAX_VOCABULARY_SIZE = 20000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 32
+    EPOCHS = 10
+else:
+    raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
+
 
 # END PARAMETERS
 
 logging.info("Loading dataset...")
 
-data = Hulth("data/Hulth2003")
+data = DATASET(DATASET_FOLDER)
 
 train_doc_str, train_answer_str = data.load_train()
 test_doc_str, test_answer_str = data.load_test()

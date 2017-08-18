@@ -20,7 +20,7 @@ class Dataset(object):
         self.validation_answers = None
 
         logging.debug("Initialized dataset %s from folder %s" %
-                     (self.name, self.path))
+                      (self.name, self.path))
 
     def __str__(self):
         return 'Dataset %s located in folder %s' % (self.name, self.path)
@@ -107,7 +107,6 @@ class Dataset(object):
 
         return self.train_documents, self.train_answers
 
-
     def load_validation(self):
         """
         Loads the validation documents and their answers.
@@ -126,6 +125,7 @@ class Dataset(object):
 
         return self.validation_documents, self.validation_answers
 
+
 class Hulth(Dataset):
     """
     Dataset from Annette Hulth's "Improved Automatic Keyword Extraction
@@ -137,6 +137,7 @@ class Hulth(Dataset):
 
     Full-text here: http://www.aclweb.org/anthology/W03-1028
     """
+
     def __init__(self, path):
         super().__init__("Hulth, 2003", path)
 
@@ -205,3 +206,95 @@ class Hulth(Dataset):
     def _load_validation_answers(self):
         return self.__load_answers("Validation")
 
+
+class Semeval2017(Dataset):
+    def __init__(self, path):
+        super().__init__("Semeval 2017", path)
+
+    def __load_documents(self, folder):
+        """
+        Loads the documents in the .txt files contained
+        in the specified folder and puts them in a dictionary
+        indexed by document id (i.e. the filename without the
+        extension).
+
+        :param folder: the folder containing the documents
+        :return: a dictionary with the documents
+        """
+
+        # This dictionary will contain the documents
+        documents = {}
+
+        for doc in os.listdir("%s/%s" % (self.path, folder)):
+            if doc.endswith(".txt"):
+                content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
+                documents[doc[:doc.find('.')]] = content
+
+        return documents
+
+    def __load_answers(self, folder):
+        '''
+        Loads the answers contained in the .ann files
+        and puts them in a dictionary indexed by document ID
+        (i.e. the document name without the extension).
+
+        Adapted from readAnn() from the official Semeval 2017 Scripts.
+
+
+        :param folder: the folder containing the answer files
+        :return: a dictionary with the answers
+        '''
+
+        answers = {}
+
+        file_list = os.listdir("%s/%s" % (self.path, folder))
+        for filename in file_list:
+            if not filename.endswith(".ann"):
+                continue
+            file_anno = open(os.path.join("%s/%s" % (self.path, folder), filename), "rU")
+            file_text = open(os.path.join("%s/%s" % (self.path, folder), filename.replace(".ann", ".txt")), "rU")
+            doc_id = filename[:filename.find('.')]
+
+            answers[doc_id] = []
+
+            # there's only one line, as each .txt file is one text paragraph
+            for l in file_text:
+                text = l
+
+            for l in file_anno:
+                anno_inst = l.strip("\n").split("\t")
+                if len(anno_inst) == 3:
+                    anno_inst1 = anno_inst[1].split(" ")
+                    if len(anno_inst1) == 3:
+                        keytype, start, end = anno_inst1
+                    else:
+                        keytype, start, _, end = anno_inst1
+                    if not keytype.endswith("-of"):
+
+                        # look up span in text and print error message if it doesn't match the .ann span text
+                        keyphr_text_lookup = text[int(start):int(end)]
+                        keyphr_ann = anno_inst[2]
+                        if keyphr_text_lookup != keyphr_ann:
+                            logging.warning("Spans don't match for anno %s in file %s" % (l.strip(), filename))
+                        else:
+                            answers[doc_id].append(keyphr_ann)
+
+        return answers
+
+    def _load_test_documents(self):
+        return self.__load_documents("test")
+
+    def _load_train_documents(self):
+        return self.__load_documents("train")
+
+    def _load_validation_documents(self):
+        return self.__load_documents("dev/dev")
+
+    def _load_test_answers(self):
+        return self.__load_answers("test")
+
+    def _load_train_answers(self):
+        return self.__load_answers("train")
+
+    def _load_validation_answers(self):
+        return self.__load_answers("dev/dev")

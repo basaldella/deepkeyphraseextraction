@@ -24,9 +24,9 @@ rn.seed(12345)
 import logging
 
 from keras import layers
-from keras.models import Model, load_model
+from keras.models import Model
 
-from data.datasets import Hulth
+from data.datasets import *
 from eval import keras_metrics, metrics
 from nlp import chunker, tokenizer as tk
 from utils import info, preprocessing, postprocessing, plots
@@ -45,29 +45,44 @@ info.log_versions()
 
 SAVE_MODEL = True
 MODEL_PATH = "models/answerrnn.h5"
-MODEL_PREFIX = "models/answerrnn"
+MODEL_PREFIX = "saved_models/answerrnn"
 SHOW_PLOTS = True
-SAMPLE_SIZE = 5000      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+SAMPLE_SIZE = -1      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 10.   # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
 
-# PARAMETERS for networks, tokenizers, etc...
+# Dataset and hyperparameters for each dataset
 
-tokenizer = tk.tokenizers.nltk
-FILTER = '!"#$%&()*+/:<=>?@[\\]^_`{|}~\t\n'
-MAX_DOCUMENT_LENGTH = 550
-MAX_ANSWER_LENGTH = 12
-MAX_VOCABULARY_SIZE = 20000
-EMBEDDINGS_SIZE = 100
-BATCH_SIZE = 128
-EPOCHS = 15
+DATASET = Semeval2017
+
+if DATASET == Semeval2017:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Semeval2017"
+    MAX_DOCUMENT_LENGTH = 400
+    MAX_VOCABULARY_SIZE = 20000
+    MAX_ANSWER_LENGTH = 10
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 32
+    EPOCHS = 10
+elif DATASET == Hulth:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Hulth2003"
+    MAX_DOCUMENT_LENGTH = 550
+    MAX_VOCABULARY_SIZE = 20000
+    MAX_ANSWER_LENGTH = 12
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 32
+    EPOCHS = 10
+else:
+    raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
+
 
 # END PARAMETERS
 
 logging.info("Loading dataset...")
 
-data = Hulth("data/Hulth2003")
+data = DATASET(DATASET_FOLDER)
 
 train_doc_str, train_answer_str = data.load_train()
 test_doc_str, test_answer_str = data.load_test()
@@ -201,6 +216,12 @@ else :
     model = model_from_json(json_string)
     model.load_weights(MODEL_PREFIX + ".weights.h5")
     logging.info("Completed loading model from file")
+
+    logging.info("Model saved in %s", MODEL_PATH)
+    model.save_weights(MODEL_PREFIX + ".weights2.h5")
+    model_json = model.to_json()
+    with open(MODEL_PREFIX + ".arch2.json", "w") as json_file:
+        json_file.write(model_json)
 
 
 logging.info("Predicting on test set...")
