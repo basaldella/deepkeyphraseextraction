@@ -59,10 +59,15 @@ def get_valid_patterns(answer_set):
     doc_filtered = {}
 
     for doc, kps in answer_set.items():
-        doc_filtered[doc] = []
+        filtered_keyphrases = []
         for kp in kps:
             for valid_kp in chunker.extract_valid_tokens(kp):
-                doc_filtered[doc].append(valid_kp)
+                filtered_keyphrases.append(valid_kp)
+        
+        # remove duplicates
+        filtered_keyphrases.sort()
+        filtered_keyphrases = list(w for w, _ in itertools.groupby(filtered_keyphrases))
+        doc_filtered[doc] = filtered_keyphrases
 
     return doc_filtered
 
