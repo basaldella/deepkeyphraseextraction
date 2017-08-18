@@ -62,7 +62,8 @@ if DATASET == Semeval2017:
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 10
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 32
+    BATCH_SIZE = 256
+    PREDICT_BATCH_SIZE = 256
     EPOCHS = 10
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
@@ -71,7 +72,8 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 32
+    BATCH_SIZE = 128
+    PREDICT_BATCH_SIZE = 512
     EPOCHS = 10
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
@@ -114,7 +116,7 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix, dictionary = preproc
 
 logging.info("Data preprocessing complete.")
 
-if not SAVE_MODEL or not os.path.isfile(MODEL_PREFIX + ".arch.json") :
+if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
     # Dataset sampling
 
@@ -184,7 +186,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PREFIX + ".arch.json") :
     model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
     print(model.summary())
 
-    metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y)
+    metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y,batch_size=PREDICT_BATCH_SIZE)
 
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
@@ -208,7 +210,7 @@ else :
 
 
 logging.info("Predicting on test set...")
-output = model.predict(x=test_x, verbose=1,batch_size=512)
+output = model.predict(x=test_x, verbose=1,batch_size=PREDICT_BATCH_SIZE)
 logging.debug("Shape of output array: %s",np.shape(output))
 
 obtained_words = postprocessing.get_answers(test_candidates,test_x,output,dictionary)

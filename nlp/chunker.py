@@ -63,6 +63,7 @@ def extract_valid_tokens(tokens):
             candidate = []
             for leaf in subtree.leaves():
                 candidate.append(leaf[0])
-            candidates.append(candidate)
+            if candidate not in candidates:
+                candidates.append(candidate)
 
     return candidates
