@@ -220,3 +220,9 @@ print("### Precision : %.4f" % precision)
 print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
 print("###                       ###")
+
+if DATASET == Semeval2017:
+    from eval import anno_generator
+    anno_generator.write_anno("/tmp/simplernn",test_doc_str,obtained_words)
+    from data.Semeval2017 import eval
+    eval.calculateMeasures("data/Semeval2017/test","/tmp/simplernn",remove_anno=["types"])

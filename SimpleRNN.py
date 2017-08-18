@@ -44,7 +44,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/simplernn.h5"
 SHOW_PLOTS = True
 
@@ -59,7 +59,7 @@ if DATASET == Semeval2017:
     DATASET_FOLDER = "data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 400
     MAX_VOCABULARY_SIZE = 20000
-    EMBEDDINGS_SIZE = 300
+    EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 32
     EPOCHS = 10
 elif DATASET == Hulth:
@@ -203,3 +203,9 @@ print("### Precision : %.4f" % precision)
 print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
 print("###                       ###")
+
+if DATASET == Semeval2017:
+    from eval import anno_generator
+    anno_generator.write_anno("/tmp/simplernn",test_doc_str,obtained_words)
+    from data.Semeval2017 import eval
+    eval.calculateMeasures("data/Semeval2017/test","/tmp/simplernn",remove_anno=["types"])

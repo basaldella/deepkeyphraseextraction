@@ -172,7 +172,7 @@ def keras_recall(y_true,y_pred) :
 def keras_f1(y_true,y_pred):
     p = keras_precision(y_true,y_pred)
     r = keras_recall(y_true,y_pred)
-    return (2*(p * r)) / (p + r)
+    return (2*(p * r)) / (p + r) if p != 0 and r != 0 else 0
 
 
 def keras_precision_qa(y_true,y_pred) :

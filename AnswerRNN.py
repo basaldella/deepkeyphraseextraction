@@ -24,7 +24,7 @@ rn.seed(12345)
 import logging
 
 from keras import layers
-from keras.models import Model
+from keras.models import Model, load_model
 
 from data.datasets import *
 from eval import keras_metrics, metrics
@@ -45,7 +45,6 @@ info.log_versions()
 
 SAVE_MODEL = True
 MODEL_PATH = "models/answerrnn.h5"
-MODEL_PREFIX = "saved_models/answerrnn"
 SHOW_PLOTS = True
 SAMPLE_SIZE = -1      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 10.   # weight of positives samples while training the model. NOTE: MUST be a float
@@ -202,26 +201,10 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PREFIX + ".arch.json") :
     if SAVE_MODEL :
         model.save(MODEL_PATH)
         logging.info("Model saved in %s", MODEL_PATH)
-        model.save_weights(MODEL_PREFIX + ".weights.h5")
-        model_json = model.to_json()
-        with open(MODEL_PREFIX + ".arch.json", "w") as json_file:
-            json_file.write(model_json)
 
 else :
     logging.info("Loading existing model from %s...",MODEL_PATH)
-    #model = load_model(MODEL_PATH)
-    with open(MODEL_PREFIX + ".arch.json", "r") as json_file:
-        json_string = json_file.read()
-    from keras.models import model_from_json
-    model = model_from_json(json_string)
-    model.load_weights(MODEL_PREFIX + ".weights.h5")
-    logging.info("Completed loading model from file")
-
-    logging.info("Model saved in %s", MODEL_PATH)
-    model.save_weights(MODEL_PREFIX + ".weights2.h5")
-    model_json = model.to_json()
-    with open(MODEL_PREFIX + ".arch2.json", "w") as json_file:
-        json_file.write(model_json)
+    model = load_model(MODEL_PATH)
 
 
 logging.info("Predicting on test set...")
@@ -253,3 +236,9 @@ print("### Precision : %.4f" % keras_precision)
 print("### Recall    : %.4f" % keras_recall)
 print("### F1        : %.4f" % keras_f1)
 print("###                       ###")
+
+if DATASET == Semeval2017:
+    from eval import anno_generator
+    anno_generator.write_anno("/tmp/simplernn",test_doc_str,obtained_words)
+    from data.Semeval2017 import eval
+    eval.calculateMeasures("data/Semeval2017/test","/tmp/simplernn",remove_anno=["types"])
