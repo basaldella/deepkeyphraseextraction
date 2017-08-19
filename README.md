@@ -11,6 +11,16 @@ reads the text and produces an encoded version of the document. This representat
 generated using part-of-speech tag patterns and compares them with the document. It used two Bidirectional LSTMs to generate the representations
 of both the document and the keyphrase and another network on top with classifies each candidate KP.
 
+## Datasets
+
+The datasets used are:
+
+* [Hulth, 2003](http://www.aclweb.org/anthology/W03-1028): it contains 2000 documents with 19276 different keyphrases, and these keyphrases have 786 different 
+part-of-speech patterns.
+* [Semeval 2017](http://aclweb.org/anthology/S17-2091):  it contains 500 documents with 9946 different keyphrases, and these keyphrases have 1689 different 
+part-of-speech patterns.
+
+
 ## Reproducibility
 
 To ensure reproducibility of the results, you should use the latest development version of Theano.

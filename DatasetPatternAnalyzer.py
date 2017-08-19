@@ -19,7 +19,7 @@ info.log_versions()
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -94,6 +94,9 @@ for seq in val_pos:
     val_seq.append(' '.join(pattern))
 
 counts = Counter(train_seq + test_seq + val_seq)
+
+print("Total keyphrases %s" % sum([value for value in counts.values()]))
+print("Total patterns   %s" % len(counts))
 
 for pattern, value in counts.items():
     print("%s \t %s \t occurrences" % (pattern, value))
