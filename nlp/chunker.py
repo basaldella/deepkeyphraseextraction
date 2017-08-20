@@ -7,6 +7,15 @@ KP_REGEX_1 = "<JJ|NN|NNP|NNS|NNPS>*<NN|NNP|NNS|NNPS|VB|VBG>"
 KP_REGEX_2 = "<JJ>?<NN|NNS>+<IN><NN|NNS>"
 KP_REGEX_3 = "<JJ|VBN>*<NN|NNS>"
 
+noun_phrase_grammar = r"""
+    NBAR:
+        {<NN.*|JJ>*<NN.*|VBG>}  # Nouns and Adjectives, terminated with Nouns or -ing verbs
+        
+    KP:
+        {<NBAR>}
+        {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
+"""
+
 
 def extract_candidates_from_set(set,tokenizer):
     """
@@ -51,8 +60,10 @@ def extract_valid_tokens(tokens):
     kp_rule_2 = ChunkRule(KP_REGEX_2, "")
     kp_rule_3 = ChunkRule(KP_REGEX_3, "")
 
-    chunk_parser = RegexpChunkParser([kp_rule_1, kp_rule_2, kp_rule_3],
-                                     chunk_label="KP")
+    #chunk_parser = RegexpChunkParser([kp_rule_1, kp_rule_2, kp_rule_3],
+    #                                 chunk_label="KP")
+
+    chunk_parser = RegexpParser(grammar=noun_phrase_grammar)
 
     tree = chunk_parser.parse(postagged_doc)
 

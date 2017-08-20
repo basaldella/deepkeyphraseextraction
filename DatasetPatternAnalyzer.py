@@ -5,6 +5,7 @@ from nlp import chunker, tokenizer as tk
 from utils import info
 
 import nltk
+import re
 
 # LOGGING CONFIGURATION
 
@@ -70,19 +71,20 @@ for answers in val_answer.values():
     for answer in answers:
         val_pos.append(nltk.pos_tag(answer))
 
+# Note: replace each NN* pos tag (like NNS, NNP...) with just NN*
 
 train_seq = []
 for seq in train_pos:
     pattern = []
     for pos in seq:
-        pattern.append(pos[1])
+        pattern.append(re.sub(r"(NN).*",r"\1*",pos[1]))
     train_seq.append(' '.join(pattern))
 
 test_seq = []
 for seq in test_pos:
     pattern =  []
     for pos in seq:
-        pattern.append(pos[1])
+        pattern.append(re.sub(r"(NN).*",r"\1*",pos[1]))
     test_seq.append(' '.join(pattern))
 
 
@@ -90,7 +92,7 @@ val_seq = []
 for seq in val_pos:
     pattern = []
     for pos in seq:
-        pattern.append(pos[1])
+        pattern.append(re.sub(r"(NN).*",r"\1*",pos[1]))
     val_seq.append(' '.join(pattern))
 
 counts = Counter(train_seq + test_seq + val_seq)
@@ -98,5 +100,5 @@ counts = Counter(train_seq + test_seq + val_seq)
 print("Total keyphrases %s" % sum([value for value in counts.values()]))
 print("Total patterns   %s" % len(counts))
 
-for pattern, value in counts.items():
-    print("%s \t %s \t occurrences" % (pattern, value))
+#for pattern, value in counts.items():
+#    print("%s \t %s \t occurrences" % (pattern, value))
