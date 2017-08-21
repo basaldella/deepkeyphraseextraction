@@ -10,6 +10,8 @@ reads the text and produces an encoded version of the document. This representat
 * `AnswerRNN.py`: inspired from Question Answering models, this network receives a series of candidate keyphrases
 generated using part-of-speech tag patterns and compares them with the document. It used two Bidirectional LSTMs to generate the representations
 of both the document and the keyphrase and another network on top with classifies each candidate KP.
+* `AnswerRNN2.py`: evolution of `AnswerRNN`, borrows from [Feng et Al., 2015](https://arxiv.org/pdf/1508.01585v2.pdf) 
+and [Tan et al, 2016](https://arxiv.org/pdf/1511.04108.pdf) similarity-based models. 
 
 ## Datasets
 

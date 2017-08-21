@@ -1,5 +1,6 @@
 import keras
 import numpy as np
+import logging
 
 
 class MetricsCallback(keras.callbacks.Callback):
@@ -176,15 +177,43 @@ def keras_f1(y_true,y_pred):
 
 
 def keras_precision_qa(y_true,y_pred) :
-    y_true = np.argmax(y_true,axis=1)
-    y_pred = np.argmax(y_pred,axis=1)
 
-    return np.count_nonzero(np.in1d(np.where(y_pred), np.where(y_true))) / np.count_nonzero(y_pred)
+    # Prepare data
+    if np.shape(y_pred)[1] == 2:
+        # If one-hot prediction...
+        y_true = np.argmax(y_true,axis=1)
+        y_pred = np.argmax(y_pred,axis=1)
+
+    else:
+        # If similarity-based...
+        y_pred = np.reshape(y_pred, np.shape(y_true))
+        y_pred = np.round(y_pred)
+        y_true[y_true == -1] = 0
+        y_pred[y_pred == -1] = 0
+
+    den = np.count_nonzero(y_pred)
+
+    if den == 0:
+        logging.log(logging.WARNING,"Network did not predict any positive sample")
+        return 0
+
+    return np.count_nonzero(np.in1d(np.where(y_pred), np.where(y_true)))
 
 
 def keras_recall_qa(y_true,y_pred) :
-    y_true = np.argmax(y_true,axis=1)
-    y_pred = np.argmax(y_pred,axis=1)
+    # Prepare data
+    if np.shape(y_pred)[1] == 2:
+        # If one-hot prediction...
+        y_true = np.argmax(y_true, axis=1)
+        y_pred = np.argmax(y_pred, axis=1)
+
+    else:
+        # If similarity-based...
+        y_pred = np.reshape(y_pred, np.shape(y_true))
+
+        y_pred = np.round(y_pred)
+        y_true[y_true == -1] = 0
+        y_pred[y_pred == -1] = 0
 
     return np.count_nonzero(np.in1d(np.where(y_true), np.where(y_pred))) / np.count_nonzero(y_true)
 
@@ -192,4 +221,4 @@ def keras_recall_qa(y_true,y_pred) :
 def keras_f1_qa(y_true,y_pred):
     p = keras_precision_qa(y_true,y_pred)
     r = keras_recall_qa(y_true,y_pred)
-    return (2*(p * r)) / (p + r)
+    return (2*(p * r)) / (p + r) if p + r > 0 else 0

@@ -21,7 +21,7 @@ def precision(reference,obtained):
             else:
                 false_positives += 1
 
-    return (true_positives * 1.0) / (true_positives + false_positives)
+    return (true_positives * 1.0) / (true_positives + false_positives) if true_positives + false_positives > 0 else 0
 
 
 def recall(reference,obtained):
@@ -47,4 +47,4 @@ def recall(reference,obtained):
 
 
 def f1(precision, recall):
-    return (2 * (precision * recall)) / (precision + recall)
+    return (2 * (precision * recall)) / (precision + recall) if precision + recall > 0 else 0
