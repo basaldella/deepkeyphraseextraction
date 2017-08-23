@@ -4,17 +4,19 @@ from utils import glove
 from nlp import dictionary as dict
 import logging
 import numpy as np
+import random
 
 
 def prepare_answer(train_doc, train_answer, train_candidates,
                    test_doc, test_answer, test_candidates,
-                   val_doc=None,val_answer=None, val_candidates=None,
+                   val_doc=None, val_answer=None, val_candidates=None,
                    max_document_length=1000,
                    max_answer_length=20,
                    max_vocabulary_size=50000,
                    embeddings_size=50):
     """
-        Prepares a dataset for use by a question-amswer like model.
+        Prepares a dataset for use by a question-answer like model. This version will use the patterns generated
+        previously for the training, test and validation sets as candidate for all three sets.
 
         :param train_doc: the training documents
         :param train_answer: the KPs for the training documents
@@ -75,14 +77,14 @@ def prepare_answer(train_doc, train_answer, train_candidates,
         for kp in train_candidates[key]:
             train_q.append(doc_sequence)
             train_a.append(dictionary.token_list_to_sequence(kp))
-            train_y.append([0,1] if kp in train_answer[key] else [1,0])
+            train_y.append([0, 1] if kp in train_answer[key] else [1, 0])
 
     for key, document in test_doc.items():
         doc_sequence = dictionary.token_list_to_sequence(document)
         for kp in test_candidates[key]:
             test_q.append(doc_sequence)
             test_a.append(dictionary.token_list_to_sequence(kp))
-            test_y.append([0,1] if kp in test_answer[key] else [1,0])
+            test_y.append([0, 1] if kp in test_answer[key] else [1, 0])
 
     if val_doc and val_answer:
         for key, document in val_doc.items():
@@ -90,14 +92,13 @@ def prepare_answer(train_doc, train_answer, train_candidates,
             for kp in val_candidates[key]:
                 val_q.append(doc_sequence)
                 val_a.append(dictionary.token_list_to_sequence(kp))
-                val_y.append([0,1] if kp in val_answer[key] else [1,0])
+                val_y.append([0, 1] if kp in val_answer[key] else [1, 0])
 
     logging.debug("Longest training document   : %s tokens" % len(max(train_q, key=len)))
     logging.debug("Longest training answer     : %s tokens" % len(max(train_a, key=len)))
     logging.debug("Longest test document       : %s tokens" % len(max(test_q, key=len)))
     logging.debug("Longest test answer         : %s tokens" % len(max(test_a, key=len)))
     if val_doc and val_answer:
-
         logging.debug("Longest validation document : %s tokens" % len(max(val_q, key=len)))
         logging.debug("Longest validation answer   : %s tokens" % len(max(val_a, key=len)))
 
@@ -140,7 +141,161 @@ def prepare_answer(train_doc, train_answer, train_candidates,
     return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, embedding_matrix, dictionary
 
 
-def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,val_answer,
+def prepare_answer_2(train_doc, train_answer, train_candidates,
+                     test_doc, test_answer, test_candidates,
+                     val_doc=None, val_answer=None, val_candidates=None,
+                     max_document_length=1000,
+                     max_answer_length=20,
+                     max_vocabulary_size=50000,
+                     embeddings_size=50):
+    """
+        Prepares a dataset for use by a question-answer like model. This version will use the patterns generated
+        previously for the test and validation sets as candidate for these sets, and mix the correct answers with
+        wrong patterns on the training set to build in order to have balanced data for training.
+
+        :param train_doc: the training documents
+        :param train_answer: the KPs for the training documents
+        :param train_candidates: the candidate KPs for the training documents
+        :param test_doc: the test documents
+        :param test_answer: the KPs for the test documents
+        :param test_candidates: the candidate KPs for the test documents
+        :param val_doc: the validation documents (can be None)
+        :param val_answer: the KPs for the validation documents (can be None)
+        :param val_candidates: the candidate KPs for the validation documents (can be None)
+        :param max_document_length: the maximum length of the documents (shorter documents will be truncated!)
+        :param max_answer_length: the maximum length of the answers (shorter answers will be truncated!)
+        :param max_vocabulary_size: the maximum size of the vocabulary to use
+        (i.e. we keep only the top max_vocabulary_size words)
+        :param embeddings_size: the size of the GLoVE embeddings to use
+        :return:  a tuple (train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix) containing the training,
+        test and validation set, and an embedding matrix for an Embedding layer
+        """
+
+    # Prepare validation return data
+    val_q = None
+    val_a = None
+    val_y = None
+
+    # Prepare the return values: lists that will hold questions (documents), answers (keyphrases), and truth values
+    train_q = []
+    test_q = []
+    train_a = []
+    test_a = []
+    train_y = []
+    test_y = []
+
+    if val_doc and val_answer:
+        val_q = []
+        val_a = []
+        val_y = []
+
+    documents_full = []
+    for key, doc in train_doc.items():
+        documents_full.append(token for token in doc)
+    for key, doc in test_doc.items():
+        documents_full.append(token for token in doc)
+
+    if val_doc and val_answer:
+        for key, doc in val_doc.items():
+            documents_full.append(token for token in doc)
+
+    logging.debug("Fitting dictionary on %s documents..." % len(documents_full))
+
+    dictionary = dict.Dictionary(num_words=max_vocabulary_size)
+    dictionary.fit_on_texts(documents_full)
+
+    logging.debug("Dictionary fitting completed. Found %s unique tokens" % len(dictionary.word_index))
+
+    # Pair up each document with a candidate keyphrase and its truth value
+    for key, document in train_doc.items():
+        doc_sequence = dictionary.token_list_to_sequence(document)
+
+        # select wrong candidates (possibly, in same quantity as good answers)
+        wrong_candidates = list(train_candidates[key])
+        for answer in train_answer[key]:
+            if answer in wrong_candidates:
+                wrong_candidates.remove(answer)
+
+        while len(wrong_candidates) > len(train_answer[key]):
+            random_candidate = random.choice(wrong_candidates)
+            wrong_candidates.remove(random_candidate)
+
+        # append wrong candidates
+        for kp in wrong_candidates:
+            train_q.append(doc_sequence)
+            train_a.append(dictionary.token_list_to_sequence(kp))
+            train_y.append([1, 0])
+
+        # append true answers
+        for kp in train_answer[key]:
+            train_q.append(doc_sequence)
+            train_a.append(dictionary.token_list_to_sequence(kp))
+            train_y.append([0, 1])
+
+    # for the other sets, just pick the auto-gennerated candidates
+    for key, document in test_doc.items():
+        doc_sequence = dictionary.token_list_to_sequence(document)
+        for kp in test_candidates[key]:
+            test_q.append(doc_sequence)
+            test_a.append(dictionary.token_list_to_sequence(kp))
+            test_y.append([0, 1] if kp in test_answer[key] else [1, 0])
+
+    if val_doc and val_answer:
+        for key, document in val_doc.items():
+            doc_sequence = dictionary.token_list_to_sequence(document)
+            for kp in val_candidates[key]:
+                val_q.append(doc_sequence)
+                val_a.append(dictionary.token_list_to_sequence(kp))
+                val_y.append([0, 1] if kp in val_answer[key] else [1, 0])
+
+    logging.debug("Longest training document   : %s tokens" % len(max(train_q, key=len)))
+    logging.debug("Longest training answer     : %s tokens" % len(max(train_a, key=len)))
+    logging.debug("Longest test document       : %s tokens" % len(max(test_q, key=len)))
+    logging.debug("Longest test answer         : %s tokens" % len(max(test_a, key=len)))
+    if val_doc and val_answer:
+        logging.debug("Longest validation document : %s tokens" % len(max(val_q, key=len)))
+        logging.debug("Longest validation answer   : %s tokens" % len(max(val_a, key=len)))
+
+    train_q = np.asarray(pad_sequences(train_q, maxlen=max_document_length, padding='post', truncating='post'))
+    train_a = np.asarray(pad_sequences(train_a, maxlen=max_answer_length, padding='post', truncating='post'))
+
+    test_q = np.asarray(pad_sequences(test_q, maxlen=max_document_length, padding='post', truncating='post'))
+    test_a = np.asarray(pad_sequences(test_a, maxlen=max_answer_length, padding='post', truncating='post'))
+
+    if val_doc and val_answer:
+        val_q = np.asarray(pad_sequences(val_q, maxlen=max_document_length, padding='post', truncating='post'))
+        val_a = np.asarray(pad_sequences(val_a, maxlen=max_answer_length, padding='post', truncating='post'))
+
+    logging.debug("Training set documents size   : %s", np.shape(train_q))
+    logging.debug("Training set answers size     : %s", np.shape(train_a))
+    logging.debug("Test set documents size       : %s", np.shape(test_q))
+    logging.debug("Test set answers size         : %s ", np.shape(test_a))
+
+    if val_doc and val_answer:
+        logging.debug("Validation set documents size : %s", np.shape(val_q))
+        logging.debug("Validation set answers size   : %s ", np.shape(val_a))
+
+    # prepare the matrix for the embedding layer
+    word_index = dictionary.word_index
+    embeddings_index = glove.load_glove('', embeddings_size)
+
+    num_words = min(max_vocabulary_size, 1 + len(word_index))
+
+    logging.debug("Building embedding matrix of size [%s,%s]..." % (num_words, embeddings_size))
+
+    embedding_matrix = np.zeros((num_words, embeddings_size))
+    for word, i in word_index.items():
+        if i >= num_words:
+            continue
+        embedding_vector = embeddings_index.get(word)
+        if embedding_vector is not None:
+            # words not found in embedding index will be all-zeros.
+            embedding_matrix[i] = embedding_vector
+
+    return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, embedding_matrix, dictionary
+
+
+def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, val_answer,
                        max_document_length=1000,
                        max_vocabulary_size=50000,
                        embeddings_size=50):
@@ -178,7 +333,6 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer,val_doc,va
 
     if val_doc and val_answer:
         val_y = []
-
 
     for key, doc in train_doc.items():
         documents_full.append(token for token in doc)
@@ -308,7 +462,7 @@ def make_sequential(documents, answers):
                     for i in range(1, len(answer)):
                         doc_answers_seq[idx + i] = 2
 
-            # for
+                        # for
         # for
 
         seq_answers[key] = doc_answers_seq
@@ -336,9 +490,8 @@ def make_categorical(x):
     # Use keras to make actual categorical transformation
     i = 0
     for doc in x:
-        new_doc = np_utils.to_categorical(doc,num_classes=num_categories)
+        new_doc = np_utils.to_categorical(doc, num_classes=num_categories)
         new_x[i] = new_doc
         i += 1
 
     return new_x
-
