@@ -188,8 +188,6 @@ def keras_precision_qa(y_true,y_pred) :
         # If similarity-based...
         y_pred = np.reshape(y_pred, np.shape(y_true))
         y_pred = np.round(y_pred)
-        y_true[y_true == -1] = 0
-        y_pred[y_pred == -1] = 0
 
     den = np.count_nonzero(y_pred)
 
@@ -197,7 +195,7 @@ def keras_precision_qa(y_true,y_pred) :
         logging.log(logging.WARNING,"Network did not predict any positive sample")
         return 0
 
-    return np.count_nonzero(np.in1d(np.where(y_pred), np.where(y_true)))
+    return np.count_nonzero(np.in1d(np.where(y_pred), np.where(y_true))) / den
 
 
 def keras_recall_qa(y_true,y_pred) :
@@ -210,10 +208,7 @@ def keras_recall_qa(y_true,y_pred) :
     else:
         # If similarity-based...
         y_pred = np.reshape(y_pred, np.shape(y_true))
-
         y_pred = np.round(y_pred)
-        y_true[y_true == -1] = 0
-        y_pred[y_pred == -1] = 0
 
     return np.count_nonzero(np.in1d(np.where(y_true), np.where(y_pred))) / np.count_nonzero(y_true)
 

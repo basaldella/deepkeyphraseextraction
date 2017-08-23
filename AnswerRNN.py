@@ -43,7 +43,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn.h5"
 SHOW_PLOTS = True
 SAMPLE_SIZE = -1      # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
@@ -53,7 +53,7 @@ KP_CLASS_WEIGHT = 10.   # weight of positives samples while training the model. 
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk

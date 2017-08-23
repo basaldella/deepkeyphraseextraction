@@ -68,13 +68,13 @@ if DATASET == Semeval2017:
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Hulth2003"
-    MAX_DOCUMENT_LENGTH = 550
+    MAX_DOCUMENT_LENGTH = 600
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 128
     PREDICT_BATCH_SIZE = 512
-    EPOCHS = 10
+    EPOCHS = 5
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -114,14 +114,11 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix, dictionary = preproc
                    max_vocabulary_size=MAX_VOCABULARY_SIZE,
                    embeddings_size=EMBEDDINGS_SIZE)
 
-# Finalize the ys: remove one-hot and put -1s instead of 0s to work with hinge loss
+# Finalize the ys: remove one-hot
 
 train_y = np.argmax(train_y,axis=1)
 test_y = np.argmax(test_y,axis=1)
 val_y = np.argmax(val_y,axis=1)
-train_y[train_y == 0] = -1
-test_y[test_y == 0] = -1
-val_y[val_y == 0] = -1
 
 
 logging.info("Data preprocessing complete.")
@@ -156,7 +153,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
     # Class weights
 
-    class_weights = {-1: 1.,
+    class_weights = {0: 1.,
                      1: KP_CLASS_WEIGHT}
 
     logging.debug("Building the network...")
@@ -167,11 +164,15 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                                         input_length=MAX_DOCUMENT_LENGTH,
                                         trainable=False)(document)
 
-    encoded_document = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE * 2)))\
+    encoded_document = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE),return_sequences=True))\
         (encoded_document)
-    encoded_document = layers.Dropout(0.25)(encoded_document)
-    encoded_document = layers.Dense(int(EMBEDDINGS_SIZE))\
-        (encoded_document)
+    encoded_document = layers.AveragePooling1D(pool_size=5)(encoded_document)
+    encoded_document = layers.Activation('tanh')(encoded_document)
+    encoded_document = layers.AveragePooling1D(pool_size=5)(encoded_document)
+    encoded_document = layers.Activation('tanh')(encoded_document)
+    encoded_document = layers.AveragePooling1D(pool_size=4)(encoded_document)
+    encoded_document = layers.Activation('tanh')(encoded_document)
+    encoded_document = layers.Flatten()(encoded_document)
 
     candidate = layers.Input(shape=(MAX_ANSWER_LENGTH,))
     encoded_candidate = layers.Embedding(np.shape(embedding_matrix)[0],
@@ -179,18 +180,18 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                                          weights=[embedding_matrix],
                                          input_length=MAX_ANSWER_LENGTH,
                                          trainable=False)(candidate)
-    encoded_candidate = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE)))\
+    encoded_candidate = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE),return_sequences=True))\
         (encoded_candidate)
-    encoded_candidate = layers.Dropout(0.25)(encoded_candidate)
-    encoded_candidate = layers.Dense(int(EMBEDDINGS_SIZE))\
-        (encoded_candidate)
+    encoded_candidate = layers.AveragePooling1D(pool_size=2)(encoded_candidate)
+    encoded_candidate = layers.Activation('tanh')(encoded_candidate)
+    encoded_candidate = layers.Flatten()(encoded_candidate)
 
-    prediction = layers.merge([encoded_document, encoded_candidate],mode='cos',dot_axes=1)
+    prediction = layers.dot([encoded_document, encoded_candidate],axes=-1,normalize=True)
 
     model = Model([document, candidate], prediction)
 
     logging.info("Compiling the network...")
-    model.compile(loss='mse', optimizer='rmsprop', metrics=['accuracy'])
+    model.compile(loss='cosine_proximity', optimizer='rmsprop', metrics=['accuracy'])
     print(model.summary())
 
     metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y,batch_size=PREDICT_BATCH_SIZE)
@@ -206,6 +207,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
     if SHOW_PLOTS :
         plots.plot_accuracy(history)
         plots.plot_loss(history)
+        plots.plot_prf(metrics_callback)
 
     if SAVE_MODEL :
         model.save(MODEL_PATH)

@@ -87,9 +87,14 @@ def get_answers(candidate_tokens,predict_set,predict_result,dictionary):
     # model input, and we add the candidate to the answer set if the model predicted class 1 (i.e. that the candidate
     # was a correct KP
 
-    # First, get the actual predictions: flatten the (num_samples,2) array to a (num_samples) one
-    # This way transform a 2D array e.g. [[0.6,0.4] ... [0.2,0.8]] to a 1D array e.g. [0...1]
-    predictions_flattened = np.argmax(predict_result, axis=1)
+    # First, get the actual predictions:
+    if np.shape(predict_result)[1] == 1:
+        # If we have just 1 output neuron, reshape and put make the output in 0,1 values
+        predictions_flattened = np.round(np.reshape(predict_result,np.shape(predict_result)[0]))
+    else:
+        # If we're working with categorical output, flatten the (num_samples,2) array to a (num_samples) one
+        # This way transform a 2D array e.g. [[0.6,0.4] ... [0.2,0.8]] to a 1D array e.g. [0...1]
+        predictions_flattened = np.argmax(predict_result, axis=1)
 
     i = 0
     answers = {}
