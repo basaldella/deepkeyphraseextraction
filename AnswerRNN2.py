@@ -8,6 +8,7 @@ import random as rn
 # https://github.com/fchollet/keras/issues/2280#issuecomment-306959926
 
 import os
+
 os.environ['PYTHONHASHSEED'] = '0'
 
 # The below is necessary for starting Numpy generated random numbers
@@ -19,7 +20,6 @@ np.random.seed(1337)
 # in a well-defined state.
 
 rn.seed(7331)
-
 
 import logging
 
@@ -46,8 +46,8 @@ info.log_versions()
 SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn2.h5"
 SHOW_PLOTS = True
-SAMPLE_SIZE = -1     # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
-KP_CLASS_WEIGHT = 10.   # weight of positives samples while training the model. NOTE: MUST be a float
+SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+KP_CLASS_WEIGHT = 10.  # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
 
@@ -60,7 +60,7 @@ if DATASET == Semeval2017:
     DATASET_FOLDER = "data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 400
     MAX_VOCABULARY_SIZE = 20000
-    MAX_ANSWER_LENGTH = 10
+    MAX_ANSWER_LENGTH = 16
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 256
@@ -68,7 +68,7 @@ if DATASET == Semeval2017:
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Hulth2003"
-    MAX_DOCUMENT_LENGTH = 600
+    MAX_DOCUMENT_LENGTH = 554
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
     EMBEDDINGS_SIZE = 50
@@ -78,8 +78,21 @@ elif DATASET == Hulth:
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
-
 # END PARAMETERS
+
+# Loss function
+
+def cos_distance(y_true, y_pred):
+    import keras.backend as K
+    def l2_normalize(x, axis):
+        norm = K.sqrt(K.sum(K.square(x), axis=axis, keepdims=True))
+        return K.sign(x) * K.maximum(K.abs(x), K.epsilon()) / K.maximum(norm, K.epsilon())
+
+    y_true = l2_normalize(y_true, axis=-1)
+    y_pred = l2_normalize(y_pred, axis=-1)
+    return K.mean(1 - K.sum((y_true * y_pred), axis=-1))
+
+# End loss
 
 logging.info("Loading dataset...")
 
@@ -89,41 +102,40 @@ train_doc_str, train_answer_str = data.load_train()
 test_doc_str, test_answer_str = data.load_test()
 val_doc_str, val_answer_str = data.load_validation()
 
-train_doc, train_answer = tk.tokenize_set(train_doc_str,train_answer_str,tokenizer)
-test_doc, test_answer = tk.tokenize_set(test_doc_str,test_answer_str,tokenizer)
-val_doc, val_answer = tk.tokenize_set(val_doc_str,val_answer_str,tokenizer)
+train_doc, train_answer = tk.tokenize_set(train_doc_str, train_answer_str, tokenizer)
+test_doc, test_answer = tk.tokenize_set(test_doc_str, test_answer_str, tokenizer)
+val_doc, val_answer = tk.tokenize_set(val_doc_str, val_answer_str, tokenizer)
 
 logging.info("Dataset loaded. Generating candidate keyphrases...")
 
-train_candidates = chunker.extract_candidates_from_set(train_doc_str,tokenizer)
-test_candidates = chunker.extract_candidates_from_set(test_doc_str,tokenizer)
-val_candidates = chunker.extract_candidates_from_set(val_doc_str,tokenizer)
+train_candidates = chunker.extract_candidates_from_set(train_doc_str, tokenizer)
+test_candidates = chunker.extract_candidates_from_set(test_doc_str, tokenizer)
+val_candidates = chunker.extract_candidates_from_set(val_doc_str, tokenizer)
 
-logging.debug("Candidates recall on training set   : %.4f", metrics.recall(train_answer,train_candidates))
-logging.debug("Candidates recall on test set       : %.4f", metrics.recall(test_answer,test_candidates))
-logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_answer,val_candidates))
+logging.debug("Candidates recall on training set   : %.4f", metrics.recall(train_answer, train_candidates))
+logging.debug("Candidates recall on test set       : %.4f", metrics.recall(test_answer, test_candidates))
+logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_answer, val_candidates))
 
 logging.info("Candidates generated. Preprocessing data...")
 
-train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix, dictionary = preprocessing.\
+train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix, dictionary = preprocessing. \
     prepare_answer_2(train_doc, train_answer, train_candidates,
-                   test_doc, test_answer, test_candidates,
-                   val_doc,val_answer, val_candidates,
-                   max_document_length=MAX_DOCUMENT_LENGTH,
-                   max_answer_length=MAX_ANSWER_LENGTH,
-                   max_vocabulary_size=MAX_VOCABULARY_SIZE,
-                   embeddings_size=EMBEDDINGS_SIZE)
+                     test_doc, test_answer, test_candidates,
+                     val_doc, val_answer, val_candidates,
+                     max_document_length=MAX_DOCUMENT_LENGTH,
+                     max_answer_length=MAX_ANSWER_LENGTH,
+                     max_vocabulary_size=MAX_VOCABULARY_SIZE,
+                     embeddings_size=EMBEDDINGS_SIZE)
 
 # Finalize the ys: remove one-hot
 
-train_y = np.argmax(train_y,axis=1)
-test_y = np.argmax(test_y,axis=1)
-val_y = np.argmax(val_y,axis=1)
-
+train_y = np.argmax(train_y, axis=1)
+test_y = np.argmax(test_y, axis=1)
+val_y = np.argmax(val_y, axis=1)
 
 logging.info("Data preprocessing complete.")
 
-if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
+if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
     # Dataset sampling
 
@@ -164,15 +176,35 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                                         input_length=MAX_DOCUMENT_LENGTH,
                                         trainable=False)(document)
 
-    encoded_document = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE),return_sequences=True))\
+    # Size of the output layer for a Convolutional Layer
+    # (from http://cs231n.github.io/convolutional-networks/)
+
+    # We can compute the spatial size of the output volume as a function of the input volume size (W),
+    # the receptive field size of the Conv Layer neurons (F), the stride with which they are applied (S),
+    # and the amount of zero padding used (P) on the border.
+
+    # You can convince yourself that the correct formula for calculating how many neurons “fit” is given by ((W−F+2P)/S)+1.
+
+
+    encoded_document = layers.Bidirectional(
+        layers.LSTM(int(EMBEDDINGS_SIZE),
+                    activation='hard_sigmoid',
+                    recurrent_activation='hard_sigmoid',
+                    return_sequences=True))\
         (encoded_document)
-    encoded_document = layers.AveragePooling1D(pool_size=5)(encoded_document)
-    encoded_document = layers.Activation('tanh')(encoded_document)
-    encoded_document = layers.AveragePooling1D(pool_size=5)(encoded_document)
-    encoded_document = layers.Activation('tanh')(encoded_document)
-    encoded_document = layers.AveragePooling1D(pool_size=4)(encoded_document)
-    encoded_document = layers.Activation('tanh')(encoded_document)
+
+    encoded_document = layers.Conv1D(filters=32, kernel_size=32, strides=4)(encoded_document)
+    encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
+    encoded_document = layers.Activation('relu')(encoded_document)
+    encoded_document = layers.Conv1D(filters=32, kernel_size=8, strides=2)(encoded_document)
+    encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
+    encoded_document = layers.Activation('relu')(encoded_document)
+    encoded_document = layers.Conv1D(filters=32, kernel_size=4, strides=1)(encoded_document)
+    encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
+    encoded_document = layers.Activation('relu')(encoded_document)
     encoded_document = layers.Flatten()(encoded_document)
+
+    print((Model(document, encoded_document)).summary())
 
     candidate = layers.Input(shape=(MAX_ANSWER_LENGTH,))
     encoded_candidate = layers.Embedding(np.shape(embedding_matrix)[0],
@@ -180,53 +212,58 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                                          weights=[embedding_matrix],
                                          input_length=MAX_ANSWER_LENGTH,
                                          trainable=False)(candidate)
-    encoded_candidate = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE),return_sequences=True))\
+    encoded_candidate = layers.Bidirectional(
+        layers.LSTM(int(EMBEDDINGS_SIZE),
+                    activation='hard_sigmoid',
+                    recurrent_activation='hard_sigmoid',
+                    return_sequences=True))\
         (encoded_candidate)
-    encoded_candidate = layers.AveragePooling1D(pool_size=2)(encoded_candidate)
+    encoded_candidate = layers.Conv1D(filters=32, kernel_size=2)(encoded_candidate)
+    encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)
     encoded_candidate = layers.Activation('tanh')(encoded_candidate)
     encoded_candidate = layers.Flatten()(encoded_candidate)
+    print((Model(candidate, encoded_candidate)).summary())
 
-    prediction = layers.dot([encoded_document, encoded_candidate],axes=-1,normalize=True)
+    prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
 
     model = Model([document, candidate], prediction)
 
     logging.info("Compiling the network...")
-    model.compile(loss='cosine_proximity', optimizer='rmsprop', metrics=['accuracy'])
+    model.compile(loss=cos_distance, optimizer='rmsprop', metrics=['accuracy'])
     print(model.summary())
 
-    metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y,batch_size=PREDICT_BATCH_SIZE)
+    metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y, batch_size=PREDICT_BATCH_SIZE)
 
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
                         validation_data=(val_x, val_y),
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
-                        class_weight = class_weights,
+                        class_weight=class_weights,
                         callbacks=[metrics_callback])
 
-    if SHOW_PLOTS :
+    if SHOW_PLOTS:
         plots.plot_accuracy(history)
         plots.plot_loss(history)
         plots.plot_prf(metrics_callback)
 
-    if SAVE_MODEL :
+    if SAVE_MODEL:
         model.save(MODEL_PATH)
         logging.info("Model saved in %s", MODEL_PATH)
 
-else :
-    logging.info("Loading existing model from %s...",MODEL_PATH)
+else:
+    logging.info("Loading existing model from %s...", MODEL_PATH)
     model = load_model(MODEL_PATH)
 
-
 logging.info("Predicting on test set...")
-output = model.predict(x=test_x, verbose=1,batch_size=PREDICT_BATCH_SIZE)
-logging.debug("Shape of output array: %s",np.shape(output))
+output = model.predict(x=test_x, verbose=1, batch_size=PREDICT_BATCH_SIZE)
+logging.debug("Shape of output array: %s", np.shape(output))
 
-obtained_words = postprocessing.get_answers(test_candidates,test_x,output,dictionary)
+obtained_words = postprocessing.get_answers(test_candidates, test_x, output, dictionary)
 
-precision = metrics.precision(test_answer,obtained_words)
-recall = metrics.recall(test_answer,obtained_words)
-f1 = metrics.f1(precision,recall)
+precision = metrics.precision(test_answer, obtained_words)
+recall = metrics.recall(test_answer, obtained_words)
+f1 = metrics.f1(precision, recall)
 
 print("###    Obtained Scores    ###")
 print("###     (full dataset)    ###")
@@ -236,9 +273,9 @@ print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
 print("###                       ###")
 
-keras_precision = keras_metrics.keras_precision_qa(test_y,output)
-keras_recall = keras_metrics.keras_recall_qa(test_y,output)
-keras_f1 = keras_metrics.keras_f1_qa(test_y,output)
+keras_precision = keras_metrics.keras_precision_qa(test_y, output)
+keras_recall = keras_metrics.keras_recall_qa(test_y, output)
+keras_f1 = keras_metrics.keras_f1_qa(test_y, output)
 
 print("###    Obtained Scores    ###")
 print("###    (fixed dataset)    ###")
@@ -250,6 +287,8 @@ print("###                       ###")
 
 if DATASET == Semeval2017:
     from eval import anno_generator
-    anno_generator.write_anno("/tmp/simplernn",test_doc_str,obtained_words)
+
+    anno_generator.write_anno("/tmp/simplernn", test_doc_str, obtained_words)
     from data.Semeval2017 import eval
-    eval.calculateMeasures("data/Semeval2017/test","/tmp/simplernn",remove_anno=["types"])
+
+    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn", remove_anno=["types"])
