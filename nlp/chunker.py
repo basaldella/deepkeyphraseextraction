@@ -16,6 +16,21 @@ noun_phrase_grammar = r"""
         {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
 """
 
+hulth_grammar = r"""
+    NBAR:
+        {<NN.*|JJ>*<NN.*|VBG>}  # Nouns and Adjectives, terminated with Nouns or -ing verbs
+
+    VBPART:
+        {<VBG|VBP><NBAR>}       # Verb in participle from, then nouns
+
+    COUNT:
+        {<CD><NBAR>}            # Numbers then nouns
+
+    NP:
+        {<NBAR><IN><NBAR>}
+"""
+
+hulth_labels = ['NP','NBAR','COUNT','VBPART']
 
 def extract_candidates_from_set(set,tokenizer):
     """
@@ -63,14 +78,14 @@ def extract_valid_tokens(tokens):
     #chunk_parser = RegexpChunkParser([kp_rule_1, kp_rule_2, kp_rule_3],
     #                                 chunk_label="KP")
 
-    chunk_parser = RegexpParser(grammar=noun_phrase_grammar)
+    chunk_parser = RegexpParser(grammar=hulth_grammar)
 
     tree = chunk_parser.parse(postagged_doc)
 
     candidates = []
 
     for subtree in tree.subtrees():
-        if subtree.label() == 'KP':
+        if subtree.label() in hulth_labels:
             candidate = []
             for leaf in subtree.leaves():
                 candidate.append(leaf[0])
