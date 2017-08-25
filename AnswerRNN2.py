@@ -45,8 +45,8 @@ info.log_versions()
 
 SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn2.h5"
-SHOW_PLOTS = True
-SAMPLE_SIZE = 1000  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+SHOW_PLOTS = False
+SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 10.  # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
@@ -74,7 +74,7 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 512
-    EPOCHS = 40
+    EPOCHS = 36
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -88,8 +88,8 @@ def cos_distance(y_true, y_pred):
         norm = K.sqrt(K.sum(K.square(x), axis=axis, keepdims=True))
         return K.sign(x) * K.maximum(K.abs(x), K.epsilon()) / K.maximum(norm, K.epsilon())
 
-    y_true = l2_normalize(y_true, axis=-1)
-    y_pred = l2_normalize(y_pred, axis=-1)
+    y_true = K.l2_normalize(y_true, axis=-1)
+    y_pred = K.l2_normalize(y_pred, axis=-1)
     return K.mean(1 - K.sum((y_true * y_pred), axis=-1))
 
 # End loss
@@ -129,9 +129,10 @@ train_x, train_y, test_x, test_y, val_x, val_y, val_x_b, val_y_b, embedding_matr
 
 # Finalize the ys: remove one-hot
 
-#train_y = np.argmax(train_y, axis=1)
-#test_y = np.argmax(test_y, axis=1)
-#val_y = np.argmax(val_y, axis=1)
+train_y = np.argmax(train_y, axis=1)
+test_y = np.argmax(test_y, axis=1)
+val_y = np.argmax(val_y, axis=1)
+val_y_b = np.argmax(val_y_b,axis=1)
 
 logging.info("Data preprocessing complete.")
 
@@ -228,22 +229,22 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     encoded_candidate = layers.Flatten()(encoded_candidate)
     #print((Model(candidate, encoded_candidate)).summary())
 
-    #prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
-
-    #model = Model([document, candidate], prediction)
-
-    #logging.info("Compiling the network...")
-    #model.compile(loss=cos_distance, optimizer='rmsprop', metrics=['accuracy'])
-
-    merged = layers.add([encoded_document, encoded_candidate])
-    prediction = layers.Dense(int(EMBEDDINGS_SIZE / 4), activation='relu',kernel_regularizer=regularizers.l2(0.01))(merged)
-    prediction = layers.Dropout(0.25)(prediction)
-    prediction = layers.Dense(2, activation='softmax')(prediction)
+    prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
 
     model = Model([document, candidate], prediction)
 
     logging.info("Compiling the network...")
-    model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+    model.compile(loss='mse', optimizer='rmsprop', metrics=['accuracy'])
+
+    #merged = layers.add([encoded_document, encoded_candidate])
+    #prediction = layers.Dense(int(EMBEDDINGS_SIZE / 4), activation='relu',kernel_regularizer=regularizers.l2(0.01))(merged)
+    #prediction = layers.Dropout(0.25)(prediction)
+    #prediction = layers.Dense(2, activation='softmax')(prediction)
+
+    #model = Model([document, candidate], prediction)
+
+    #logging.info("Compiling the network...")
+    # model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
     print(model.summary())
 
     metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y, batch_size=PREDICT_BATCH_SIZE)
