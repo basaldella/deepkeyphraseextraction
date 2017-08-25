@@ -105,7 +105,7 @@ logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_a
 
 logging.info("Candidates generated. Preprocessing data...")
 
-train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix, dictionary = preprocessing.\
+train_x,train_y,test_x,test_y,val_x,val_y, val_x_b, val_y_b,embedding_matrix, dictionary = preprocessing.\
     prepare_answer_2(train_doc, train_answer, train_candidates,
                    test_doc, test_answer, test_candidates,
                    val_doc,val_answer, val_candidates,
@@ -190,7 +190,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
-                        validation_data=(val_x, val_y),
+                        validation_data=(val_x_b, val_y_b),
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
                         class_weight = class_weights,

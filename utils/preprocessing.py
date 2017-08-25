@@ -176,6 +176,10 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
     val_a = None
     val_y = None
 
+    val_q_balanced = None
+    val_a_balanced = None
+    val_y_balanced = None
+
     # Prepare the return values: lists that will hold questions (documents), answers (keyphrases), and truth values
     train_q = []
     test_q = []
@@ -188,6 +192,9 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
         val_q = []
         val_a = []
         val_y = []
+        val_q_balanced = []
+        val_a_balanced = []
+        val_y_balanced = []
 
     documents_full = []
     for key, doc in train_doc.items():
@@ -232,6 +239,32 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
             train_a.append(dictionary.token_list_to_sequence(kp))
             train_y.append([0, 1])
 
+    if val_doc and val_answer:
+        for key, document in val_doc.items():
+            doc_sequence = dictionary.token_list_to_sequence(document)
+
+            # select wrong candidates (possibly, in same quantity as good answers)
+            wrong_candidates = list(val_candidates[key])
+            for answer in val_answer[key]:
+                if answer in wrong_candidates:
+                    wrong_candidates.remove(answer)
+
+            while len(wrong_candidates) > len(val_answer[key]):
+                random_candidate = random.choice(wrong_candidates)
+                wrong_candidates.remove(random_candidate)
+
+            # append wrong candidates
+            for kp in wrong_candidates:
+                val_q_balanced.append(doc_sequence)
+                val_a_balanced.append(dictionary.token_list_to_sequence(kp))
+                val_y_balanced.append([1, 0])
+
+            # append true answers
+            for kp in val_answer[key]:
+                val_q_balanced.append(doc_sequence)
+                val_a_balanced.append(dictionary.token_list_to_sequence(kp))
+                val_y_balanced.append([0, 1])
+
     # for the other sets, just pick the auto-gennerated candidates
     for key, document in test_doc.items():
         doc_sequence = dictionary.token_list_to_sequence(document)
@@ -248,13 +281,15 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
                 val_a.append(dictionary.token_list_to_sequence(kp))
                 val_y.append([0, 1] if kp in val_answer[key] else [1, 0])
 
-    logging.debug("Longest training document   : %s tokens" % len(max(train_q, key=len)))
-    logging.debug("Longest training answer     : %s tokens" % len(max(train_a, key=len)))
-    logging.debug("Longest test document       : %s tokens" % len(max(test_q, key=len)))
-    logging.debug("Longest test answer         : %s tokens" % len(max(test_a, key=len)))
+    logging.debug("Longest training document            : %s tokens" % len(max(train_q, key=len)))
+    logging.debug("Longest training answer              : %s tokens" % len(max(train_a, key=len)))
+    logging.debug("Longest test document                : %s tokens" % len(max(test_q, key=len)))
+    logging.debug("Longest test answer                  : %s tokens" % len(max(test_a, key=len)))
     if val_doc and val_answer:
-        logging.debug("Longest validation document : %s tokens" % len(max(val_q, key=len)))
-        logging.debug("Longest validation answer   : %s tokens" % len(max(val_a, key=len)))
+        logging.debug("Longest validation document          : %s tokens" % len(max(val_q, key=len)))
+        logging.debug("Longest validation answer            : %s tokens" % len(max(val_a, key=len)))
+        logging.debug("Longest balanced validation document : %s tokens" % len(max(val_q, key=len)))
+        logging.debug("Longest balanced validation answer   : %s tokens" % len(max(val_a, key=len)))
 
     train_q = np.asarray(pad_sequences(train_q, maxlen=max_document_length, padding='post', truncating='post'))
     train_a = np.asarray(pad_sequences(train_a, maxlen=max_answer_length, padding='post', truncating='post'))
@@ -265,15 +300,19 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
     if val_doc and val_answer:
         val_q = np.asarray(pad_sequences(val_q, maxlen=max_document_length, padding='post', truncating='post'))
         val_a = np.asarray(pad_sequences(val_a, maxlen=max_answer_length, padding='post', truncating='post'))
+        val_q_balanced = np.asarray(pad_sequences(val_q_balanced, maxlen=max_document_length, padding='post', truncating='post'))
+        val_a_balanced = np.asarray(pad_sequences(val_a_balanced, maxlen=max_answer_length, padding='post', truncating='post'))
 
-    logging.debug("Training set documents size   : %s", np.shape(train_q))
-    logging.debug("Training set answers size     : %s", np.shape(train_a))
-    logging.debug("Test set documents size       : %s", np.shape(test_q))
-    logging.debug("Test set answers size         : %s ", np.shape(test_a))
+    logging.debug("Training set documents size            : %s", np.shape(train_q))
+    logging.debug("Training set answers size              : %s", np.shape(train_a))
+    logging.debug("Test set documents size                : %s", np.shape(test_q))
+    logging.debug("Test set answers size                  : %s ", np.shape(test_a))
 
     if val_doc and val_answer:
-        logging.debug("Validation set documents size : %s", np.shape(val_q))
-        logging.debug("Validation set answers size   : %s ", np.shape(val_a))
+        logging.debug("Validation set documents size          : %s", np.shape(val_q))
+        logging.debug("Validation set answers size            : %s ", np.shape(val_a))
+        logging.debug("Balanced Validation set documents size : %s", np.shape(val_q_balanced))
+        logging.debug("Balanced Validation set answers size   : %s ", np.shape(val_a_balanced))
 
     # prepare the matrix for the embedding layer
     word_index = dictionary.word_index
@@ -292,7 +331,8 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
             # words not found in embedding index will be all-zeros.
             embedding_matrix[i] = embedding_vector
 
-    return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, embedding_matrix, dictionary
+    return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, \
+           [val_q_balanced, val_a_balanced], val_y_balanced, embedding_matrix, dictionary
 
 
 def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, val_answer,

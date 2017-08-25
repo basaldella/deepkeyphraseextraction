@@ -23,7 +23,7 @@ rn.seed(7331)
 
 import logging
 
-from keras import layers
+from keras import layers, regularizers
 from keras.models import Model, load_model
 
 from data.datasets import *
@@ -46,7 +46,7 @@ info.log_versions()
 SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn2.h5"
 SHOW_PLOTS = True
-SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
+SAMPLE_SIZE = 1000  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 10.  # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
@@ -71,10 +71,10 @@ elif DATASET == Hulth:
     MAX_DOCUMENT_LENGTH = 554
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
-    EMBEDDINGS_SIZE = 50
-    BATCH_SIZE = 128
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 512
-    EPOCHS = 5
+    EPOCHS = 40
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -118,7 +118,7 @@ logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_a
 
 logging.info("Candidates generated. Preprocessing data...")
 
-train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix, dictionary = preprocessing. \
+train_x, train_y, test_x, test_y, val_x, val_y, val_x_b, val_y_b, embedding_matrix, dictionary = preprocessing. \
     prepare_answer_2(train_doc, train_answer, train_candidates,
                      test_doc, test_answer, test_candidates,
                      val_doc, val_answer, val_candidates,
@@ -129,9 +129,9 @@ train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix, dictionary = p
 
 # Finalize the ys: remove one-hot
 
-train_y = np.argmax(train_y, axis=1)
-test_y = np.argmax(test_y, axis=1)
-val_y = np.argmax(val_y, axis=1)
+#train_y = np.argmax(train_y, axis=1)
+#test_y = np.argmax(test_y, axis=1)
+#val_y = np.argmax(val_y, axis=1)
 
 logging.info("Data preprocessing complete.")
 
@@ -146,7 +146,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
         train_x_doc_sample = np.zeros((SAMPLE_SIZE, MAX_DOCUMENT_LENGTH))
         train_x_answer_sample = np.zeros((SAMPLE_SIZE, MAX_ANSWER_LENGTH))
-        train_y_sample = np.zeros((SAMPLE_SIZE))
+
+        shape_y = list(np.shape(train_y))
+        shape_y[0] = SAMPLE_SIZE
+
+        train_y_sample = np.zeros(tuple(shape_y))
 
         i = 0
         for j in samples_indices:
@@ -193,18 +197,18 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                     return_sequences=True))\
         (encoded_document)
 
-    encoded_document = layers.Conv1D(filters=32, kernel_size=32, strides=4)(encoded_document)
+    encoded_document = layers.Conv1D(filters=32, kernel_size=32, strides=4, activation='relu')(encoded_document)
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
-    encoded_document = layers.Conv1D(filters=32, kernel_size=8, strides=2)(encoded_document)
+    encoded_document = layers.Conv1D(filters=32, kernel_size=8, strides=2, activation='relu')(encoded_document)
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
-    encoded_document = layers.Conv1D(filters=32, kernel_size=4, strides=1)(encoded_document)
+    encoded_document = layers.Conv1D(filters=32, kernel_size=4, strides=1, activation='relu')(encoded_document)
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
     encoded_document = layers.Flatten()(encoded_document)
 
-    print((Model(document, encoded_document)).summary())
+    #print((Model(document, encoded_document)).summary())
 
     candidate = layers.Input(shape=(MAX_ANSWER_LENGTH,))
     encoded_candidate = layers.Embedding(np.shape(embedding_matrix)[0],
@@ -218,25 +222,35 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                     recurrent_activation='hard_sigmoid',
                     return_sequences=True))\
         (encoded_candidate)
-    encoded_candidate = layers.Conv1D(filters=32, kernel_size=2)(encoded_candidate)
+    encoded_candidate = layers.Conv1D(filters=32, kernel_size=2, activation='relu')(encoded_candidate)
     encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)
-    encoded_candidate = layers.Activation('tanh')(encoded_candidate)
+    encoded_candidate = layers.Activation('relu')(encoded_candidate)
     encoded_candidate = layers.Flatten()(encoded_candidate)
-    print((Model(candidate, encoded_candidate)).summary())
+    #print((Model(candidate, encoded_candidate)).summary())
 
-    prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
+    #prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
+
+    #model = Model([document, candidate], prediction)
+
+    #logging.info("Compiling the network...")
+    #model.compile(loss=cos_distance, optimizer='rmsprop', metrics=['accuracy'])
+
+    merged = layers.add([encoded_document, encoded_candidate])
+    prediction = layers.Dense(int(EMBEDDINGS_SIZE / 4), activation='relu',kernel_regularizer=regularizers.l2(0.01))(merged)
+    prediction = layers.Dropout(0.25)(prediction)
+    prediction = layers.Dense(2, activation='softmax')(prediction)
 
     model = Model([document, candidate], prediction)
 
     logging.info("Compiling the network...")
-    model.compile(loss=cos_distance, optimizer='rmsprop', metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
     print(model.summary())
 
     metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y, batch_size=PREDICT_BATCH_SIZE)
 
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
-                        validation_data=(val_x, val_y),
+                        validation_data=(val_x_b, val_y_b),
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
                         class_weight=class_weights,
