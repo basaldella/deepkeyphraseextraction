@@ -71,10 +71,10 @@ elif DATASET == Hulth:
     MAX_DOCUMENT_LENGTH = 554
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
-    EMBEDDINGS_SIZE = 300
+    EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 2048
-    EPOCHS = 94
+    EPOCHS = 143
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -198,13 +198,20 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     #                return_sequences=True))\
     #    (encoded_document)
 
-    encoded_document = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_document)
-    # Size: 131
+    # Size: 554
+
+    encoded_document = layers.Conv1D(filters=128, kernel_size=16, strides=2, activation='relu')(encoded_document)
+    # Size: 270
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
-    # Size: 65
-    encoded_document = layers.Conv1D(filters=128, kernel_size=8, strides=2, activation='relu')(encoded_document)
-    # Size: 29
+    # Size: 135
+    encoded_document = layers.Conv1D(filters=128, kernel_size=16, strides=2, activation='relu')(encoded_document)
+    # Size: 60
+    encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
+    encoded_document = layers.Activation('relu')(encoded_document)
+    # Size: 30
+    encoded_document = layers.Conv1D(filters=128, kernel_size=4, strides=1, activation='relu')(encoded_document)
+    # Size: 27
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
     # Size: 14
@@ -215,7 +222,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     # Size: 5
     encoded_document = layers.Flatten()(encoded_document)
 
-    #print((Model(document, encoded_document)).summary())
+    print((Model(document, encoded_document)).summary())
 
     candidate = layers.Input(shape=(MAX_ANSWER_LENGTH,))
     encoded_candidate = layers.Embedding(np.shape(embedding_matrix)[0],
