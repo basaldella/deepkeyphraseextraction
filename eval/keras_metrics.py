@@ -117,7 +117,8 @@ def keras_precision(y_true,y_pred) :
             else :
                 false_positives += 1
 
-    return (1.0 * true_positives) / (true_positives + false_positives)
+    return (1.0 * true_positives) / (true_positives + false_positives) \
+        if true_positives + false_positives > 0 else 0
 
 def keras_recall(y_true,y_pred) :
 

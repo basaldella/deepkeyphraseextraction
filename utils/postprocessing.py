@@ -1,6 +1,6 @@
 import itertools
 import numpy as np
-from nlp import chunker
+from nlp import chunker, cleaner
 
 
 def undo_sequential(output):
@@ -53,7 +53,7 @@ def get_valid_patterns(answer_set):
     Remove the answers from a set that do NOT match the keyphrase part-of-speech patterns.
 
     :param answer_set: a dictionary of documents and tokenized keyphrases
-    :return: a dicionary of documents and tokenized keyphrases that match the part-of-speech patterns
+    :return: a dictionary of documents and tokenized keyphrases that match the part-of-speech patterns
     """
 
     doc_filtered = {}
@@ -70,6 +70,32 @@ def get_valid_patterns(answer_set):
         doc_filtered[doc] = filtered_keyphrases
 
     return doc_filtered
+
+
+def clean_answers(answer_set):
+    """
+    Cleans the keyphrases by removing the tokens that are not PoS tagged with the allowed tags.
+
+    :param answer_set: a dictionary of documents and tokenized keyphrases
+    :return: a dictionary of documents and their cleaned tokenized keyphrases
+    """
+    doc_filtered = {}
+
+    for doc, kps in answer_set.items():
+        filtered_keyphrases = []
+        for kp in kps:
+            clean_kp = cleaner.clean_tokens(kp)
+            if clean_kp:
+                filtered_keyphrases.append(clean_kp)
+
+        # remove duplicates
+        filtered_keyphrases.sort()
+        filtered_keyphrases = list(w for w, _ in itertools.groupby(filtered_keyphrases))
+        doc_filtered[doc] = filtered_keyphrases
+
+    return doc_filtered
+
+
 
 
 def get_answers(candidate_tokens,predict_set,predict_result,dictionary):

@@ -8,7 +8,7 @@ import random as rn
 # https://github.com/fchollet/keras/issues/2280#issuecomment-306959926
 
 import os
-os.environ['PYTHONHASHSEED'] = '01'
+os.environ['PYTHONHASHSEED'] = '0'
 
 # The below is necessary for starting Numpy generated random numbers
 # in a well-defined initial state.
@@ -69,7 +69,7 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
-    EPOCHS = 20
+    EPOCHS = 16
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -216,7 +216,7 @@ print("### Recall    : %.4f" % keras_recall)
 print("### F1        : %.4f" % keras_f1)
 print("###                       ###")
 
-clean_words = postprocessing.get_valid_patterns(obtained_words)
+clean_words = postprocessing.clean_answers(obtained_words)
 
 precision = metrics.precision(test_answer,clean_words)
 recall = metrics.recall(test_answer,clean_words)

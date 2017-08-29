@@ -18,7 +18,7 @@ noun_phrase_grammar = r"""
 
 hulth_grammar = r"""
     NBAR:
-        {<NN.*|JJ>*<NN.*|VBG>}  # Nouns and Adjectives, terminated with Nouns or -ing verbs
+        {<NN.*|JJ.*>*<NN.*|VBG>}  # Nouns and Adjectives, terminated with Nouns or -ing verbs
 
     VBPART:
         {<VBG|VBP><NBAR>}       # Verb in participle from, then nouns
