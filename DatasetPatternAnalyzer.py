@@ -18,7 +18,7 @@ info.log_versions()
 # END LOGGING CONFIGURATION
 
 DATASET = Hulth
-PRINT_PATTERNS = False
+PRINT_PATTERNS = True
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk

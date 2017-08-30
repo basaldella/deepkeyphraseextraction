@@ -44,7 +44,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/simplernn.h5"
 SHOW_PLOTS = True
 
@@ -52,7 +52,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Marujo2012
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -66,6 +66,14 @@ elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Hulth2003"
     MAX_DOCUMENT_LENGTH = 550
+    MAX_VOCABULARY_SIZE = 20000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 32
+    EPOCHS = 10
+elif DATASET == Marujo2012:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Marujo2012"
+    MAX_DOCUMENT_LENGTH = 7000
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
@@ -86,7 +94,11 @@ val_doc_str, val_answer_str = data.load_validation()
 
 train_doc, train_answer = tk.tokenize_set(train_doc_str,train_answer_str,tokenizer)
 test_doc, test_answer = tk.tokenize_set(test_doc_str,test_answer_str,tokenizer)
-val_doc, val_answer = tk.tokenize_set(val_doc_str,val_answer_str,tokenizer)
+if val_doc_str and val_answer_str:
+    val_doc, val_answer = tk.tokenize_set(val_doc_str,val_answer_str,tokenizer)
+else:
+    val_doc = None
+    val_answer = None
 
 # Sanity check
 # logging.info("Sanity check: %s",metrics.precision(test_answer,test_answer))
@@ -137,7 +149,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
-                        validation_data=(val_x,val_y),
+                        validation_data=(val_x,val_y) if val_x and val_y else None,
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
                         sample_weight=train_y_weights,

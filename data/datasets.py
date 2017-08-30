@@ -118,7 +118,8 @@ class Dataset(object):
         if not self.validation_answers:
             self.validation_answers = self._load_validation_answers()
 
-        assert (len(self.validation_documents) == len(self.validation_answers)), \
+        assert (not self.validation_answers and not self.validation_answers) or \
+            (len(self.validation_documents) == len(self.validation_answers)), \
             "You have not enough (or too many) validation answers for your documents!"
 
         logging.debug("Loaded validation set for dataset %s" % self.name)
@@ -298,3 +299,81 @@ class Semeval2017(Dataset):
 
     def _load_validation_answers(self):
         return self.__load_answers("dev/dev")
+
+
+class Marujo2012(Dataset):
+    """
+    Dataset from Luís Marujo et al: "Supervised Topical Key Phrase Extraction of News Stories
+    using Crowdsourcing, Light Filtering and Co-reference Normalization"
+
+    Full text here: http://www.cs.cmu.edu/~lmarujo/publications/lmarujo_LREC_2012.pdf
+    """
+
+    def __init__(self, path):
+        super().__init__("Marujo, 2012", path)
+
+    def __load_documents(self, folder):
+        """
+        Loads the documents in the .abstr files contained
+        in the specified folder and puts them in a dictionary
+        indexed by document id (i.e. the filename without the
+        extension).
+
+        :param folder: the folder containing the documents
+        :return: a dictionary with the documents
+        """
+
+        # This dictionary will contain the documents
+        documents = {}
+
+        for doc in os.listdir("%s/%s" % (self.path, folder)):
+            if doc.endswith(".txt"):
+                content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
+                documents[doc[:doc.find('.')]] = content
+
+        return documents
+
+    def __load_answers(self, folder):
+        """
+        Loads the answers contained in the .contr and .uncontr files
+        and puts them in a dictionary indexed by document ID
+        (i.e. the document name without the extension)
+        :param folder: the folder containing the answer files
+        :return: a dictionary with the answers
+        """
+
+        # This dictionary will contain the answers
+        answers = {}
+
+        for doc in os.listdir("%s/%s" % (self.path, folder)):
+            if doc.endswith(".key"):
+                content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
+                retrieved_answers = content.split('\n')
+                doc_id = doc[:doc.find('.')]
+                for answer in retrieved_answers:
+                    answer = answer.strip()
+                    if len(answer) > 0:
+                        if doc_id not in answers:
+                            answers[doc_id] = [answer]
+                        else:
+                            answers[doc_id].append(answer)
+
+        return answers
+
+    def _load_test_documents(self):
+        return self.__load_documents("CorpusAndCrowdsourcingAnnotations/test")
+
+    def _load_train_documents(self):
+        return self.__load_documents("CorpusAndCrowdsourcingAnnotations/train")
+
+    def _load_validation_documents(self):
+        return None
+
+    def _load_test_answers(self):
+        return self.__load_answers("CorpusAndCrowdsourcingAnnotations/test")
+
+    def _load_train_answers(self):
+        return self.__load_answers("CorpusAndCrowdsourcingAnnotations/train")
+
+    def _load_validation_answers(self):
+        return None
