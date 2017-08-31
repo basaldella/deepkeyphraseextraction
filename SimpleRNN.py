@@ -62,6 +62,7 @@ if DATASET == Semeval2017:
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 32
     EPOCHS = 10
+    KP_WEIGHT = 10
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Hulth2003"
@@ -70,14 +71,16 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
     EPOCHS = 10
+    KP_WEIGHT = 10
 elif DATASET == Marujo2012:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Marujo2012"
     MAX_DOCUMENT_LENGTH = 7000
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 32
+    BATCH_SIZE = 16
     EPOCHS = 10
+    KP_WEIGHT = 10
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -94,11 +97,7 @@ val_doc_str, val_answer_str = data.load_validation()
 
 train_doc, train_answer = tk.tokenize_set(train_doc_str,train_answer_str,tokenizer)
 test_doc, test_answer = tk.tokenize_set(test_doc_str,test_answer_str,tokenizer)
-if val_doc_str and val_answer_str:
-    val_doc, val_answer = tk.tokenize_set(val_doc_str,val_answer_str,tokenizer)
-else:
-    val_doc = None
-    val_answer = None
+val_doc, val_answer = tk.tokenize_set(val_doc_str,val_answer_str,tokenizer)
 
 # Sanity check
 # logging.info("Sanity check: %s",metrics.precision(test_answer,test_answer))
@@ -114,7 +113,7 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
 train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
-train_y_weights[train_y_weights > 0] = 10
+train_y_weights[train_y_weights > 0] = KP_WEIGHT
 train_y_weights[train_y_weights < 1] = 1
 
 logging.info("Data preprocessing complete.")
@@ -148,12 +147,15 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
     metrics_callback = keras_metrics.MetricsCallback(val_x,val_y)
 
     logging.info("Fitting the network...")
+
+
     history = model.fit(train_x, train_y,
-                        validation_data=(val_x,val_y) if val_x and val_y else None,
+                        validation_data=(val_x,val_y),
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
                         sample_weight=train_y_weights,
                         callbacks=[metrics_callback])
+
 
     if SHOW_PLOTS :
         plots.plot_accuracy(history)

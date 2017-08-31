@@ -367,7 +367,7 @@ class Marujo2012(Dataset):
         return self.__load_documents("CorpusAndCrowdsourcingAnnotations/train")
 
     def _load_validation_documents(self):
-        return None
+        return self.__load_documents("CorpusAndCrowdsourcingAnnotations/validation")
 
     def _load_test_answers(self):
         return self.__load_answers("CorpusAndCrowdsourcingAnnotations/test")
@@ -376,4 +376,4 @@ class Marujo2012(Dataset):
         return self.__load_answers("CorpusAndCrowdsourcingAnnotations/train")
 
     def _load_validation_answers(self):
-        return None
+        return self.__load_answers("CorpusAndCrowdsourcingAnnotations/validation")
