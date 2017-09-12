@@ -8,7 +8,7 @@ import random as rn
 # https://github.com/fchollet/keras/issues/2280#issuecomment-306959926
 
 import os
-os.environ['PYTHONHASHSEED'] = '01'
+#os.environ['PYTHONHASHSEED'] = '0'
 
 # The below is necessary for starting Numpy generated random numbers
 # in a well-defined initial state.
@@ -52,7 +52,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Marujo2012
+DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -77,7 +77,7 @@ elif DATASET == Marujo2012:
     DATASET_FOLDER = "data/Marujo2012"
     MAX_DOCUMENT_LENGTH = 7000
     MAX_VOCABULARY_SIZE = 20000
-    EMBEDDINGS_SIZE = 300
+    EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 16
     EPOCHS = 10
     KP_WEIGHT = 10
@@ -148,14 +148,12 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
     logging.info("Fitting the network...")
 
-
     history = model.fit(train_x, train_y,
                         validation_data=(val_x,val_y),
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
                         sample_weight=train_y_weights,
                         callbacks=[metrics_callback])
-
 
     if SHOW_PLOTS :
         plots.plot_accuracy(history)
