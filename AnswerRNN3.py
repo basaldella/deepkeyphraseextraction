@@ -72,7 +72,7 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
     EMBEDDINGS_SIZE = 50
-    BATCH_SIZE = 256
+    BATCH_SIZE = 512
     PREDICT_BATCH_SIZE = 2048
     EPOCHS = 143
 else:
@@ -191,12 +191,12 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     # You can convince yourself that the correct formula for calculating how many neurons “fit” is given by ((W−F+2P)/S)+1.
 
 
-    #encoded_document = layers.Bidirectional(
-    #    layers.LSTM(int(EMBEDDINGS_SIZE),
-    #                activation='hard_sigmoid',
-    #                recurrent_activation='hard_sigmoid',
-    #                return_sequences=True))\
-    #    (encoded_document)
+    encoded_document = layers.Bidirectional(
+        layers.LSTM(int(EMBEDDINGS_SIZE/2),
+                    activation='tanh',
+                    recurrent_activation='tanh',
+                    return_sequences=True))\
+        (encoded_document)
 
     # Size: 554
 
@@ -230,12 +230,12 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                          weights=[embedding_matrix],
                                          input_length=MAX_ANSWER_LENGTH,
                                          trainable=False)(candidate)
-    #encoded_candidate = layers.Bidirectional(
-    #    layers.LSTM(int(EMBEDDINGS_SIZE),
-    #                activation='hard_sigmoid',
-    #                recurrent_activation='hard_sigmoid',
-    #                return_sequences=True))\
-    #    (encoded_candidate)
+    encoded_candidate = layers.Bidirectional(
+        layers.LSTM(int(EMBEDDINGS_SIZE/2),
+                    activation='tanh',
+                    recurrent_activation='tanh',
+                    return_sequences=True))\
+        (encoded_candidate)
     encoded_candidate = layers.Conv1D(filters=128, kernel_size=2, activation='relu')(encoded_candidate)
     encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)
     encoded_candidate = layers.Activation('relu')(encoded_candidate)
