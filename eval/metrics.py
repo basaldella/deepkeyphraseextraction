@@ -1,6 +1,7 @@
 import logging
+from nltk.stem import *
 
-def precision(reference,obtained):
+def precision(reference,obtained,stem=False):
 
     true_positives = 0
     false_positives = 0
@@ -11,10 +12,20 @@ def precision(reference,obtained):
         reference_kps = []
 
         for ref_tokens in reference_kps_tokens:
+
+            if stem:
+                stemmer = PorterStemmer()
+                ref_tokens = [stemmer.stem(token) for token in ref_tokens]
+
             reference_kp = ' '.join(ref_tokens)
             reference_kps.append(reference_kp.lower())
 
         for obt_tokens in obtained_kps_tokens:
+
+            if stem:
+                stemmer = PorterStemmer()
+                obt_tokens = [stemmer.stem(token) for token in obt_tokens]
+
             obt_string = ' '.join(obt_tokens)
             if obt_string.lower() in reference_kps:
                 true_positives += 1
@@ -24,7 +35,7 @@ def precision(reference,obtained):
     return (true_positives * 1.0) / (true_positives + false_positives) if true_positives + false_positives > 0 else 0
 
 
-def recall(reference,obtained):
+def recall(reference,obtained,stem=False):
 
     true_positives = 0
     total_reference = sum(len(kps) for doc,kps in reference.items())
@@ -35,10 +46,20 @@ def recall(reference,obtained):
         reference_kps = []
 
         for ref_tokens in reference_kps_tokens:
+
+            if stem:
+                stemmer = PorterStemmer()
+                ref_tokens = [stemmer.stem(token) for token in ref_tokens]
+
             reference_kp = ' '.join(ref_tokens)
             reference_kps.append(reference_kp)
 
         for obt_tokens in obtained_kps_tokens:
+
+            if stem:
+                stemmer = PorterStemmer()
+                obt_tokens = [stemmer.stem(token) for token in obt_tokens]
+
             obt_string = ' '.join(obt_tokens)
             if obt_string in reference_kps:
                 true_positives += 1
