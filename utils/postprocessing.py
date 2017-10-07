@@ -48,6 +48,75 @@ def get_words(docs, selections):
     return obtained_words
 
 
+def get_top_words(docs,output,words_limit):
+    """
+    Gets the selected words in the provided documents.
+
+    :param docs: the document to analyze
+    :param output: the output of the network
+    :param words_limit: how many words to extract
+    :return: a dictionary with the documents and for each a list of
+    the selected words
+    """
+
+    selections = undo_sequential(output)
+
+    i = 0
+    obtained_words = {}
+    for doc, words in docs.items():
+        k = 0
+        obtained_words_doc = []
+        obtained_words_weights = []
+        in_word = False
+        for token in selections[i]:
+            if token == 1 and k < len(words):
+                obtained_words_doc.append([words[k]])
+                obtained_words_weights.append(output[i,k,1])
+                in_word = True
+            elif token == 2 and k < len(words) and in_word:
+                obtained_words_doc[len(obtained_words_doc) - 1].append(words[k])
+                obtained_words_weights[len(obtained_words_weights) - 1] = \
+                    obtained_words_weights[len(obtained_words_weights) - 1] + \
+                    ((output[i,k,2] - obtained_words_weights[len(obtained_words_weights) - 1]) /
+                     (len(obtained_words_doc[len(obtained_words_doc) - 1])))
+
+                # We calculate the average at the nth step this way:
+                # If A_i is the average at the ith step and x_i is the ith item of the sequence, then
+                # A_k = A_{k-1} + ((x_k - A_{k-1}) / k)
+
+            else:
+                in_word = False
+            k += 1
+
+        if words_limit < len(obtained_words_doc):
+            # there are more selections than the limit! cut them
+
+            obtained_words_and_scores = {}
+            for index, words in enumerate(obtained_words_doc):
+                obtained_words_and_scores[index] = obtained_words_weights[index]
+
+            sorted_words = sorted(obtained_words_and_scores, key=obtained_words_and_scores.__getitem__,reverse=True)
+
+
+            ok_obtained_words = []
+            cur_word = 0
+            while len(ok_obtained_words) < words_limit and cur_word < len(sorted_words):
+                if obtained_words_doc[sorted_words[cur_word]] not in ok_obtained_words:
+                    ok_obtained_words.append(obtained_words_doc[sorted_words[cur_word]])
+                cur_word += 1
+            obtained_words_doc = ok_obtained_words
+
+        else:
+            # just remove duplicate selections
+            obtained_words_doc.sort()
+            obtained_words_doc = list(w for w, _ in itertools.groupby(obtained_words_doc))
+
+        obtained_words[doc] = obtained_words_doc
+        i += 1
+
+    return obtained_words
+
+
 def get_valid_patterns(answer_set):
     """
     Remove the answers from a set that do NOT match the keyphrase part-of-speech patterns.

@@ -44,7 +44,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/simplernn.h5"
 SHOW_PLOTS = True
 
@@ -61,7 +61,7 @@ if DATASET == Semeval2017:
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 32
-    EPOCHS = 10
+    EPOCHS = 30
     KP_WEIGHT = 10
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
@@ -216,8 +216,70 @@ print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
 print("###                       ###")
 
+
+obtained_words_top = postprocessing.get_top_words(test_doc,output,5)
+
+precision_top = metrics.precision(test_answer,obtained_words_top)
+recall_top = metrics.recall(test_answer,obtained_words_top)
+f1_top = metrics.f1(precision_top,recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 5) ###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc,output,10)
+
+precision_top = metrics.precision(test_answer,obtained_words_top)
+recall_top = metrics.recall(test_answer,obtained_words_top)
+f1_top = metrics.f1(precision_top,recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 10)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc,output,15)
+
+precision_top = metrics.precision(test_answer,obtained_words_top)
+recall_top = metrics.recall(test_answer,obtained_words_top)
+f1_top = metrics.f1(precision_top,recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 15)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+
 if DATASET == Semeval2017:
+
+    print("### SEMEVAL ANNOTATOR ###")
+    print("###        All        ###")
+
     from eval import anno_generator
     anno_generator.write_anno("/tmp/simplernn",test_doc_str,obtained_words)
     from data.Semeval2017 import eval
-    eval.calculateMeasures("data/Semeval2017/test","/tmp/simplernn",remove_anno=["types"])
+    eval.calculateMeasures("data/Semeval2017/test","/tmp/simplernn-all",remove_anno=["types"])
+
+    print("###     Filtered      ###")
+    anno_generator.write_anno("/tmp/simplernn-clean", test_doc_str, clean_words)
+    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn-clean", remove_anno=["types"])
+
+    print("###      Top 15       ###")
+    anno_generator.write_anno("/tmp/simplernn-15", test_doc_str, obtained_words_top)
+    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn-15", remove_anno=["types"])
+
+    print("###  Top 15 Filtered  ###")
+    clean_words = postprocessing.get_valid_patterns(obtained_words_top)
+
+    anno_generator.write_anno("/tmp/simplernn-15-clean", test_doc_str, clean_words)
+    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn-15-clean", remove_anno=["types"])

@@ -74,7 +74,7 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 512
     PREDICT_BATCH_SIZE = 2048
-    EPOCHS = 143
+    EPOCHS = 30 # 143
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
