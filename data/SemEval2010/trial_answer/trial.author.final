@@ -1,0 +1,40 @@
+C-41 : distribute real-time embed system,hybrid system,quality of service+service quality
+C-42 : reservoir model,energy exploration,enkf,tigre,and gridway
+C-44 : wireless sensor network,localization,node sequence process
+C-45 : wireless sensor network,localization
+C-46 : wireless sensor network,archival storage,index method
+C-48 : dim,multi-dimensional range query
+C-49 : opportunistic network,route,simulation
+C-50 : search and rescue,sensor network
+C-52 : distribute multi-player game,fairness,dead-reckon,clock synchronization,network delay
+C-53 : distribute multi-player game,continuous replicate application,consistency,dead-reckon,local lag
+H-35 : information retrieval,learn to rank,boost
+H-37 : support vector machine,spam filter,blog,splog
+H-38 : random graph,pagerank,diffusionrank
+H-40 : cross-language information retrieval,query log,query translation,query suggestion,query expansion
+H-41 : rank,pagerank,hit,bm25f,mrr,map,ndcg
+H-42 : ir evaluation,trec,social network analysis,kleinberg' hit algorithm
+H-43 : link structure,text content,factor analysis,matrix factorization
+H-44 : temporal text index,time-travel text search,web archive
+H-45 : web search,query performance prediction,query classification
+H-46 : expertise search,expert find,intranet search,language model
+I-37 : multiagent learn,distribute machine learn,framework and architecture,unsupervise cluster
+I-38 : combinatorial auction,coordination,task and resource allocation
+I-42 : distribute constraint satisfaction and optimization,multi-agent coordination
+I-43 : control,multi-agent system,robotic,target dynamics,dynamics base control
+I-45 : commitment machine,agent interaction,agent orient program language,belief desire intention,bdi
+I-46 : open computational system,temporal and strategic logic,model methodology,model check
+I-47 : social interaction,software connector,operational semantics
+I-48 : normative system,goal,logic,game,complexity
+I-49 : automate negotiation,negotiation strategy,multi-criterion decision make
+I-50 : multi-agent system,temporal logic,plausibility,belief
+J-33 : auction,multiattribute auction
+J-34 : computational finance,market microstructure
+J-35 : game theory,p2p network,scrip system
+J-36 : game theory,information acquisition,socratic game,nash equilibrium,correlate equilibrium,algorithm
+J-37 : game theory,sequential game of imperfect information,automate abstraction,equilibrium find,computer poker
+J-38 : coalitional game theory,multi-attribute model,compact representation
+J-39 : online auction,option,proxy bid,sequential auction problem,ebay
+J-40 : game theory,evolutionary stable strategy,network
+J-41 : sponsor search,search engine,slot allocation,auction theory,rank by bid,rank by revenue
+J-42 : e-commerce,recommender system,viral market

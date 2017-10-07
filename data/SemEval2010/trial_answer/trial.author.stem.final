@@ -1,0 +1,40 @@
+C-41 : distribut real-time emb system,hybrid system,qualiti of servic+servic qualiti
+C-42 : reservoir model,energi explor,enkf,tigr,and gridwai
+C-44 : wireless sensor network,local,node sequenc process
+C-45 : wireless sensor network,local
+C-46 : wireless sensor network,archiv storag,index method
+C-48 : dim,multi-dimension rang queri
+C-49 : opportunist network,rout,simul
+C-50 : search and rescu,sensor network
+C-52 : distribut multi-player game,fair,dead-reckon,clock synchron,network delai
+C-53 : distribut multi-player game,continu replic applic,consist,dead-reckon,local lag
+H-35 : inform retriev,learn to rank,boost
+H-37 : support vector machin,spam filter,blog,splog
+H-38 : random graph,pagerank,diffusionrank
+H-40 : cross-languag inform retriev,queri log,queri translat,queri suggest,queri expans
+H-41 : rank,pagerank,hit,bm25f,mrr,map,ndcg
+H-42 : ir evalu,trec,social network analysi,kleinberg' hit algorithm
+H-43 : link structur,text content,factor analysi,matrix factor
+H-44 : tempor text index,time-travel text search,web archiv
+H-45 : web search,queri perform predict,queri classif
+H-46 : expertis search,expert find,intranet search,languag model
+I-37 : multiag learn,distribut machin learn,framework and architectur,unsupervis cluster
+I-38 : combinatori auction,coordin,task and resourc alloc
+I-42 : distribut constraint satisfact and optim,multi-agent coordin
+I-43 : control,multi-agent system,robot,target dynam,dynam base control
+I-45 : commit machin,agent interact,agent orient program languag,belief desir intent,bdi
+I-46 : open comput system,tempor and strateg logic,model methodolog,model check
+I-47 : social interact,softwar connector,oper semant
+I-48 : norm system,goal,logic,game,complex
+I-49 : autom negoti,negoti strategi,multi-criterion decis make
+I-50 : multi-agent system,tempor logic,plausibl,belief
+J-33 : auction,multiattribut auction
+J-34 : comput financ,market microstructur
+J-35 : game theori,p2p network,scrip system
+J-36 : game theori,inform acquisit,socrat game,nash equilibrium,correl equilibrium,algorithm
+J-37 : game theori,sequenti game of imperfect inform,autom abstract,equilibrium find,comput poker
+J-38 : coalit game theori,multi-attribut model,compact represent
+J-39 : onlin auction,option,proxi bid,sequenti auction problem,ebai
+J-40 : game theori,evolutionari stabl strategi,network
+J-41 : sponsor search,search engin,slot alloc,auction theori,rank by bid,rank by revenu
+J-42 : e-commerc,recommend system,viral market

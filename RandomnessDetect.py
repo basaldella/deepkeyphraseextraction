@@ -169,7 +169,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
                         sample_weight=train_y_weights,
-                        callbacks=[metrics_callback])
+                        callbacks=[metrics_callback],
+                        shuffle=False)
 
     if SHOW_PLOTS :
         plots.plot_accuracy(history)
