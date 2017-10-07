@@ -377,3 +377,79 @@ class Marujo2012(Dataset):
 
     def _load_validation_answers(self):
         return self.__load_answers("CorpusAndCrowdsourcingAnnotations/validation")
+
+
+class Semeval2010(Dataset):
+    """
+    Dataset from the Semeval 2010 keyphrase extraction challenge.
+    """
+
+    def __init__(self, path):
+        super().__init__("Semeval 2010", path)
+
+    def __load_documents(self, folder):
+        """
+        Loads the documents in the .abstr files contained
+        in the specified folder and puts them in a dictionary
+        indexed by document id (i.e. the filename without the
+        extension).
+
+        :param folder: the folder containing the documents
+        :return: a dictionary with the documents
+        """
+
+        # This dictionary will contain the documents
+        documents = {}
+
+        for doc in os.listdir("%s/%s" % (self.path, folder)):
+            if doc.endswith(".txt.final"):
+                content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
+                documents[doc[:doc.find('.')]] = content
+
+        return documents
+
+    def __load_answers(self, fileName):
+        """
+        Loads the answers contained in the .contr and .uncontr files
+        and puts them in a dictionary indexed by document ID
+        (i.e. the document name without the extension)
+        :param folder: the folder containing the answer files
+        :return: a dictionary with the answers
+        """
+
+        # This dictionary will contain the answers
+        answers = {}
+
+        content = open("%s/%s" % (self.path,fileName), "r").read()
+        document_answers = content.split('\n')
+
+        for doc in document_answers:
+            doc_id = doc[:doc.find(' : ')]
+            retrieved_answers = (doc[doc.find(' : ')+3:]).split(',')
+            for answer in retrieved_answers:
+                answer = answer.strip()
+                if len(answer) > 0:
+                    if doc_id not in answers:
+                        answers[doc_id] = [answer]
+                    else:
+                        answers[doc_id].append(answer)
+
+        return answers
+
+    def _load_test_documents(self):
+        return self.__load_documents("test")
+
+    def _load_train_documents(self):
+        return self.__load_documents("train")
+
+    def _load_validation_documents(self):
+        return self.__load_documents("trial")
+
+    def _load_test_answers(self):
+        return self.__load_answers("test_answer/test.combined.stem.final")
+
+    def _load_train_answers(self):
+        return self.__load_answers("train_answer/train.combined.final")
+
+    def _load_validation_answers(self):
+        return self.__load_answers("trial_answer/trial.combined.final")
