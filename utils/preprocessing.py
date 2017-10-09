@@ -265,7 +265,7 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
                 val_a_balanced.append(dictionary.token_list_to_sequence(kp))
                 val_y_balanced.append([0, 1])
 
-    # for the other sets, just pick the auto-gennerated candidates
+    # for the other sets, just pick the auto-generated candidates
     for key, document in test_doc.items():
         doc_sequence = dictionary.token_list_to_sequence(document)
         for kp in test_candidates[key]:
@@ -338,7 +338,8 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
 def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, val_answer,
                        max_document_length=1000,
                        max_vocabulary_size=50000,
-                       embeddings_size=50):
+                       embeddings_size=50,
+                       stem_test = False):
     """
         Prepares a dataset for use by a sequential, categorical model.
 
@@ -352,12 +353,20 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, 
         :param max_vocabulary_size: the maximum size of the vocabulary to use
         (i.e. we keep only the top max_vocabulary_size words)
         :param embeddings_size: the size of the GLoVE embeddings to use
+        :param stem_test: set the value to True if the test set answers are stemmed
         :return: a tuple (train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix) containing the training,
         test and validation set, and an embedding matrix for an Embedding layer
         """
 
     train_answer_seq = make_sequential(train_doc, train_answer)
-    test_answer_seq = make_sequential(test_doc, test_answer)
+
+    if not stem_test:
+        test_answer_seq = make_sequential(test_doc, test_answer)
+    else:
+        import copy
+        stemmed_test_doc = copy.deepcopy(test_doc)
+        stemmed_test_doc = stem_dataset(stemmed_test_doc)
+        test_answer_seq = make_sequential(stemmed_test_doc,test_answer)
 
     # Prepare validation return data
     val_x = None
@@ -535,3 +544,15 @@ def make_categorical(x):
         i += 1
 
     return new_x
+
+
+def stem_dataset(dataset):
+
+    from nltk.stem import PorterStemmer
+    stemmer = PorterStemmer()
+
+    for key, tokens in dataset.items():
+        stemmed_tokens = [stemmer.stem(token) for token in tokens]
+        dataset[key] = stemmed_tokens
+
+    return dataset
