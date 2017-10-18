@@ -47,7 +47,7 @@ SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn2test.h5"
 SHOW_PLOTS = True
 SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
-KP_CLASS_WEIGHT = 10.  # weight of positives samples while training the model. NOTE: MUST be a float
+KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NOTE: MUST be a float
 
 # END GLOBAL VARIABLES
 
@@ -74,7 +74,7 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 2048
-    EPOCHS = 49
+    EPOCHS = 8
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 

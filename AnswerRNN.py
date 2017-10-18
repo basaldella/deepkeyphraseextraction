@@ -239,6 +239,51 @@ print("### Recall    : %.4f" % keras_recall)
 print("### F1        : %.4f" % keras_f1)
 print("###                       ###")
 
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,5)
+
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 5) ###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,10)
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 10)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,15)
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 15)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+
 if DATASET == Semeval2017:
     from eval import anno_generator
     anno_generator.write_anno("/tmp/simplernn",test_doc_str,obtained_words)
