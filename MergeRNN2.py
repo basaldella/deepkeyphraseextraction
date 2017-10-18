@@ -52,7 +52,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Marujo2012
+DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -69,7 +69,7 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
-    EPOCHS = 13
+    EPOCHS = 50
 elif DATASET == Marujo2012:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Marujo2012"
@@ -113,9 +113,14 @@ train_x,train_y,test_x,test_y,val_x,val_y,embedding_matrix = preprocessing.\
 
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
-train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
-train_y_weights[train_y_weights > 0] = 10
-train_y_weights[train_y_weights < 1] = 1
+#train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
+#train_y_weights[train_y_weights > 0] = 20
+#train_y_weights[train_y_weights < 1] = 1
+
+from sklearn.utils import class_weight
+train_y_weights = np.argmax(train_y, axis=2)
+train_y_weights = np.reshape(class_weight.compute_sample_weight('balanced', train_y_weights.flatten()),
+                             np.shape(train_y_weights))
 
 logging.info("Data preprocessing complete.")
 logging.info("Maximum possible recall: %s",
@@ -241,6 +246,48 @@ print("###")
 print("### Precision : %.4f" % precision)
 print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc, output, 5)
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 5) ###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc, output, 10)
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 10)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc, output, 15)
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 15)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
 print("###                       ###")
 
 if DATASET == Semeval2017:

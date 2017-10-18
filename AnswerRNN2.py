@@ -44,7 +44,7 @@ info.log_versions()
 # GLOBAL VARIABLES
 
 SAVE_MODEL = False
-MODEL_PATH = "models/answerrnn2.h5"
+MODEL_PATH = "models/answerrnn2test.h5"
 SHOW_PLOTS = True
 SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 10.  # weight of positives samples while training the model. NOTE: MUST be a float
@@ -68,13 +68,13 @@ if DATASET == Semeval2017:
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Hulth2003"
-    MAX_DOCUMENT_LENGTH = 554
+    MAX_DOCUMENT_LENGTH = 540
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
-    EMBEDDINGS_SIZE = 300
+    EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 2048
-    EPOCHS = 94
+    EPOCHS = 49
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -204,15 +204,16 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     encoded_document = layers.Activation('relu')(encoded_document)
     # Size: 65
     encoded_document = layers.Conv1D(filters=128, kernel_size=8, strides=2, activation='relu')(encoded_document)
-    # Size: 29
+    # # Size: 29
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
-    # Size: 14
+    # # Size: 14
     encoded_document = layers.Conv1D(filters=128, kernel_size=4, strides=1, activation='relu')(encoded_document)
-    # Size: 11
+    # # Size: 11
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
-    # Size: 5
+    # # Size: 5
+    #encoded_document = layers.TimeDistributed(layers.Dense(10, activation='softmax'))(encoded_document)
     encoded_document = layers.Flatten()(encoded_document)
 
     #print((Model(document, encoded_document)).summary())
@@ -305,6 +306,50 @@ print("### Precision : %.4f" % keras_precision)
 print("### Recall    : %.4f" % keras_recall)
 print("### F1        : %.4f" % keras_f1)
 print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,5)
+
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 5) ###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,10)
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 10)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,15)
+
+precision_top = metrics.precision(test_answer, obtained_words_top)
+recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 15)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
 
 if DATASET == Semeval2017:
     from eval import anno_generator

@@ -43,7 +43,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/answerrnn.h5"
 SHOW_PLOTS = False
 SAMPLE_SIZE = -1       # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
@@ -74,7 +74,7 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 128
     PREDICT_BATCH_SIZE = 256
-    EPOCHS = 4
+    EPOCHS = 8
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -157,10 +157,10 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                                         input_length=MAX_DOCUMENT_LENGTH,
                                         trainable=False)(document)
 
-    encoded_document = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE * 2),activation='tanh'))\
+    encoded_document = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE * 2),activation='tanh', recurrent_activation='hard_sigmoid'))\
         (encoded_document)
     encoded_document = layers.Dropout(0.25)(encoded_document)
-    encoded_document = layers.Dense(int(EMBEDDINGS_SIZE))\
+    encoded_document = layers.Dense(int(EMBEDDINGS_SIZE),activation='tanh')\
         (encoded_document)
 
     candidate = layers.Input(shape=(MAX_ANSWER_LENGTH,))
@@ -169,14 +169,14 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                                          weights=[embedding_matrix],
                                          input_length=MAX_ANSWER_LENGTH,
                                          trainable=False)(candidate)
-    encoded_candidate = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE),activation='tanh'))\
+    encoded_candidate = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE),activation='tanh', recurrent_activation='hard_sigmoid'))\
         (encoded_candidate)
     encoded_candidate = layers.Dropout(0.25)(encoded_candidate)
-    encoded_candidate = layers.Dense(int(EMBEDDINGS_SIZE))\
+    encoded_candidate = layers.Dense(int(EMBEDDINGS_SIZE),activation='tanh')\
         (encoded_candidate)
 
     merged = layers.add([encoded_document, encoded_candidate])
-    prediction = layers.Dense(int(EMBEDDINGS_SIZE / 4))(merged)
+    prediction = layers.Dense(int(EMBEDDINGS_SIZE / 4),activation='tanh')(merged)
     prediction = layers.Dropout(0.25)(prediction)
     prediction = layers.Dense(2, activation='softmax')(prediction)
 

@@ -44,9 +44,9 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/simplernn.h5"
-SHOW_PLOTS = True
+SHOW_PLOTS = False
 
 # END GLOBAL VARIABLES
 
@@ -72,7 +72,7 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
-    EPOCHS = 10
+    EPOCHS = 28
     KP_WEIGHT = 10
     STEM_MODE = metrics.stemMode.both
     STEM_TEST = False
@@ -94,8 +94,8 @@ elif DATASET == Semeval2010:
     MAX_VOCABULARY_SIZE = 50000
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 16
-    EPOCHS = 10
-    KP_WEIGHT = 10
+    EPOCHS = 40
+    KP_WEIGHT = 500
     STEM_MODE = metrics.stemMode.results
     STEM_TEST = True
 else:
@@ -129,9 +129,11 @@ train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix = preprocessing
 
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
-train_y_weights = np.argmax(train_y, axis=2)  # this removes the one-hot representation
-train_y_weights[train_y_weights > 0] = KP_WEIGHT
-train_y_weights[train_y_weights < 1] = 1
+from sklearn.utils import class_weight
+
+train_y_weights = np.argmax(train_y, axis=2)
+train_y_weights = np.reshape(class_weight.compute_sample_weight('balanced', train_y_weights.flatten()),
+                             np.shape(train_y_weights))
 
 logging.info("Data preprocessing complete.")
 logging.info("Maximum possible recall: %s",
@@ -151,7 +153,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                 trainable=False)
 
     model.add(embedding_layer)
-    model.add(Bidirectional(LSTM(150, activation='tanh', recurrent_activation='hard_sigmoid', return_sequences=True)))
+    model.add(Bidirectional(LSTM(300, activation='tanh', recurrent_activation='hard_sigmoid', return_sequences=True)))
     model.add(Dropout(0.25))
     model.add(TimeDistributed(Dense(150, activation='relu', kernel_regularizer=regularizers.l2(0.01))))
     model.add(Dropout(0.25))
@@ -194,8 +196,8 @@ logging.debug("Shape of output array: %s", np.shape(output))
 obtained_tokens = postprocessing.undo_sequential(output)
 obtained_words = postprocessing.get_words(test_doc, obtained_tokens)
 
-precision = metrics.precision(test_answer, obtained_words)
-recall = metrics.recall(test_answer, obtained_words)
+precision = metrics.precision(test_answer, obtained_words,STEM_MODE)
+recall = metrics.recall(test_answer, obtained_words,STEM_MODE)
 f1 = metrics.f1(precision, recall)
 
 print("###    Obtained Scores    ###")
@@ -220,8 +222,8 @@ print("###                       ###")
 
 clean_words = postprocessing.get_valid_patterns(obtained_words)
 
-precision = metrics.precision(test_answer, clean_words)
-recall = metrics.recall(test_answer, clean_words)
+precision = metrics.precision(test_answer, clean_words,STEM_MODE)
+recall = metrics.recall(test_answer, clean_words,STEM_MODE)
 f1 = metrics.f1(precision, recall)
 
 print("###    Obtained Scores    ###")
@@ -235,8 +237,8 @@ print("###                       ###")
 
 obtained_words_top = postprocessing.get_top_words(test_doc, output, 5)
 
-precision_top = metrics.precision(test_answer, obtained_words_top)
-recall_top = metrics.recall(test_answer, obtained_words_top)
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
@@ -249,8 +251,8 @@ print("###                       ###")
 
 obtained_words_top = postprocessing.get_top_words(test_doc, output, 10)
 
-precision_top = metrics.precision(test_answer, obtained_words_top)
-recall_top = metrics.recall(test_answer, obtained_words_top)
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
@@ -263,8 +265,8 @@ print("###                       ###")
 
 obtained_words_top = postprocessing.get_top_words(test_doc, output, 15)
 
-precision_top = metrics.precision(test_answer, obtained_words_top)
-recall_top = metrics.recall(test_answer, obtained_words_top)
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
