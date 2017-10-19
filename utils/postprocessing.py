@@ -243,8 +243,10 @@ def get_top_answers(candidate_tokens,predict_set,predict_result,dictionary,limit
 
             if predictions_flattened[i] == 1 :
                 answers[doc_id].append(candidate)
-            if np.shape(predict_result)[1] == 1:
-                scores[doc_id].append(predict_result[i][0])
+                if np.shape(predict_result)[1] == 1:
+                    scores[doc_id].append(predict_result[i][0])
+                else:
+                    scores[doc_id].append(predict_result[i][1])
 
             i += 1
 
