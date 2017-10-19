@@ -309,7 +309,6 @@ print("###                       ###")
 
 obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,5)
 
-
 precision_top = metrics.precision(test_answer, obtained_words_top)
 recall_top = metrics.recall(test_answer, obtained_words_top)
 f1_top = metrics.f1(precision_top, recall_top)
