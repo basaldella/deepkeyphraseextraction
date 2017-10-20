@@ -181,7 +181,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
 
     logging.info("Fitting the network...")
     history = model.fit([train_x,train_x], train_y,
-                        validation_data=([val_x,val_x],val_y) if val_x else None,
+                        validation_data=([val_x,val_x],val_y),
                         epochs=EPOCHS,
                         batch_size=BATCH_SIZE,
                         sample_weight=train_y_weights,
