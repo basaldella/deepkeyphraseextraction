@@ -46,7 +46,7 @@ info.log_versions()
 
 SAVE_MODEL = False
 MODEL_PATH = "models/mergernn2.h5"
-SHOW_PLOTS = True
+SHOW_PLOTS = False
 
 # END GLOBAL VARIABLES
 
@@ -69,7 +69,7 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
-    EPOCHS = 50
+    EPOCHS = 43
 elif DATASET == Marujo2012:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Marujo2012"
@@ -280,6 +280,96 @@ obtained_words_top = postprocessing.get_top_words(test_doc, output, 15)
 
 precision_top = metrics.precision(test_answer, obtained_words_top)
 recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 15)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+
+print("###                       ###")
+print("###                       ###")
+print("###       STEMMING        ###")
+print("###                       ###")
+print("###                       ###")
+
+STEM_MODE = metrics.stemMode.both
+
+precision = metrics.precision(test_answer, obtained_words,STEM_MODE)
+recall = metrics.recall(test_answer, obtained_words,STEM_MODE)
+f1 = metrics.f1(precision, recall)
+
+print("###    Obtained Scores    ###")
+print("###     (full dataset)    ###")
+print("###")
+print("### Precision : %.4f" % precision)
+print("### Recall    : %.4f" % recall)
+print("### F1        : %.4f" % f1)
+print("###                       ###")
+
+keras_precision = keras_metrics.keras_precision(test_y, output)
+keras_recall = keras_metrics.keras_recall(test_y, output)
+keras_f1 = keras_metrics.keras_f1(test_y, output)
+
+print("###    Obtained Scores    ###")
+print("###    (fixed dataset)    ###")
+print("###")
+print("### Precision : %.4f" % keras_precision)
+print("### Recall    : %.4f" % keras_recall)
+print("### F1        : %.4f" % keras_f1)
+print("###                       ###")
+
+clean_words = postprocessing.get_valid_patterns(obtained_words)
+
+precision = metrics.precision(test_answer, clean_words,STEM_MODE)
+recall = metrics.recall(test_answer, clean_words,STEM_MODE)
+f1 = metrics.f1(precision, recall)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset,        ###")
+print("###  pos patterns filter) ###")
+print("###")
+print("### Precision : %.4f" % precision)
+print("### Recall    : %.4f" % recall)
+print("### F1        : %.4f" % f1)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc, output, 5)
+
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 5) ###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc, output, 10)
+
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 10)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_words(test_doc, output, 15)
+
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")

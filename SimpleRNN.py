@@ -74,7 +74,7 @@ elif DATASET == Hulth:
     BATCH_SIZE = 32
     EPOCHS = 28
     KP_WEIGHT = 10
-    STEM_MODE = metrics.stemMode.both
+    STEM_MODE = metrics.stemMode.none
     STEM_TEST = False
 elif DATASET == Marujo2012:
     tokenizer = tk.tokenizers.nltk

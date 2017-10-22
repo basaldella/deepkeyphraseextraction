@@ -43,7 +43,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "models/answerrnn.h5"
 SHOW_PLOTS = False
 SAMPLE_SIZE = -1       # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
@@ -273,6 +273,84 @@ obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, out
 
 precision_top = metrics.precision(test_answer, obtained_words_top)
 recall_top = metrics.recall(test_answer, obtained_words_top)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 15)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+
+print("###                       ###")
+print("###                       ###")
+print("###       STEMMING        ###")
+print("###                       ###")
+print("###                       ###")
+
+STEM_MODE = metrics.stemMode.both
+
+precision = metrics.precision(test_answer, obtained_words,STEM_MODE)
+recall = metrics.recall(test_answer, obtained_words,STEM_MODE)
+f1 = metrics.f1(precision, recall)
+
+print("###    Obtained Scores    ###")
+print("###     (full dataset)    ###")
+print("###")
+print("### Precision : %.4f" % precision)
+print("### Recall    : %.4f" % recall)
+print("### F1        : %.4f" % f1)
+print("###                       ###")
+
+clean_words = postprocessing.get_valid_patterns(obtained_words)
+
+precision = metrics.precision(test_answer, clean_words,STEM_MODE)
+recall = metrics.recall(test_answer, clean_words,STEM_MODE)
+f1 = metrics.f1(precision, recall)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset,        ###")
+print("###  pos patterns filter) ###")
+print("###")
+print("### Precision : %.4f" % precision)
+print("### Recall    : %.4f" % recall)
+print("### F1        : %.4f" % f1)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,5)
+
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 5) ###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,10)
+
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+f1_top = metrics.f1(precision_top, recall_top)
+
+print("###    Obtained Scores    ###")
+print("### (full dataset, top 10)###")
+print("###")
+print("### Precision : %.4f" % precision_top)
+print("### Recall    : %.4f" % recall_top)
+print("### F1        : %.4f" % f1_top)
+print("###                       ###")
+
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,15)
+
+precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
