@@ -1,0 +1,10 @@
+version: '3'
+services:
+  dke:
+    build: .
+    volumes:
+     - ./src:/opt/proj/src
+     - ./data:/opt/proj/data
+    user: 9999:1000
+    ports:
+      - "59311:59311"
