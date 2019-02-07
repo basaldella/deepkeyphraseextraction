@@ -44,7 +44,7 @@ info.log_versions()
 # GLOBAL VARIABLES
 
 SAVE_MODEL = True
-MODEL_PATH = "models/answerrnn2test.h5"
+MODEL_PATH = "../models/answerrnn2test.h5"
 SHOW_PLOTS = False
 SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NOTE: MUST be a float
@@ -53,11 +53,11 @@ KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NO
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Kp20k
+DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Semeval2017"
+    DATASET_FOLDER = "../data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 400
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 27  # gl: was 16
@@ -67,7 +67,7 @@ if DATASET == Semeval2017:
     EPOCHS = 10
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Hulth2003"
+    DATASET_FOLDER = "../data/Hulth2003"
     MAX_DOCUMENT_LENGTH = 540
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
@@ -77,7 +77,7 @@ elif DATASET == Hulth:
     EPOCHS = 9
 elif DATASET == Kp20k:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Kp20k"
+    DATASET_FOLDER = "../data/Kp20k"
     MAX_DOCUMENT_LENGTH = 1407
     MAX_VOCABULARY_SIZE = 170000
     MAX_ANSWER_LENGTH = 100
@@ -209,8 +209,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     #    (encoded_document)
 
     #print(encoded_document)  # gl
-    #encoded_document = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_document)  # gl: ok for hulth
-    encoded_document = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_document)
+    encoded_document = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_document)  # gl: ok for hulth
+    #encoded_document = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_document)  # gl: ok for semeval2017 (?)
     # Size: 131
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
@@ -243,11 +243,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     #                return_sequences=True))\
     #    (encoded_candidate)
     encoded_candidate = layers.Conv1D(filters=128, kernel_size=2, activation='relu')(encoded_candidate)
-    #encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)  # gl: ok for hulth
-    encoded_candidate = layers.MaxPool1D(pool_size=5)(encoded_candidate)
+    encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)  # gl: ok for hulth
+    #encoded_candidate = layers.MaxPool1D(pool_size=5)(encoded_candidate)  # gl: ok for semeval2017 (?)
     encoded_candidate = layers.Activation('relu')(encoded_candidate)
     encoded_candidate = layers.Flatten()(encoded_candidate)
-    print((Model(candidate, encoded_candidate)).summary()) # was commented
+    print((Model(candidate, encoded_candidate)).summary())  # was commented
 
     prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
 
