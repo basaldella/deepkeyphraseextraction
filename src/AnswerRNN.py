@@ -43,7 +43,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/answerrnn.h5"
 SHOW_PLOTS = False
 SAMPLE_SIZE = -1       # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
@@ -60,9 +60,9 @@ if DATASET == Semeval2017:
     DATASET_FOLDER = "data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 400
     MAX_VOCABULARY_SIZE = 20000
-    MAX_ANSWER_LENGTH = 10
+    MAX_ANSWER_LENGTH = 16  # gl: was 10
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 256
+    BATCH_SIZE = 128
     PREDICT_BATCH_SIZE = 256
     EPOCHS = 10
 elif DATASET == Hulth:
@@ -75,6 +75,16 @@ elif DATASET == Hulth:
     BATCH_SIZE = 128
     PREDICT_BATCH_SIZE = 256
     EPOCHS = 8
+elif DATASET == Kp20k:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Kp20k"
+    MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
+    MAX_VOCABULARY_SIZE = 170000
+    MAX_ANSWER_LENGTH = 100
+    EMBEDDINGS_SIZE = 50
+    BATCH_SIZE = 128  # gl: was 32
+    PREDICT_BATCH_SIZE = 256
+    EPOCHS = 13  # gl: was 13
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 

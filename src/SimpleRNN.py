@@ -44,15 +44,15 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/simplernn.h5"
-SHOW_PLOTS = False
+SHOW_PLOTS = True
 
 # END GLOBAL VARIABLES
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Hulth
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -72,7 +72,7 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
-    EPOCHS = 28
+    EPOCHS = 28  # gl was 28
     KP_WEIGHT = 10
     STEM_MODE = metrics.stemMode.none
     STEM_TEST = False
@@ -96,6 +96,17 @@ elif DATASET == Semeval2010:
     BATCH_SIZE = 16
     EPOCHS = 40
     KP_WEIGHT = 500
+    STEM_MODE = metrics.stemMode.results
+    STEM_TEST = True
+elif DATASET == Kp20k:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Kp20k"
+    MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
+    MAX_VOCABULARY_SIZE = 400000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 64  # gl: was 32
+    EPOCHS = 13  # gl: was 13
+    KP_WEIGHT = 10
     STEM_MODE = metrics.stemMode.results
     STEM_TEST = True
 else:

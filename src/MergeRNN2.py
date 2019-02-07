@@ -32,6 +32,7 @@ from eval import keras_metrics, metrics
 from nlp import tokenizer as tk
 from utils import info, preprocessing, postprocessing, plots
 
+
 # LOGGING CONFIGURATION
 
 logging.basicConfig(
@@ -44,15 +45,15 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/mergernn2.h5"
-SHOW_PLOTS = False
+SHOW_PLOTS = True
 
 # END GLOBAL VARIABLES
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Hulth
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -78,6 +79,14 @@ elif DATASET == Marujo2012:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
     EPOCHS = 13
+elif DATASET == Kp20k:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Kp20k"
+    MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
+    MAX_VOCABULARY_SIZE = 400000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 32  # gl: was 32
+    EPOCHS = 13  # gl: was 10
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -132,12 +141,13 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
     logging.debug("Building the network...")
 
     summary = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
+    #print(summary)  # gl
     encoded_summary = layers.Embedding(np.shape(embedding_matrix)[0],
                         EMBEDDINGS_SIZE,
                         weights=[embedding_matrix],
                         input_length=MAX_DOCUMENT_LENGTH,
                         trainable=False)(summary)
-
+    #print(encoded_summary)  # gl
     encoded_summary = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_summary)
     # Size: 131
     encoded_summary = layers.MaxPool1D(pool_size=2)(encoded_summary)
@@ -163,14 +173,17 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH) :
                         input_length=MAX_DOCUMENT_LENGTH,
                         trainable=False)(document)
 
-    merged = layers.add([encoded_summary, encoded_document])
-    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE/2),return_sequences=True))(merged)
-    merged = layers.Dropout(0.3)(merged)
-    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE /4), return_sequences=True))(merged)
-    merged = layers.Dropout(0.3)(merged)
-    prediction = layers.TimeDistributed(layers.Dense(3,activation='softmax'))(merged)
+    print(np.shape(encoded_summary))  # gl: intermed. values
+    print(np.shape(encoded_document))  # gl: intermed. values
 
-    model = Model([document,summary],prediction)
+    merged = layers.add([encoded_summary, encoded_document])
+    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE/2), return_sequences=True))(merged)
+    merged = layers.Dropout(0.3)(merged)
+    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE/4), return_sequences=True))(merged)
+    merged = layers.Dropout(0.3)(merged)
+    prediction = layers.TimeDistributed(layers.Dense(3, activation='softmax'))(merged)
+
+    model = Model([document, summary], prediction)
 
     logging.info("Compiling the network...")
     model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'],

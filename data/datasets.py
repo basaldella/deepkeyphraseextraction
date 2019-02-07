@@ -1,5 +1,6 @@
 import logging
 import os
+import json
 
 from nlp import tokenizer as tk
 
@@ -119,7 +120,7 @@ class Dataset(object):
             self.validation_answers = self._load_validation_answers()
 
         assert (not self.validation_answers and not self.validation_answers) or \
-            (len(self.validation_documents) == len(self.validation_answers)), \
+               (len(self.validation_documents) == len(self.validation_answers)), \
             "You have not enough (or too many) validation answers for your documents!"
 
         logging.debug("Loaded validation set for dataset %s" % self.name)
@@ -157,10 +158,14 @@ class Hulth(Dataset):
         documents = {}
 
         for doc in os.listdir("%s/%s" % (self.path, folder)):
+            # print(self.path)
+            # print(folder)
             if doc.endswith(".abstr"):
                 content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
                 documents[doc[:doc.find('.')]] = content
-
+                # print(doc)
+                # print(doc.find('.'))
+        # print(documents)  # gl:
         return documents
 
     def __load_answers(self, folder):
@@ -186,6 +191,120 @@ class Hulth(Dataset):
                         answers[doc_id] = [answer]
                     else:
                         answers[doc_id].append(answer)
+
+        return answers
+
+    def _load_test_documents(self):
+        return self.__load_documents("Test")
+
+    def _load_train_documents(self):
+        return self.__load_documents("Training")
+
+    def _load_validation_documents(self):
+        return self.__load_documents("Validation")
+
+    def _load_test_answers(self):
+        return self.__load_answers("Test")
+
+    def _load_train_answers(self):
+        return self.__load_answers("Training")
+
+    def _load_validation_answers(self):
+        return self.__load_answers("Validation")
+
+
+class Kp20k(Dataset):
+    """
+    Dataset from Rui Meng's et al. "Deep Keyword Extraction"
+
+    Full-text here: https://arxiv.org/pdf/1704.06879.pdf
+    """
+
+    def __init__(self, path):
+        super().__init__("Kp20k", path)
+
+    def __load_documents(self, folder):
+        """
+        Loads the documents in the .json file contained
+        in the specified folder and puts them in a dictionary
+        indexed by document id (i.e. the rownumber of the
+        document in .json file).
+
+        :param folder: the folder containing the documents file
+        :return: a dictionary with the documents
+        """
+
+        # This dictionary will contain the documents
+        documents = {}
+        '''
+        for doc in os.listdir("%s/%s" % (self.path, folder)):
+            # print(self.path)
+            # print(folder)
+            if doc.endswith(".json"):
+                content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
+                # print(content)
+                documents[doc[:doc.find('.')]] = content  # gl: doc[:doc.find('.')]] = file name
+        # print(documents)
+        '''
+        file_name = ''.join(['kp20k_', folder.lower(), '.json'])  # gl: was ke20k_
+        with open(("%s/%s/%s" % (self.path, folder, file_name))) as f:
+            count_doc = 1
+            for line in f:
+                if count_doc <= 20000:  # needed because 500k is too large
+                    d = json.loads(line)
+                    text = ''.join([d["title"], '. ', d["abstract"]])
+                    documents[str(count_doc)] = text
+                    # print(str(count_doc))
+                    # print(documents)
+                    count_doc = count_doc + 1
+        print(folder.lower() + ': records ' + str(len(documents)))
+
+        # f_1 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/documents.txt', 'w')
+        f_1 = open(
+            '/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/documents_' + folder.lower() + '.txt', 'w')
+        f_1.write(str(documents))
+        f_1.close()
+
+        return documents
+
+    def __load_answers(self, folder):
+        """
+        Loads the answers contained in the .contr and .uncontr files
+        and puts them in a dictionary indexed by document ID
+        (i.e. the document name without the extension)
+        :param folder: the folder containing the answer files
+        :return: a dictionary with the answers
+        """
+
+        # This dictionary will contain the answers
+        answers = {}
+
+        file_name = ''.join(['kp20k_', folder.lower(), '.json'])  # gl: was ke20k_
+        with open(("%s/%s/%s" % (self.path, folder, file_name))) as f:
+            count_doc = 1
+            for line in f:
+                if count_doc <= 20000:  # needed because 500k is too large
+                    d = json.loads(line)
+                    text = ''.join(d["keyword"])
+                    retrieved_answers = text.split(';')
+                    notnull_answers = []
+                    for a in retrieved_answers:
+                        if len(a) > 0:
+                            notnull_answers.append(a)
+                    # answers[str(count_doc)] = text
+                    # print(str(count_doc))
+                    # print(retrieved_answers)
+                    # answers[str(count_doc)] = retrieved_answers
+                    answers[str(count_doc)] = notnull_answers
+                    # print(count_doc)
+                    count_doc = count_doc + 1
+        print(folder.lower() + ': records ' + str(len(answers)))
+
+        # f_2 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/answers.txt', 'w')
+        f_2 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/answers_' + folder.lower() + '.txt',
+                   'w')
+        f_2.write(str(answers))
+        f_2.close()
 
         return answers
 
@@ -420,12 +539,12 @@ class Semeval2010(Dataset):
         # This dictionary will contain the answers
         answers = {}
 
-        content = open("%s/%s" % (self.path,fileName), "r").read()
+        content = open("%s/%s" % (self.path, fileName), "r").read()
         document_answers = content.split('\n')
 
         for doc in document_answers:
             doc_id = doc[:doc.find(' : ')]
-            retrieved_answers = (doc[doc.find(' : ')+3:]).split(',')
+            retrieved_answers = (doc[doc.find(' : ') + 3:]).split(',')
             for answer in retrieved_answers:
                 answer = answer.strip()
                 if len(answer) > 0:

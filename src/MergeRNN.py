@@ -44,9 +44,9 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "models/mergernn.h5"
-SHOW_PLOTS = False
+SHOW_PLOTS = True
 
 # END GLOBAL VARIABLES
 
@@ -70,6 +70,14 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
     EPOCHS = 41
+elif DATASET == Kp20k:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Kp20k"
+    MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
+    MAX_VOCABULARY_SIZE = 20000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 64  # gl: was 32
+    EPOCHS = 10  # gl: was 10
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 

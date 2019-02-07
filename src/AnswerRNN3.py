@@ -43,8 +43,8 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
-MODEL_PATH = "models/answerrnn2.h5"
+SAVE_MODEL = True
+MODEL_PATH = "models/answerrnn3.h5"
 SHOW_PLOTS = False
 SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NOTE: MUST be a float
@@ -58,10 +58,11 @@ DATASET = Hulth
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "data/Semeval2017"
-    MAX_DOCUMENT_LENGTH = 400
+    MAX_DOCUMENT_LENGTH = 388
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 16
     EMBEDDINGS_SIZE = 300
+    ENC_CANDIDATE_POOL_SIZE = 6
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 256
     EPOCHS = 10
@@ -72,9 +73,21 @@ elif DATASET == Hulth:
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
     EMBEDDINGS_SIZE = 50
+    ENC_CANDIDATE_POOL_SIZE = 2
     BATCH_SIZE = 512
     PREDICT_BATCH_SIZE = 2048
     EPOCHS = 8 # 143
+elif DATASET == Kp20k:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "data/Kp20k"
+    MAX_DOCUMENT_LENGTH = 1407
+    MAX_VOCABULARY_SIZE = 170000
+    MAX_ANSWER_LENGTH = 100
+    EMBEDDINGS_SIZE = 200  # gl: was 50
+    ENC_CANDIDATE_POOL_SIZE = 6
+    BATCH_SIZE = 256
+    PREDICT_BATCH_SIZE = 2048
+    EPOCHS = 9
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -134,6 +147,26 @@ test_y = np.argmax(test_y, axis=1)
 val_y = np.argmax(val_y, axis=1)
 val_y_b = np.argmax(val_y_b,axis=1)
 
+print(len(train_y))
+f_4 = open('intermediate_data/train_x.txt', 'w')
+f_4.write('train_x -> ' + str(train_x))
+f_4.close()
+f_5 = open('intermediate_data/train_y.txt', 'w')
+f_5.write('train_y -> ' + str(train_y))
+f_5.close()
+f_6 = open('intermediate_data/val_x_b.txt', 'w')
+f_6.write('val_x_b -> ' + str(val_x_b))
+f_6.close()
+f_7 = open('intermediate_data/val_y_b.txt', 'w')
+f_7.write('val_y_b -> ' + str(val_y_b))
+f_7.close()
+f_8 = open('intermediate_data/embedding_matrix.txt', 'w')
+f_8.write('embedding_matrix -> ' + str(embedding_matrix))
+f_8.close()
+f_9 = open('intermediate_data/dictionary.txt', 'w')
+f_9.write('dictionary -> ' + str(dictionary))
+f_9.close()
+
 logging.info("Data preprocessing complete.")
 
 if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
@@ -166,14 +199,30 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
         logging.debug("Sampled Training set documents size : %s", np.shape(train_x[0]))
         logging.debug("Sampled Training set answers size   : %s", np.shape(train_x[1]))
 
+        f_4.close()
+        f_5.close()
+        f_6.close()
+    '''
+    print(train_x)
+    print(train_y)
+    # f_1 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/documents.txt', 'w')
+    f_2 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/train_x.txt', 'w')
+    f_2.write(str(train_x))
+    f_2.close()
+    f_3 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/train_y.txt', 'w')
+    f_3.write(str(train_y))
+    f_3.close()
+    print('XXXXXXXXXXXXXXXXX   sono comunque fuori')
+    '''
     # end sampling.
 
     # Class weights
-
     class_weights = {0: 1.,
                      1: KP_CLASS_WEIGHT}
 
     logging.debug("Building the network...")
+
+    # start of documento branch
     document = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
     encoded_document = layers.Embedding(np.shape(embedding_matrix)[0],
                                         EMBEDDINGS_SIZE,
@@ -190,7 +239,6 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
     # You can convince yourself that the correct formula for calculating how many neurons “fit” is given by ((W−F+2P)/S)+1.
 
-
     encoded_document = layers.Bidirectional(
         layers.LSTM(int(EMBEDDINGS_SIZE/2),
                     activation='tanh',
@@ -199,7 +247,6 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
         (encoded_document)
 
     # Size: 554
-
     encoded_document = layers.Conv1D(filters=128, kernel_size=16, strides=2, activation='relu')(encoded_document)
     # Size: 270
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
@@ -222,8 +269,10 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     # Size: 5
     encoded_document = layers.Flatten()(encoded_document)
 
+    #logging.info("Model of document branch")
     print((Model(document, encoded_document)).summary())
 
+    # start of candidate branch
     candidate = layers.Input(shape=(MAX_ANSWER_LENGTH,))
     encoded_candidate = layers.Embedding(np.shape(embedding_matrix)[0],
                                          EMBEDDINGS_SIZE,
@@ -237,10 +286,14 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                     return_sequences=True))\
         (encoded_candidate)
     encoded_candidate = layers.Conv1D(filters=128, kernel_size=2, activation='relu')(encoded_candidate)
-    encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)
+    #encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)  # gl: ok for hulth
+    #encoded_candidate = layers.MaxPool1D(pool_size=6)(encoded_candidate)  # gl: ok for semeval2017
+    encoded_candidate = layers.MaxPool1D(pool_size=ENC_CANDIDATE_POOL_SIZE)(encoded_candidate)
     encoded_candidate = layers.Activation('relu')(encoded_candidate)
     encoded_candidate = layers.Flatten()(encoded_candidate)
-    #print((Model(candidate, encoded_candidate)).summary())
+
+    #logging.info("Model of candidate branch")
+    print((Model(candidate, encoded_candidate)).summary())  # gl: was commented
 
     prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
 
@@ -258,11 +311,13 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
     #logging.info("Compiling the network...")
     # model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+
+    logging.info("Model complete")
     print(model.summary())
 
     metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y, batch_size=PREDICT_BATCH_SIZE)
 
-    logging.info("Fitting the network...")
+    #logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
                         validation_data=(val_x_b, val_y_b),
                         epochs=EPOCHS,

@@ -1,6 +1,7 @@
 from enum import Enum
 import keras.preprocessing.text
 import nltk
+nltk.download('averaged_perceptron_tagger')
 
 tokenizers = Enum("Tokenizers","nltk keras")
 

@@ -493,6 +493,9 @@ def make_sequential(documents, answers):
 
         for answer in doc_answers_set:
             # Find where the first word the KP appears
+            # print('doc_answers_set: ' + str(doc_answers_set))
+            # print('len(answer): ' + str(len(answer)) + '; key: ' + key)
+            # print('answer[0]: ' + str(answer[0]))
             appearances = [i for i, word in enumerate(document) if word == answer[0]]
             for idx in appearances:
                 is_kp = True
