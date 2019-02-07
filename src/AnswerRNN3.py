@@ -44,7 +44,7 @@ info.log_versions()
 # GLOBAL VARIABLES
 
 SAVE_MODEL = True
-MODEL_PATH = "models/answerrnn3.h5"
+MODEL_PATH = "../models/answerrnn3.h5"
 SHOW_PLOTS = False
 SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NOTE: MUST be a float
@@ -57,7 +57,7 @@ DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Semeval2017"
+    DATASET_FOLDER = "../data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 388
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 16
@@ -68,7 +68,7 @@ if DATASET == Semeval2017:
     EPOCHS = 10
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Hulth2003"
+    DATASET_FOLDER = "../data/Hulth2003"
     MAX_DOCUMENT_LENGTH = 554
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
@@ -76,10 +76,10 @@ elif DATASET == Hulth:
     ENC_CANDIDATE_POOL_SIZE = 2
     BATCH_SIZE = 512
     PREDICT_BATCH_SIZE = 2048
-    EPOCHS = 8 # 143
+    EPOCHS = 8  # 143
 elif DATASET == Kp20k:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Kp20k"
+    DATASET_FOLDER = "../data/Kp20k"
     MAX_DOCUMENT_LENGTH = 1407
     MAX_VOCABULARY_SIZE = 170000
     MAX_ANSWER_LENGTH = 100
@@ -147,6 +147,7 @@ test_y = np.argmax(test_y, axis=1)
 val_y = np.argmax(val_y, axis=1)
 val_y_b = np.argmax(val_y_b,axis=1)
 
+'''
 print(len(train_y))
 f_4 = open('intermediate_data/train_x.txt', 'w')
 f_4.write('train_x -> ' + str(train_x))
@@ -166,6 +167,7 @@ f_8.close()
 f_9 = open('intermediate_data/dictionary.txt', 'w')
 f_9.write('dictionary -> ' + str(dictionary))
 f_9.close()
+'''
 
 logging.info("Data preprocessing complete.")
 
@@ -199,9 +201,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
         logging.debug("Sampled Training set documents size : %s", np.shape(train_x[0]))
         logging.debug("Sampled Training set answers size   : %s", np.shape(train_x[1]))
 
+        '''
         f_4.close()
         f_5.close()
         f_6.close()
+        '''
     '''
     print(train_x)
     print(train_y)
