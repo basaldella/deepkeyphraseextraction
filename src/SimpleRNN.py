@@ -45,18 +45,18 @@ info.log_versions()
 # GLOBAL VARIABLES
 
 SAVE_MODEL = True
-MODEL_PATH = "models/simplernn.h5"
+MODEL_PATH = "../models/simplernn.h5"
 SHOW_PLOTS = True
 
 # END GLOBAL VARIABLES
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Semeval2017"
+    DATASET_FOLDER = "../data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 400
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 50
@@ -67,7 +67,7 @@ if DATASET == Semeval2017:
     STEM_TEST = False
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Hulth2003"
+    DATASET_FOLDER = "../data/Hulth2003"
     MAX_DOCUMENT_LENGTH = 550
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
@@ -78,7 +78,7 @@ elif DATASET == Hulth:
     STEM_TEST = False
 elif DATASET == Marujo2012:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Marujo2012"
+    DATASET_FOLDER = "../data/Marujo2012"
     MAX_DOCUMENT_LENGTH = 7000
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 50
