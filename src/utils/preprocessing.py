@@ -438,7 +438,8 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, 
 
     # prepare the matrix for the embedding layer
     word_index = dictionary.word_index
-    embeddings_index = glove.load_glove('', embeddings_size)
+    # embeddings_index = glove.load_glove('', embeddings_size)
+    embeddings_index = glove.load_glove('../data/glove', embeddings_size)
 
     num_words = min(max_vocabulary_size, 1 + len(word_index))
 
