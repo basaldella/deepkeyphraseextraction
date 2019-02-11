@@ -1,14 +1,11 @@
 # Saved models
-models/
-data/
-!data/glove/get_glove.sh
+models/**
+!models/README.md
 
 # GloVe files
-src/glove.6B.zip
-src/glove.6B.50d.txt
-src/glove.6B.100d.txt
-src/glove.6B.200d.txt
-src/glove.6B.300d.txt
+data/glove/**
+!data/glove/get_glove.sh
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

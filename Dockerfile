@@ -8,6 +8,11 @@ FROM tensorflow/tensorflow:1.12.0-gpu-py3
 
 WORKDIR "/"
 
+# Set the locale
+# See https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-ubuntu-docker-container
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
 # Prepare the environment
 COPY requirements.txt /tmp/requirements.txt
 RUN bash -c "pip install -r /tmp/requirements.txt && \

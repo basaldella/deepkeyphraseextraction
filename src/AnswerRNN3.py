@@ -503,4 +503,4 @@ if DATASET == Semeval2017:
     anno_generator.write_anno("/tmp/simplernn", test_doc_str, obtained_words)
     from data.Semeval2017 import eval
 
-    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn", remove_anno=["types"])
+    eval.calculateMeasures("../data/Semeval2017/test", "/tmp/simplernn", remove_anno=["types"])
