@@ -9,7 +9,7 @@ def write_anno(output_folder, documents, keyphrases):
     for doc_id, doc_string in documents.items():
 
         i = 0
-        output_file = open("%s/%s.%s" % (output_folder, doc_id, "ann"), "w")
+        output_file = open("%s/%s.%s" % (output_folder, doc_id, "ann"), "w",encoding="utf-8")
 
         for kp in keyphrases[doc_id]:
             kp_string = ' '.join(kp)
