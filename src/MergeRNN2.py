@@ -53,7 +53,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Hulth
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
