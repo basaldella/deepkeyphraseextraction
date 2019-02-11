@@ -5,6 +5,7 @@ services:
     volumes:
      - ./src:/opt/proj/src
      - ./data:/opt/proj/data
+     - ./models:/opt/proj/models
     user: 9999:1000
     ports:
       - "59311:59311"

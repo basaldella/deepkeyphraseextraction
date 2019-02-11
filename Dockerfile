@@ -4,7 +4,7 @@
 # Requires nvidia-docker
 # https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)
 
-FROM tensorflow/tensorflow:1.12.0-gpu
+FROM tensorflow/tensorflow:1.12.0-gpu-py3
 
 WORKDIR "/"
 
@@ -12,6 +12,8 @@ WORKDIR "/"
 COPY requirements.txt /tmp/requirements.txt
 RUN bash -c "pip install -r /tmp/requirements.txt && \
             rm /tmp/requirements.txt"
+
+RUN bash -c "python -m nltk.downloader -d /usr/local/share/nltk_data popular"
 
 ENV TINI_VERSION v0.16.1
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini

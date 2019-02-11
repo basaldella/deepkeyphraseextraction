@@ -3,13 +3,13 @@
 source variables.sh
 
 if [ $# -eq 0 ]; then
-    $DOCKER_BIN run -d -v "$(pwd)/src":/opt/proj/src -v "$(pwd)/data":/opt/proj/data --user $(id -u):$(id -g) --name $CONTAINER_NAME $IMAGE_NAME
+    $DOCKER_BIN run -d -v "$(pwd)/src":/opt/proj/src -v "$(pwd)/data":/opt/proj/data --user $(id -u):$(id -g) -v "$(pwd)/models":/opt/proj/models --user $(id -u):$(id -g) --name $CONTAINER_NAME $IMAGE_NAME
     exit 0
 fi
 
 if [ $# -eq 1 ]; then
     if [ "$1" == "-it" ]; then
-        $DOCKER_BIN run -it -v "$(pwd)/src":/opt/proj/src -v "$(pwd)/data":/opt/proj/data --user $(id -u):$(id -g) --name $CONTAINER_NAME $IMAGE_NAME bash
+        $DOCKER_BIN run -it -v "$(pwd)/src":/opt/proj/src -v "$(pwd)/data":/opt/proj/data --user $(id -u):$(id -g) -v "$(pwd)/models":/opt/proj/models --user $(id -u):$(id -g) --name $CONTAINER_NAME $IMAGE_NAME bash
 	read -p "Do you want to remove the container? [y/n] " -n 1 -r
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]

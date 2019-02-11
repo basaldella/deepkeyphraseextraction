@@ -1,7 +1,7 @@
 # Saved models
 models/
 data/
-!data/datasets.py
+!data/glove/get_glove.sh
 
 # GloVe files
 src/glove.6B.zip

@@ -9,7 +9,7 @@ def load_glove(glove_dir,size):
 
     logging.debug("Loading GloVe pre-trained embeddings from %s" % glove_path)
 
-    f = open(os.path.join(glove_dir, glove_path))
+    f = open(os.path.join(glove_dir, glove_path),encoding="utf-8")
     for line in f:
         values = line.split()
         word = values[0]
