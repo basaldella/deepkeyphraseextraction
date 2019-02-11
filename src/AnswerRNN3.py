@@ -53,7 +53,7 @@ KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NO
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Hulth
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -95,8 +95,10 @@ else:
 
 # Loss function
 
+
 def cos_distance(y_true, y_pred):
     import keras.backend as K
+
     def l2_normalize(x, axis):
         norm = K.sqrt(K.sum(K.square(x), axis=axis, keepdims=True))
         return K.sign(x) * K.maximum(K.abs(x), K.epsilon()) / K.maximum(norm, K.epsilon())
@@ -106,6 +108,7 @@ def cos_distance(y_true, y_pred):
     return K.mean(1 - K.sum((y_true * y_pred), axis=-1))
 
 # End loss
+
 
 logging.info("Loading dataset...")
 
@@ -145,7 +148,7 @@ train_x, train_y, test_x, test_y, val_x, val_y, val_x_b, val_y_b, embedding_matr
 train_y = np.argmax(train_y, axis=1)
 test_y = np.argmax(test_y, axis=1)
 val_y = np.argmax(val_y, axis=1)
-val_y_b = np.argmax(val_y_b,axis=1)
+val_y_b = np.argmax(val_y_b, axis=1)
 
 '''
 print(len(train_y))
@@ -241,14 +244,14 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     # the receptive field size of the Conv Layer neurons (F), the stride with which they are applied (S),
     # and the amount of zero padding used (P) on the border.
 
-    # You can convince yourself that the correct formula for calculating how many neurons “fit” is given by ((W−F+2P)/S)+1.
+    # You can convince yourself that the correct formula
+    # for calculating how many neurons “fit” is given by ((W−F+2P)/S)+1.
 
     encoded_document = layers.Bidirectional(
         layers.LSTM(int(EMBEDDINGS_SIZE/2),
                     activation='tanh',
                     recurrent_activation='tanh',
-                    return_sequences=True))\
-        (encoded_document)
+                    return_sequences=True))(encoded_document)
 
     # Size: 554
     encoded_document = layers.Conv1D(filters=128, kernel_size=16, strides=2, activation='relu')(encoded_document)
@@ -273,7 +276,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     # Size: 5
     encoded_document = layers.Flatten()(encoded_document)
 
-    #logging.info("Model of document branch")
+    # logging.info("Model of document branch")
     print((Model(document, encoded_document)).summary())
 
     # start of candidate branch
@@ -287,16 +290,15 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
         layers.LSTM(int(EMBEDDINGS_SIZE/2),
                     activation='tanh',
                     recurrent_activation='tanh',
-                    return_sequences=True))\
-        (encoded_candidate)
+                    return_sequences=True))(encoded_candidate)
     encoded_candidate = layers.Conv1D(filters=128, kernel_size=2, activation='relu')(encoded_candidate)
-    #encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)  # gl: ok for hulth
-    #encoded_candidate = layers.MaxPool1D(pool_size=6)(encoded_candidate)  # gl: ok for semeval2017
+    # encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)  # gl: ok for hulth
+    # encoded_candidate = layers.MaxPool1D(pool_size=6)(encoded_candidate)  # gl: ok for semeval2017
     encoded_candidate = layers.MaxPool1D(pool_size=ENC_CANDIDATE_POOL_SIZE)(encoded_candidate)
     encoded_candidate = layers.Activation('relu')(encoded_candidate)
     encoded_candidate = layers.Flatten()(encoded_candidate)
 
-    #logging.info("Model of candidate branch")
+    # logging.info("Model of candidate branch")
     print((Model(candidate, encoded_candidate)).summary())  # gl: was commented
 
     prediction = layers.dot([encoded_document, encoded_candidate], axes=-1, normalize=True)
@@ -306,6 +308,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     logging.info("Compiling the network...")
     model.compile(loss='mse', optimizer='rmsprop', metrics=['accuracy'])
 
+    '''
     #merged = layers.add([encoded_document, encoded_candidate])
     #prediction = layers.Dense(int(EMBEDDINGS_SIZE / 4), activation='relu',kernel_regularizer=regularizers.l2(0.01))(merged)
     #prediction = layers.Dropout(0.25)(prediction)
@@ -315,13 +318,14 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
     #logging.info("Compiling the network...")
     # model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+    '''
 
     logging.info("Model complete")
     print(model.summary())
 
     metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y, batch_size=PREDICT_BATCH_SIZE)
 
-    #logging.info("Fitting the network...")
+    # logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
                         validation_data=(val_x_b, val_y_b),
                         epochs=EPOCHS,
@@ -373,7 +377,7 @@ print("### F1        : %.4f" % keras_f1)
 print("###                       ###")
 
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,5)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 5)
 
 
 precision_top = metrics.precision(test_answer, obtained_words_top)
@@ -388,7 +392,7 @@ print("### Recall    : %.4f" % recall_top)
 print("### F1        : %.4f" % f1_top)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,10)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 10)
 
 precision_top = metrics.precision(test_answer, obtained_words_top)
 recall_top = metrics.recall(test_answer, obtained_words_top)
@@ -402,7 +406,7 @@ print("### Recall    : %.4f" % recall_top)
 print("### F1        : %.4f" % f1_top)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,15)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 15)
 
 precision_top = metrics.precision(test_answer, obtained_words_top)
 recall_top = metrics.recall(test_answer, obtained_words_top)
@@ -424,8 +428,8 @@ print("###                       ###")
 
 STEM_MODE = metrics.stemMode.both
 
-precision = metrics.precision(test_answer, obtained_words,STEM_MODE)
-recall = metrics.recall(test_answer, obtained_words,STEM_MODE)
+precision = metrics.precision(test_answer, obtained_words, STEM_MODE)
+recall = metrics.recall(test_answer, obtained_words, STEM_MODE)
 f1 = metrics.f1(precision, recall)
 
 print("###    Obtained Scores    ###")
@@ -438,8 +442,8 @@ print("###                       ###")
 
 clean_words = postprocessing.get_valid_patterns(obtained_words)
 
-precision = metrics.precision(test_answer, clean_words,STEM_MODE)
-recall = metrics.recall(test_answer, clean_words,STEM_MODE)
+precision = metrics.precision(test_answer, clean_words, STEM_MODE)
+recall = metrics.recall(test_answer, clean_words, STEM_MODE)
 f1 = metrics.f1(precision, recall)
 
 print("###    Obtained Scores    ###")
@@ -451,10 +455,10 @@ print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,5)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 5)
 
-precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
-recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
@@ -465,10 +469,10 @@ print("### Recall    : %.4f" % recall_top)
 print("### F1        : %.4f" % f1_top)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,10)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 10)
 
-precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
-recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
@@ -479,10 +483,10 @@ print("### Recall    : %.4f" % recall_top)
 print("### F1        : %.4f" % f1_top)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,15)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 15)
 
-precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
-recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
