@@ -52,7 +52,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Hulth
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -207,8 +207,8 @@ logging.debug("Shape of output array: %s", np.shape(output))
 obtained_tokens = postprocessing.undo_sequential(output)
 obtained_words = postprocessing.get_words(test_doc, obtained_tokens)
 
-precision = metrics.precision(test_answer, obtained_words,STEM_MODE)
-recall = metrics.recall(test_answer, obtained_words,STEM_MODE)
+precision = metrics.precision(test_answer, obtained_words, STEM_MODE)
+recall = metrics.recall(test_answer, obtained_words, STEM_MODE)
 f1 = metrics.f1(precision, recall)
 
 print("###    Obtained Scores    ###")
@@ -233,8 +233,8 @@ print("###                       ###")
 
 clean_words = postprocessing.get_valid_patterns(obtained_words)
 
-precision = metrics.precision(test_answer, clean_words,STEM_MODE)
-recall = metrics.recall(test_answer, clean_words,STEM_MODE)
+precision = metrics.precision(test_answer, clean_words, STEM_MODE)
+recall = metrics.recall(test_answer, clean_words, STEM_MODE)
 f1 = metrics.f1(precision, recall)
 
 print("###    Obtained Scores    ###")
@@ -248,8 +248,8 @@ print("###                       ###")
 
 obtained_words_top = postprocessing.get_top_words(test_doc, output, 5)
 
-precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
-recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
@@ -262,8 +262,8 @@ print("###                       ###")
 
 obtained_words_top = postprocessing.get_top_words(test_doc, output, 10)
 
-precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
-recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
@@ -276,8 +276,8 @@ print("###                       ###")
 
 obtained_words_top = postprocessing.get_top_words(test_doc, output, 15)
 
-precision_top = metrics.precision(test_answer, obtained_words_top,STEM_MODE)
-recall_top = metrics.recall(test_answer, obtained_words_top,STEM_MODE)
+precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
+recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
 f1_top = metrics.f1(precision_top, recall_top)
 
 print("###    Obtained Scores    ###")
