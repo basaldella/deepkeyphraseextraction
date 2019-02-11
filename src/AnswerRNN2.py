@@ -106,6 +106,7 @@ def cos_distance(y_true, y_pred):
 
 # End loss
 
+
 logging.info("Loading dataset...")
 
 data = DATASET(DATASET_FOLDER)
@@ -201,7 +202,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     # the receptive field size of the Conv Layer neurons (F), the stride with which they are applied (S),
     # and the amount of zero padding used (P) on the border.
 
-    # You can convince yourself that the correct formula for calculating how many neurons “fit” is given by ((W−F+2P)/S)+1.
+    # You can convince yourself that the correct formula
+    # for calculating how many neurons “fit” is given by ((W−F+2P)/S)+1.
 
 
     #encoded_document = layers.Bidirectional(
@@ -212,8 +214,10 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     #    (encoded_document)
     '''
     # print(encoded_document)  # gl
-    encoded_document = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_document)  # gl: ok for hulth
-    # encoded_document = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_document)  # gl: ok for semeval2017 (?)
+    if DATASET == Hulth:
+        encoded_document = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_document)
+    elif DATASET == Semeval2017:
+        encoded_document = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_document)
     # Size: 131
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
@@ -228,7 +232,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
     # # Size: 5
-    #encoded_document = layers.TimeDistributed(layers.Dense(10, activation='softmax'))(encoded_document)
+    # encoded_document = layers.TimeDistributed(layers.Dense(10, activation='softmax'))(encoded_document)
     encoded_document = layers.Flatten()(encoded_document)
  
     print((Model(document, encoded_document)).summary())  # was commented
@@ -248,8 +252,10 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     #    (encoded_candidate)
     '''
     encoded_candidate = layers.Conv1D(filters=128, kernel_size=2, activation='relu')(encoded_candidate)
-    encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)  # gl: ok for hulth
-    # encoded_candidate = layers.MaxPool1D(pool_size=5)(encoded_candidate)  # gl: ok for semeval2017 (?)
+    if DATASET == Hulth:
+        encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)
+    elif DATASET == Semeval2017:
+        encoded_candidate = layers.MaxPool1D(pool_size=5)(encoded_candidate)
     encoded_candidate = layers.Activation('relu')(encoded_candidate)
     encoded_candidate = layers.Flatten()(encoded_candidate)
     print((Model(candidate, encoded_candidate)).summary())  # was commented
