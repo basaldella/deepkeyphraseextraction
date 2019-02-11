@@ -52,7 +52,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Hulth
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -109,9 +109,9 @@ train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix = preprocessing
 
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
-#train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
-#train_y_weights[train_y_weights > 0] = 20
-#train_y_weights[train_y_weights < 1] = 1
+# train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
+#  train_y_weights[train_y_weights > 0] = 20
+# train_y_weights[train_y_weights < 1] = 1
 
 from sklearn.utils import class_weight
 train_y_weights = np.argmax(train_y, axis=2)
@@ -130,16 +130,14 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
     summary = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
     encoded_summary = layers.Embedding(np.shape(embedding_matrix)[0],
-                        EMBEDDINGS_SIZE,
-                        weights=[embedding_matrix],
-                        input_length=MAX_DOCUMENT_LENGTH,
-                        trainable=False)(summary)
+                                       EMBEDDINGS_SIZE,
+                                       weights=[embedding_matrix],
+                                       input_length=MAX_DOCUMENT_LENGTH,
+                                       trainable=False)(summary)
 
-    encoded_summary = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE/2)))\
-        (encoded_summary)
+    encoded_summary = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/2)))(encoded_summary)
     encoded_summary = layers.Dropout(0.25)(encoded_summary)
-    encoded_summary = layers.Dense(EMBEDDINGS_SIZE) \
-        (encoded_summary)
+    encoded_summary = layers.Dense(EMBEDDINGS_SIZE)(encoded_summary)
     encoded_summary = layers.RepeatVector(MAX_DOCUMENT_LENGTH)(encoded_summary)
 
     document = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
@@ -150,11 +148,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                         trainable=False)(document)
 
     merged = layers.add([encoded_summary, encoded_document])
-    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE/2),return_sequences=True))(merged)
+    merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/2), return_sequences=True))(merged)
     merged = layers.Dropout(0.3)(merged)
-    merged = layers.Bidirectional(layers.LSTM((int)(EMBEDDINGS_SIZE /4), return_sequences=True))(merged)
+    merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/4), return_sequences=True))(merged)
     merged = layers.Dropout(0.3)(merged)
-    merged = layers.Dense((int)(EMBEDDINGS_SIZE / 2))(merged)
+    merged = layers.Dense(int(EMBEDDINGS_SIZE / 2))(merged)
     merged = layers.Dropout(0.3)(merged)
     prediction = layers.TimeDistributed(layers.Dense(3, activation='softmax'))(merged)
 
