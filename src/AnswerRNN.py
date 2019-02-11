@@ -43,7 +43,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "../models/answerrnn.h5"
 SHOW_PLOTS = False
 SAMPLE_SIZE = -1       # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
@@ -60,9 +60,9 @@ if DATASET == Semeval2017:
     DATASET_FOLDER = "../data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 400
     MAX_VOCABULARY_SIZE = 20000
-    MAX_ANSWER_LENGTH = 16  # gl: was 10
+    MAX_ANSWER_LENGTH = 10
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 128
+    BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 256
     EPOCHS = 10
 elif DATASET == Hulth:
@@ -105,9 +105,9 @@ val_doc, val_answer = tk.tokenize_set(val_doc_str, val_answer_str, tokenizer)
 
 logging.info("Dataset loaded. Generating candidate keyphrases...")
 
-train_candidates = chunker.extract_candidates_from_set(train_doc_str,tokenizer)
-test_candidates = chunker.extract_candidates_from_set(test_doc_str,tokenizer)
-val_candidates = chunker.extract_candidates_from_set(val_doc_str,tokenizer)
+train_candidates = chunker.extract_candidates_from_set(train_doc_str, tokenizer)
+test_candidates = chunker.extract_candidates_from_set(test_doc_str, tokenizer)
+val_candidates = chunker.extract_candidates_from_set(val_doc_str, tokenizer)
 
 logging.debug("Candidates recall on training set   : %.4f", metrics.recall(train_answer, train_candidates))
 logging.debug("Candidates recall on test set       : %.4f", metrics.recall(test_answer, test_candidates))
@@ -115,10 +115,10 @@ logging.debug("Candidates recall on validation set : %.4f", metrics.recall(val_a
 
 logging.info("Candidates generated. Preprocessing data...")
 
-train_x,train_y,test_x,test_y,val_x,val_y, val_x_b, val_y_b, embedding_matrix, dictionary = preprocessing.\
+train_x, train_y, test_x, test_y, val_x, val_y, val_x_b, val_y_b, embedding_matrix, dictionary = preprocessing.\
     prepare_answer_2(train_doc, train_answer, train_candidates,
                      test_doc, test_answer, test_candidates,
-                     val_doc,val_answer, val_candidates,
+                     val_doc, val_answer, val_candidates,
                      max_document_length=MAX_DOCUMENT_LENGTH,
                      max_answer_length=MAX_ANSWER_LENGTH,
                      max_vocabulary_size=MAX_VOCABULARY_SIZE,
@@ -167,11 +167,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                         input_length=MAX_DOCUMENT_LENGTH,
                                         trainable=False)(document)
 
-    encoded_document = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE * 2),activation='tanh', recurrent_activation='hard_sigmoid'))\
-        (encoded_document)
+    encoded_document = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE * 2),
+                                                        activation='tanh',
+                                                        recurrent_activation='hard_sigmoid'))(encoded_document)
     encoded_document = layers.Dropout(0.25)(encoded_document)
-    encoded_document = layers.Dense(int(EMBEDDINGS_SIZE), activation='tanh')\
-        (encoded_document)
+    encoded_document = layers.Dense(int(EMBEDDINGS_SIZE), activation='tanh')(encoded_document)
 
     candidate = layers.Input(shape=(MAX_ANSWER_LENGTH,))
     encoded_candidate = layers.Embedding(np.shape(embedding_matrix)[0],
@@ -179,11 +179,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                          weights=[embedding_matrix],
                                          input_length=MAX_ANSWER_LENGTH,
                                          trainable=False)(candidate)
-    encoded_candidate = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE), activation='tanh', recurrent_activation='hard_sigmoid'))\
-        (encoded_candidate)
+    encoded_candidate = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE),
+                                                         activation='tanh',
+                                                         recurrent_activation='hard_sigmoid'))(encoded_candidate)
     encoded_candidate = layers.Dropout(0.25)(encoded_candidate)
-    encoded_candidate = layers.Dense(int(EMBEDDINGS_SIZE), activation='tanh')\
-        (encoded_candidate)
+    encoded_candidate = layers.Dense(int(EMBEDDINGS_SIZE), activation='tanh')(encoded_candidate)
 
     merged = layers.add([encoded_document, encoded_candidate])
     prediction = layers.Dense(int(EMBEDDINGS_SIZE / 4), activation='tanh')(merged)
@@ -196,7 +196,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
     print(model.summary())
 
-    metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y,batch_size=PREDICT_BATCH_SIZE)
+    metrics_callback = keras_metrics.MetricsCallbackQA(val_x, val_y, batch_size=PREDICT_BATCH_SIZE)
 
     logging.info("Fitting the network...")
     history = model.fit(train_x, train_y,
@@ -329,7 +329,7 @@ print("### Recall    : %.4f" % recall)
 print("### F1        : %.4f" % f1)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,5)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 5)
 
 precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
 recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
@@ -343,7 +343,7 @@ print("### Recall    : %.4f" % recall_top)
 print("### F1        : %.4f" % f1_top)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,10)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 10)
 
 precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
 recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
@@ -357,7 +357,7 @@ print("### Recall    : %.4f" % recall_top)
 print("### F1        : %.4f" % f1_top)
 print("###                       ###")
 
-obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary,15)
+obtained_words_top = postprocessing.get_top_answers(test_candidates, test_x, output, dictionary, 15)
 
 precision_top = metrics.precision(test_answer, obtained_words_top, STEM_MODE)
 recall_top = metrics.recall(test_answer, obtained_words_top, STEM_MODE)
