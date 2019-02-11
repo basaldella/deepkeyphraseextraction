@@ -53,7 +53,7 @@ KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NO
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Hulth
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
