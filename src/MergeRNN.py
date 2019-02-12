@@ -57,8 +57,8 @@ DATASET = Semeval2017
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Semeval2017"
-    MAX_DOCUMENT_LENGTH = 400
-    MAX_VOCABULARY_SIZE = 20000
+    MAX_DOCUMENT_LENGTH = 350
+    MAX_VOCABULARY_SIZE = 12000  # gl: was 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
     EPOCHS = 10
@@ -369,6 +369,10 @@ print("###                       ###")
 
 if DATASET == Semeval2017:
     from eval import anno_generator
-    anno_generator.write_anno("/tmp/simplernn", test_doc_str, obtained_words)
     from data.Semeval2017 import eval
-    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn", remove_anno=["types"])
+    import shutil
+
+    tmp_path = '../data/Semeval2017/tmp/mergernn'
+    shutil.rmtree(tmp_path, ignore_errors=True)
+    anno_generator.write_anno(tmp_path, test_doc_str, obtained_words)
+    eval.calculateMeasures("../data/Semeval2017/test", tmp_path, remove_anno=["types"])
