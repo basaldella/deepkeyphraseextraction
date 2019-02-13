@@ -63,7 +63,7 @@ if DATASET == Semeval2017:
     EMBEDDINGS_SIZE = 300
     ATT_DIM = 50  # dim. of attentive output; best: 50
     BATCH_SIZE = 32
-    EPOCHS = 36
+    EPOCHS = 36  # gl: was 36
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Hulth2003"
