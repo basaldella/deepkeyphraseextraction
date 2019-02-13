@@ -44,8 +44,8 @@ info.log_versions()
 # GLOBAL VARIABLES
 
 SAVE_MODEL = True
-MODEL_PATH = "../models/answerrnn2test.h5"
-SHOW_PLOTS = False
+MODEL_PATH = "../models/answerrnn2.h5"
+SHOW_PLOTS = True
 SAMPLE_SIZE = -1  # training set will be restricted to SAMPLE_SIZE. Set to -1 to disable
 KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NOTE: MUST be a float
 
@@ -58,9 +58,9 @@ DATASET = Semeval2017
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Semeval2017"
-    MAX_DOCUMENT_LENGTH = 350
+    MAX_DOCUMENT_LENGTH = 540  # gl: same as hulth, so it uses same conv; 400 if use dedicated conv
     MAX_VOCABULARY_SIZE = 12000  # gl: was 20000
-    MAX_ANSWER_LENGTH = 27  # gl: was 16
+    MAX_ANSWER_LENGTH = 12  # gl: was 16 or 27
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 256
@@ -214,10 +214,13 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     #    (encoded_document)
     '''
     # print(encoded_document)  # gl
+    '''
     if DATASET == Hulth:
         encoded_document = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_document)
     elif DATASET == Semeval2017:
         encoded_document = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_document)
+    '''
+    encoded_document = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_document)
     # Size: 131
     encoded_document = layers.MaxPool1D(pool_size=2)(encoded_document)
     encoded_document = layers.Activation('relu')(encoded_document)
@@ -252,10 +255,13 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     #    (encoded_candidate)
     '''
     encoded_candidate = layers.Conv1D(filters=128, kernel_size=2, activation='relu')(encoded_candidate)
+    encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)
+    '''
     if DATASET == Hulth:
         encoded_candidate = layers.MaxPool1D(pool_size=2)(encoded_candidate)
     elif DATASET == Semeval2017:
         encoded_candidate = layers.MaxPool1D(pool_size=5)(encoded_candidate)
+    '''
     encoded_candidate = layers.Activation('relu')(encoded_candidate)
     encoded_candidate = layers.Flatten()(encoded_candidate)
     print((Model(candidate, encoded_candidate)).summary())  # was commented
