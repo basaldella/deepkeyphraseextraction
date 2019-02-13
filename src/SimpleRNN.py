@@ -57,8 +57,8 @@ DATASET = Semeval2017
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Semeval2017"
-    MAX_DOCUMENT_LENGTH = 400
-    MAX_VOCABULARY_SIZE = 20000
+    MAX_DOCUMENT_LENGTH = 350
+    MAX_VOCABULARY_SIZE = 12000  # gl: was 20000
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 32
     EPOCHS = 30
@@ -290,25 +290,29 @@ print("###                       ###")
 
 if DATASET == Semeval2017:
     print("### SEMEVAL ANNOTATOR ###")
-    print("###        All        ###")
 
     from eval import anno_generator
-
-    anno_generator.write_anno("/tmp/simplernn", test_doc_str, obtained_words)
     from data.Semeval2017 import eval
+    import shutil
 
-    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn-all", remove_anno=["types"])
+    tmp_path = '../data/Semeval2017/tmp/simplernn'
+    print("###        All        ###")
+    shutil.rmtree(tmp_path + "-all", ignore_errors=True)
+    anno_generator.write_anno(tmp_path + "-all", test_doc_str, obtained_words)
+    eval.calculateMeasures("../data/Semeval2017/test", tmp_path + "-all", remove_anno=["types"])
 
     print("###     Filtered      ###")
-    anno_generator.write_anno("/tmp/simplernn-clean", test_doc_str, clean_words)
-    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn-clean", remove_anno=["types"])
+    shutil.rmtree(tmp_path + "-clean", ignore_errors=True)
+    anno_generator.write_anno(tmp_path + "-clean", test_doc_str, clean_words)
+    eval.calculateMeasures("../data/Semeval2017/test", tmp_path + "-clean", remove_anno=["types"])
 
     print("###      Top 15       ###")
-    anno_generator.write_anno("/tmp/simplernn-15", test_doc_str, obtained_words_top)
-    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn-15", remove_anno=["types"])
+    shutil.rmtree(tmp_path + "-15", ignore_errors=True)
+    anno_generator.write_anno(tmp_path + "-15", test_doc_str, obtained_words_top)
+    eval.calculateMeasures("../data/Semeval2017/test", tmp_path + "-15", remove_anno=["types"])
 
     print("###  Top 15 Filtered  ###")
+    shutil.rmtree(tmp_path + "-15-clean", ignore_errors=True)
     clean_words = postprocessing.get_valid_patterns(obtained_words_top)
-
-    anno_generator.write_anno("/tmp/simplernn-15-clean", test_doc_str, clean_words)
-    eval.calculateMeasures("data/Semeval2017/test", "/tmp/simplernn-15-clean", remove_anno=["types"])
+    anno_generator.write_anno(tmp_path + "-15-clean", test_doc_str, clean_words)
+    eval.calculateMeasures("../data/Semeval2017/test", tmp_path + "-15-clean", remove_anno=["types"])
