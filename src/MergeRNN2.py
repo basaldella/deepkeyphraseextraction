@@ -58,7 +58,7 @@ DATASET = Semeval2017
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Semeval2017"
-    MAX_DOCUMENT_LENGTH = 550
+    MAX_DOCUMENT_LENGTH = 350  # gl: was 550
     MAX_VOCABULARY_SIZE = 12000  # gl: was 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
@@ -150,7 +150,11 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                        input_length=MAX_DOCUMENT_LENGTH,
                                        trainable=False)(summary)
     # print(encoded_summary)  # gl
-    encoded_summary = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_summary)
+    # encoded_summary = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_summary)
+    if DATASET == Hulth:
+        encoded_summary = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_summary)
+    elif DATASET == Semeval2017:
+        encoded_summary = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_summary)
     # Size: 131
     encoded_summary = layers.MaxPool1D(pool_size=2)(encoded_summary)
     encoded_summary = layers.Activation('relu')(encoded_summary)
