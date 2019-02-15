@@ -418,6 +418,77 @@ class Semeval2017(Dataset):
         return self.__load_answers("dev/dev")
 
 
+class Krapivin2009(Dataset):
+    def __init__(self, path):
+        super().__init__("Krapivin 2009", path)
+
+    def __load_documents(self, folder):
+        """
+        Loads the documents in the .txt files contained
+        in the specified folder and puts them in a dictionary
+        indexed by document id (i.e. the filename without the
+        extension).
+
+        :param folder: the folder containing the documents
+        :return: a dictionary with the documents
+        """
+
+        # This dictionary will contain the documents
+        documents = {}
+
+        for doc in os.listdir("%s/%s" % (self.path, folder)):
+            if doc.endswith(".txt"):
+                content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
+                documents[doc[:doc.find('.')]] = content
+
+        return documents
+
+    def __load_answers(self, folder):
+        '''
+        Loads the answers contained in the .ann files
+        and puts them in a dictionary indexed by document ID
+        (i.e. the document name without the extension).
+
+        :param folder: the folder containing the answer files
+        :return: a dictionary with the answers
+        '''
+
+        answers = {}
+
+        for doc in os.listdir("%s/%s" % (self.path, folder)):
+            if doc.endswith(".key"):
+                content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
+                retrieved_answers = content.split('\n')
+                doc_id = doc[:doc.find('.')]
+                for answer in retrieved_answers:
+                    answer = answer.strip()
+                    if answer != '':
+                        if doc_id not in answers:
+                            answers[doc_id] = [answer]
+                        else:
+                            answers[doc_id].append(answer)
+
+        return answers
+
+    def _load_test_documents(self):
+        return self.__load_documents("Test")
+
+    def _load_train_documents(self):
+        return self.__load_documents("Training")
+
+    def _load_validation_documents(self):
+        return self.__load_documents("Validation")
+
+    def _load_test_answers(self):
+        return self.__load_answers("Test")
+
+    def _load_train_answers(self):
+        return self.__load_answers("Training")
+
+    def _load_validation_answers(self):
+        return self.__load_answers("Validation")
+
+
 class Marujo2012(Dataset):
     """
     Dataset from Luís Marujo et al: "Supervised Topical Key Phrase Extraction of News Stories
