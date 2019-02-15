@@ -52,7 +52,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Krapivin2009  # Krapivin2009, Semeval2017, Hulth, Kp20k
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -62,7 +62,7 @@ if DATASET == Semeval2017:
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 32
     EPOCHS = 30
-    KP_WEIGHT = 10
+    #KP_WEIGHT = 10
     STEM_MODE = metrics.stemMode.both
     STEM_TEST = False
 elif DATASET == Hulth:
@@ -73,7 +73,7 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
     EPOCHS = 28  # gl was 28
-    KP_WEIGHT = 10
+    #KP_WEIGHT = 10
     STEM_MODE = metrics.stemMode.none
     STEM_TEST = False
 elif DATASET == Marujo2012:
@@ -84,31 +84,42 @@ elif DATASET == Marujo2012:
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 16
     EPOCHS = 10
-    KP_WEIGHT = 10
+    #KP_WEIGHT = 10
     STEM_MODE = metrics.stemMode.both
     STEM_TEST = False
 elif DATASET == Semeval2010:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Semeval2010"
+    DATASET_FOLDER = "../data/Semeval2010"
     MAX_DOCUMENT_LENGTH = 16600
     MAX_VOCABULARY_SIZE = 50000
     EMBEDDINGS_SIZE = 50
     BATCH_SIZE = 16
     EPOCHS = 40
-    KP_WEIGHT = 500
+    #KP_WEIGHT = 500
     STEM_MODE = metrics.stemMode.results
     STEM_TEST = True
 elif DATASET == Kp20k:
     tokenizer = tk.tokenizers.nltk
-    DATASET_FOLDER = "data/Kp20k"
+    DATASET_FOLDER = "../data/Kp20k"
     MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
     MAX_VOCABULARY_SIZE = 400000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 64  # gl: was 32
     EPOCHS = 13  # gl: was 13
-    KP_WEIGHT = 10
+    #KP_WEIGHT = 10
     STEM_MODE = metrics.stemMode.results
     STEM_TEST = True
+elif DATASET == Krapivin2009:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "../data/Krapivin2009"
+    MAX_DOCUMENT_LENGTH = 454
+    MAX_VOCABULARY_SIZE = 20000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 64
+    EPOCHS = 13
+    #KP_WEIGHT = 10
+    STEM_MODE = metrics.stemMode.results
+    STEM_TEST = False
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
