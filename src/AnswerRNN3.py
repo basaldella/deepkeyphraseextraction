@@ -88,6 +88,16 @@ elif DATASET == Kp20k:
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 2048
     EPOCHS = 9
+elif DATASET == Krapivin2009:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "../data/Krapivin2009"
+    MAX_DOCUMENT_LENGTH = 454
+    MAX_VOCABULARY_SIZE = 20000
+    MAX_ANSWER_LENGTH = 12
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 64
+    #PREDICT_BATCH_SIZE = 2048
+    EPOCHS = 13
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -502,7 +512,7 @@ if DATASET == Semeval2017:
     from data.Semeval2017 import eval
     import shutil
 
-    tmp_path = '../data/Semeval2017/tmp/answerrnn3_att'
+    tmp_path = '../data/Semeval2017/tmp/answerrnn3'
     shutil.rmtree(tmp_path, ignore_errors=True)
     anno_generator.write_anno(tmp_path, test_doc_str, obtained_words)
     eval.calculateMeasures("../data/Semeval2017/test", tmp_path, remove_anno=["types"])
