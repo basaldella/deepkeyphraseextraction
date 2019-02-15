@@ -1,8 +1,7 @@
 import matplotlib
-# matplotlib.use('agg')
-matplotlib.use('TkAgg')
+matplotlib.use('agg')  # good for VE03 but no plots
+# matplotlib.use('TkAgg')  # good for VE01, able to plot
 import matplotlib.pyplot as plt
-
 
 
 def plot_accuracy(history) :
