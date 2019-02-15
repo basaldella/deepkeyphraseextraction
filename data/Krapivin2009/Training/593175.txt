@@ -1,0 +1,16 @@
+A Controlled Skip Parser.
+Real-world natural language sentences are often long and complex, and
+contain unexpected grammatical constructions. They even include noise
+and ungrammaticality. This paper describes the Controlled Skip
+Parser, a program that parses such real-world sentences by skipping
+some of the words in the sentence. The new feature of this parser is that it
+controls its behavior by finding out which words to skip, without using
+domain-specific knowledge. The parser is a priority-based chart
+parser. By assigning appropriate priority levels to the constituents
+in the chart, the parsers behavior is controlled. Statistical
+information is used for assigning priority levels. The statistical
+information (n-grams) can be thought of as a generalized approximation
+of the grammar learned from past successful experiences. The control
+mechanism gives a great speed-up and reduction in memory usage.
+Experiments on real newspaper articles are shown, and our experience
+with this parser in a machine translation system is described.

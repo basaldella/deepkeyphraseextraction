@@ -1,0 +1,2 @@
+Cycle-Time Properties of the Timed Token Medium Access Control Protocol.
+AbstractWe investigate the timing properties of the timed token protocol that are necessary to guarantee synchronous message deadlines. A tighter upper bound on the elapse time between the token's lth arrival at any node i and its (l+v)th arrival at any node k is found. A formal proof to this generalized bound is presented.

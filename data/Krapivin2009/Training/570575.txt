@@ -1,0 +1,2 @@
+Finite variability interpretation of monadic logic of order.
+We consider an interpretation of monadic second-order logic of order in the continuous time structure of finitely variable signals. We provide a characterization of the expressive power of monadic logic. As a by-product of our characterization we show that many fundamental theorems which hold in the discrete time interpretation of monadic logic are still valid in the continuous time interpretation.

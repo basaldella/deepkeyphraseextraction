@@ -1,0 +1,2 @@
+Affine Type A Crystal Structure on Tensor Products of Rectangles, Demazure Characters, and Nilpotent Varieties.
+Answering a question of Kuniba, Misra, Okado, Takagi, and Uchiyama, it is shown that certain higher level Demazure characters of affine type A, coincide with the graded characters of coordinate rings of closures of conjugacy classes of nilpotent matrices.

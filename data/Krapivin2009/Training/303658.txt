@@ -1,0 +1,2 @@
+Asymptotic-Induced Domain Decomposition Methods for Kinetic and Drift Diffusion Semiconductor Equations.
+This paper deals with domain decomposition methods for kinetic and drift diffusion semiconductor equations. In particular accurate coupling conditions  at the interface between the kinetic and drift diffusion domain are given. The cases of slight and strong nonequilibrium situations at the interface are considered and numerical examples are shown.

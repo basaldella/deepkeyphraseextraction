@@ -1,0 +1,12 @@
+A Behavior Model for Next Generation Test Systems.
+Defining information required by automatic test systems frequently
+involves a description of system behavior. To facilitate capturing the
+required behavior information in the context of testing, a formal model of
+behavior was developed for use by test systems. The approach taken in
+defining the behavior model was based on information modeling and was
+derived from recent work in formal methods by the hardware and software
+design communities. Specifically, an information model was developed in
+EXPRESS capturing the relationships between essential entities characterizing
+behavior. In this paper, we provide a high level description of the behavior
+information model and several examples applying the model in a test
+environment.

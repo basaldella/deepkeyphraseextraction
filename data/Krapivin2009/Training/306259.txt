@@ -1,0 +1,21 @@
+Elevator Group Control Using Multiple Reinforcement Learning Agents.
+Recent algorithmic and theoretical advances in reinforcement
+learning (RL) have attracted widespread interest. RL algorithms have appeared
+that approximate dynamic programming on an incremental basis. They can
+be trained on the basis of real or simulated experiences, focusing
+their computation on areas of state space that are actually visited
+during control, making them computationally tractable on very large problems.
+If each member of a team of agents employs one of these algorithms, a new
+collective learning algorithm emerges for the team as a whole.
+In this paper we demonstrate that such collective RL algorithms can be
+powerful heuristic methods for addressing large-scale control problems.Elevator group control serves as our testbed. It is a difficult
+domain posing a combination of challenges not seen in most multi-agent
+learning research to date. We use a team of RL agents, each of which is
+responsible for controlling one elevator car. The team receives a global
+reward signal which appears noisy to each agent due to the effects of the
+actions of the other agents, the random nature of the arrivals and the
+incomplete observation of the state. In spite of these complications, we show
+results that in simulation surpass the best of the heuristic elevator
+control algorithms of which we are aware. These results demonstrate the power
+of multi-agent RL on a very large scale stochastic dynamic optimization
+problem of practical utility.

@@ -1,0 +1,16 @@
+Minimal Decomposition of Model-Based Invariants.
+Model-based invariants are relations between model
+parameters and image measurements, which are independent of the
+imaging parameters. Such relations are true for all images of
+the model. Here we describe an algorithm which, given L
+independent model-based polynomial invariants describing some
+shape, will provide a linear re-parameterization of the
+invariants. This re-parameterization has the properties that: (i)
+it includes the minimal number of terms, and (ii) the
+shape terms are the same in all the model-based
+invariants. This final representation has 2 main applications: (1)
+it gives new representations of shape in terms of
+hyperplanes, which are convenient for object recognition&semi; (2) it
+allows the design of new linear shape from motion algorithms. In
+addition, we use this representation to identify object classes
+that have universal invariants.

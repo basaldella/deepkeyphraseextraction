@@ -1,0 +1,8 @@
+On the Complexity of Semidefinite Programs.
+We show that the feasibility of a system of m linear inequalities over
+the cone of symmetric positive semidefinite matrices of order n can
+be tested in mn^O(min{m,n^2}) arithmetic operations with
+ln^O(min{m,n^2})-bit numbers, where l is the maximum binary
+size of the input coefficients. We also show that any feasible system of
+dimension (m,n) has a solution X such that log||X||
+ln^O(min{m,n^2}).

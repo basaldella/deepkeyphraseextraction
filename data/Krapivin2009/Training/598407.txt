@@ -1,0 +1,12 @@
+Coherence-Enhancing Diffusion Filtering.
+The completion of interrupted lines or the enhancement of
+flow-like structures is a challenging task in computer vision,
+human vision, and image processing. We address this problem by
+presenting a multiscale method in which a nonlinear diffusion
+filter is steered by the so-called interest operator (second-moment
+matrix, structure tensor). An m-dimensional formulation of this
+method is analysed with respect to its well-posedness and scale-space
+properties. An efficient scheme is presented which uses a
+stabilization by a semi-implicit additive operator splitting (AOS),
+and the scale-space behaviour of this method is illustrated by applying
+it to both 2-D and 3-D images.

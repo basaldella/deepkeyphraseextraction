@@ -1,0 +1,2 @@
+An Interior-Point Approach to Sensitivity Analysis in Degenerate Linear Programs.
+We consider an interior-point approach to sensitivity analysis in linear programming developed by the authors. We investigate the quality of the interior-point bounds under degeneracy. In the case of a special type of degeneracy, we show that these bounds have the same nice asymptotic relationship with the optimal partition bounds as in the nondegenerate case. We prove a weaker relationship for general degenerate linear programs.

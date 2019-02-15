@@ -1,0 +1,2 @@
+On Positive Semidefinite Matrices with Known Null Space.
+We show how the zero structure of a basis of the null space of a positive semidefinite matrix can be exploited to determine a positive definite submatrix of maximal rank. We discuss consequences of this result for the solution of (constrained) linear systems and eigenvalue problems. The results are of particular interest if A and the null space basis are sparse. We furthermore execute a backward error analysis of the Cholesky factorization of positive semidefinite matrices and provide new elementwise bounds.

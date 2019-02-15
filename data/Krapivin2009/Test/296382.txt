@@ -1,0 +1,25 @@
+Tracking the Best Expert.
+We generalize the recent relative loss bounds for on-line
+algorithms where the additional loss of the algorithm on the whole sequence
+of examples over the loss of the best expert is bounded. The generalization
+allows the sequence to be partitioned into segments, and the goal is to
+bound the additional loss of the algorithm over the sum of the losses of
+the best experts for each segment. This is to model situations in which the
+examples change and different experts are best for certain segments of the
+sequence of examples. In the single segment case, the additional loss is
+proportional to log n, where n is the number of
+experts and the constant of proportionality depends on the loss function.
+Our algorithms do not produce the best partition; however the loss bound
+shows that our predictions are close to those of the best partition. When
+the number of segments is k+1 and the sequence is of length
+&ell;, we can bound the additional loss of our algorithm over the best
+partition by O(k \log n+k \log(&ell;/k)). For the
+case when the loss per trial is bounded by one, we obtain an algorithm
+whose additional loss over the loss of the best partition is independent of
+the length of the sequence. The additional loss becomes O(k\log n+ k
+\log(L/k)), where L is the loss of the best
+partitionwith k+1 segments. Our algorithms for tracking the
+predictions of the best expert aresimple adaptations of Vovk's
+original algorithm for the single best expert case. As in the original
+algorithms, we keep one weight per expert, and spend O(1) time
+per weight in each trial.

@@ -1,0 +1,2 @@
+An Implicitly Restarted Symplectic Lanczos Method for the Symplectic Eigenvalue Problem.
+An implicitly restarted symplectic Lanczos method for the symplectic eigenvalue problem is presented. The Lanczos vectors are constructed to form a symplectic basis. The inherent numerical difficulties of the symplectic Lanczos method are addressed by inexpensive implicit restarts. The method is used to compute some eigenvalues and eigenvectors of large and sparse symplectic operators.

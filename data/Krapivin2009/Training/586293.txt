@@ -1,0 +1,2 @@
+A TACOMA retrospective.
+For seven years, the TACOMA project has investigated the design and implementation of software support for mobile agents. A series of prototypes has been developed, with experiences in distributed applications driving the effort. This paper describes the evolution of these TACOMA prototypes, what primitives each supports, and how the primitives are used in building distributed applications.

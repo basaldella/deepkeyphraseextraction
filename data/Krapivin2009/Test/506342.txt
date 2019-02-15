@@ -1,0 +1,17 @@
+Strong normalizability of the non-deterministic catch/throw calculi.
+The catch/throw mechanism in Common Lisp provides a simple control
+mechanism for non-local exits. We study typed calculi by Nakano and
+Sato which formalize the catch/throw mechanism. These calculi
+correspond to classical logic through the Curry-Howard isomorphism,
+and one of their characteristic points is that they have
+non-deterministic reduction rules. These calculi can represent
+various computational meaning of classical proofs. This paper is
+mainly concerned with the strong normalizability of these calculi.
+Namely, we prove the strong normalizability of these calculi, which
+was an open problem. We first formulate a non-deterministic variant
+of Parigot's -calculus, and show it is strongly
+normalizing. We then translate the catch/throw calculi to this
+variant. Since the translation preserves typing and reduction, we
+obtain the strong normalization of the catch/throw calculi. We also
+briefly consider second-order extension of the catch/throw calculi.
+Copyright 2002 Elsevier Science B.V

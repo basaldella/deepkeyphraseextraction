@@ -1,0 +1,21 @@
+On Automating Diagrammatic Proofs of Arithmetic Arguments.
+Theorems in automated theorem proving are usually proved by formal
+logical proofs. However, there is a subset of problems which humans can
+prove by the use of geometric operations on diagrams, so called
+diagrammatic proofs. Insight is often more clearly perceived in these
+proofs than in the corresponding algebraic proofs; they capture an
+intuitive notion of truthfulness that humans find easy to see and
+understand. We are investigating and automating such diagrammatic
+reasoning about mathematical theorems. Concrete, rather than general
+diagrams are used to prove particular concrete instances of the
+universally quantified theorem. The diagrammatic proof is captured by
+the use of geometric operations on the diagram. These operations are
+the inference steps of the proof. An abstracted schematic proof of
+the universally quantified theorem is induced from these proof
+instances. The constructive -rule provides the mathematical
+basis for this step from schematic proofs to theoremhood. In this way
+we avoid the difficulty of treating a general case in a diagram. One
+method of confirming that the abstraction of the schematic proof from
+the proof instances is sound is proving the correctness of schematic
+proofs in the meta-theory of diagrams. These ideas have been
+implemented in the system, called Diamond, which is presented here.

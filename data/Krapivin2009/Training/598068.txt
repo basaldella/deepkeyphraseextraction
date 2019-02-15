@@ -1,0 +1,30 @@
+Window flow control in FIFO networks with cross traffic.
+We focus on window flow control as used in packet-switched
+
+communication networks. The approach consists in studying the stability of a
+
+system where each node on the path followed by the packets of the controlled
+
+connection is modeled by a FIFO
+
+queue of infinite capacity which receives in addition some cross traffic
+
+represented by an exogenous flow. Under general stochastic assumptions, namely
+
+for stationary and ergodic input processes, we show the existence of a maximum
+
+throughput allowed by the flow control. Then we establish bounds on the value
+
+of this maximum throughput. These bounds, which do not coincide in general, are
+
+reached by time-space scalings of the exogenous flows. Therefore, the
+
+performance of the window flow control depends not only on the traffic
+
+intensity of the cross flows, but also on fine statistical characteristics such
+
+as the burstiness of these flows. These results are illustrated by several
+
+examples, including the case of a nonmonotone, nonconvex and fractal stability
+
+region.

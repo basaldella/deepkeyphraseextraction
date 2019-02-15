@@ -1,0 +1,9 @@
+Reasoning about Information Change.
+In this paper we introduce Dynamic Epistemic Logic, which is a
+logic for reasoning about information change in a multi-agent system. The
+information structures we use are based on non-well-founded sets, and can
+be conceived as bisimulation classes of Kripke models. On these structures,
+we define a notion of information change that is inspired by Update
+Semantics (Veltman, 1996). We give a sound and complete axiomatization of
+the resulting logic, and we discuss applications to the puzzle of the dirty
+children, and to knowledge programs.

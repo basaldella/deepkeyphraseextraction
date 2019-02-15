@@ -1,0 +1,2 @@
+Evaluation of Binarization Methods for Document Images.
+AbstractThis paper presents an evaluation of eleven locally adaptive binarization methods for gray scale images with low contrast, variable background intensity and noise. Niblacks method with the addition of the postprocessing step of Yanowitz and Brucksteins method added performed the best and was also one of the fastest binarization methods.

@@ -1,0 +1,17 @@
+On Multirate DS-CDMA Schemes with Interference Cancellation.
+This paper investigates interference cancellation (IC) in
+direct-sequence code-division multiple access (DS-CDMA) systems that support
+multiple data rates. Two methods for implementing multiple data rates are
+considered. One is the use of mixed modulation and the other is the use of
+multicodes. We introduce and analyze a new approach that combines these
+multiple data rate systems with IC. The cancellation in the receiver is
+performed successively on each user, starting with the user received with
+the highest power. This procedure can in turn be iterated, forming a
+multistage scheme, with the number of iterations set as a design parameter.
+Our analysis employs a Gaussian approximation for the distribution of the
+interference, and it includes both the AWGN and the flat Rayleigh fading
+channel. The systems are also evaluated via computer simulations. Our
+analysis and simulations indicate that the IC schemes used in mixed
+modulation or multicode systems yield a performance close to the single BPSK
+user bound and, consequently, give a prospect of a considerable improvement
+in performance compared to systems employing matched filter detectors.

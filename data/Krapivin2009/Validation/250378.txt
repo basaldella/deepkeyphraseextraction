@@ -1,0 +1,2 @@
+A New Theoretical Approach to Absorbing Layers.
+We consider the construction of absorbing boundary layers using asymptotic expansions, the small parameter being the width of the layer. This allows us to define the order of the layer. We compute layers of various orders and analyze their stability properties. Finally, we perform some numerical tests to evaluate the practical utility of our layers.

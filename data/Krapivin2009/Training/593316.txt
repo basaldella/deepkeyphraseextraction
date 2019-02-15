@@ -1,0 +1,24 @@
+Solving Various Weighted Matching Problems with Constraints.
+This paper studies the resolution of (augmented)
+weighted matching problems within a constraint programming (CP)
+framework. The first contribution of the paper is a set of techniques
+that improves substantially the performance of branch-and-bound
+algorithms based on constraint propagation and the second contribution
+is the introduction of weighted matching as a global constraint
+( WeightedMatching), that can be propagated using specialized
+incremental algorithms from Operations Research. We first compare
+programming techniques that use constraint propagation with specialized
+algorithms from Operations Research, such as the Busaker and
+Gowen flow algorithm or the Hungarian method. Although CP is
+shown not to be competitive with specialized polynomial algorithms
+for pure matching problems, the situation is different as
+soon as the problems are modified with additional constraints.
+Using the previously mentioned set of techniques, a simpler branch-and-bound
+algorithm based on constraint propagation can outperform a complex
+specialized algorithm. These techniques have been applied with
+success to the Traveling Salesman Problems [5], which can be
+seen as an augmented matching problem. We also show that an incremental
+version of the Hungarian method can be used to propagate a  WeightedMatching
+constraint. This is an extension to the weighted case of the
+work of Rgin [19], which we show to bring significant
+improvements on a timetabling example.

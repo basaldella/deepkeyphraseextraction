@@ -1,0 +1,17 @@
+Extending Design Environments to Software Architecture Design.
+Designing a complex software system is a
+cognitively challenging task; thus, designers need cognitive support to
+create good designs. Domain-oriented design environments are
+cooperative problem-solving systems that support designers in complex
+design tasks. In this paper we present the architecture and facilities
+of Argo, a domain-oriented design environment for software architecture.
+Argos own architecture is motivated by the desire to achieve reuse and
+extensibility of the design environment. It separates domain-neutral
+code from domain-oriented code, which is distributed among active design
+materials as opposed to being centralized in the design environment.
+Argos facilities are motivated by the observed cognitive needs of
+designers. These facilities extend previous work in design environments
+by enhancing support for reflection-in-action, and
+adding new support
+for opportunistic design and
+comprehension and problem solving.

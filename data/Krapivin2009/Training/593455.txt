@@ -1,0 +1,23 @@
+High Performance OLAP and Data Mining on Parallel Computers.
+On-Line Analytical Processing (OLAP) techniques are increasingly
+being used in decision support systems to provide analysis of data. Queries
+posed on such systems are quite complex and require different views of
+data. Analytical models need to capture the multidimensionality of the
+underlying data, a task for which multidimensional databases are well
+suited. Multidimensional OLAP systems store data in multidimensional arrays
+on which analytical operations are performed. Knowledge discovery and data
+mining requires complex operations on the underlying data which can be very
+expensive in terms of computation time. High performance parallel systems
+can reduce this analysis time.Precomputed aggregate calculations in a Data Cube can provide efficient
+query processing for OLAP applications. In this article, we present
+algorithms for construction of data cubes on distributed-memory parallel
+computers. Data is loaded from a relational database into a
+multidimensional array. We present two methods, sort-based and hash-based
+for loading the base cube and compare their performances. Data cubes are
+used to perform consolidation queries used in roll-up operations using
+dimension hierarchies. Finally, we show how data cubes are used for data
+mining using Attribute Focusing techniques. We present results for these on
+the IBM-SP2 parallel machine. Results show that our algorithms and
+techniques for OLAP and data mining on parallel systems are scalable to a
+large number of processors, providing a high performance platform for such
+applications.

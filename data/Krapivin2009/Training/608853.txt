@@ -1,0 +1,20 @@
+Deterministic Built-in Pattern Generation for Sequential Circuits.
+We present a new pattern generation approach for
+deterministic built-in self testing (BIST) of sequential circuits.
+Our approach is based on precomputed test sequences, and is
+especially suited to sequential circuits that contain a large number
+of flip-flops but relatively few controllable primary inputs. Such
+circuits, often encountered as embedded cores and as filters for
+digital signal processing, are difficult to test and require long
+test sequences. We show that statistical encoding of precomputed
+test sequences can be combined with low-cost pattern decoding to
+provide deterministic BIST with practical levels of overhead. Optimal
+Huffman codes and near-optimal Comma codes are especially useful
+for test set encoding. This approach exploits recent advances in
+automatic test pattern generation for sequential circuits and, unlike
+other BIST schemes, does not require access to a gate-level model of
+the circuit under test. It can be easily automated and integrated
+with design automation tools. Experimental results for the ISCAS 89
+benchmark circuits show that the proposed method provides higher
+fault coverage than pseudorandom testing with shorter test
+application time and low to moderate hardware overhead.

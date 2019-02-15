@@ -1,0 +1,2 @@
+Deriving a simulation input generator and a coverage metric from a formal specification.
+This paper presents novel uses of functional interface specifications for verifying RTL designs. We demonstrate how a simulation environment, a correctness checker, and a functional coverage metric are all created automatically from a single specification. Additionally, the process exploits the structure of a specification written with simple style rules. The methodology was used to verify a large-scale I/O design from the Stanford FLASH project.

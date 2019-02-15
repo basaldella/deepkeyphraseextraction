@@ -1,0 +1,2 @@
+Norm-Based Approximation in Bicriteria Programming.
+An algorithm to approximate the nondominated set of continuous and discrete bicriteria programs is proposed. The algorithm employs block norms to find an approximation and evaluate its quality. By automatically adapting to the problem's structure and scaling, the approximation is constructed objectively without interaction with the decision maker. Mathematical and practical examples are included.

@@ -1,0 +1,36 @@
+Recursive 3-D Visual Motion Estimation Using Subspace Constraints.
+The 3-D motion of a camera within a static environment produces a
+sequence of time-varying images that can be used for reconstructing
+the relative motion between the scene and the viewer. The problem of
+reconstructing rigid motion from a sequence of perspective images may
+be characterized as the estimation of the state of a nonlinear
+dynamical system, which is defined by the rigidity constraint and the
+perspective measurement map. The time-derivative of the measured
+output of such a system, which is called the 2-D motion field and
+is approximated by the optical flow, is bilinear in the motion
+parameters, and may be used to specify a subspace constraint on the
+direction of heading independent of rotation and depth, and a
+pseudo-measurement for the rotational velocity as a function of the
+estimated heading. The subspace constraint may be viewed as an
+implicit dynamical model with parameters on a differentiable manifold,
+and the visual motion estimation problem may be cast in a
+system-theoretic framework as the identification of such an
+implicit model. We use techniques which pertain to nonlinear
+estimation and identification theory to recursively estimate 3-D rigid
+motion from a sequence of images independent of the structure of the
+scene. Such independence from scene-structure allows us to deal with a
+variable number of visible feature-points and occlusions in a
+principled way. The further decoupling of the direction of heading
+from the rotational velocity generates a filter with a state that
+belongs to a two-dimensional and highly constrained state-space. As a
+result, the filter exhibits robustness properties which are
+highlighted in a series of experiments on real and noisy synthetic
+image sequences. While the position of feature-points is not part of
+the state of the model, the innovation process of the filter describes
+how each feature is compatible with a rigid motion interpretation,
+which allows us to test for outliers and makes the filter robust with
+respect to errors in the feature tracking/optical flow, reflections,
+T-junctions. Once motion has been estimated, the 3-D structure of the
+scene follows easily. By releasing the constraint that the visible
+points lie in front of the viewer, one may explain some psychophysical
+effects on the nonrigid percept of rigidly moving objects.

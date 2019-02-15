@@ -1,0 +1,2 @@
+Type specialisation for imperative languages.
+We extend type specialisation to a computational lambda calculus with first-class references. The resulting specialiser has been used to specialise a self-interpreter for this typed computational lambda calculus optimally. Furthermore, this specialiser can perform operations on references at specialisation time, when possible.

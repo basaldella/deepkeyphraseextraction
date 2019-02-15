@@ -1,0 +1,26 @@
+Numerical Schemes for Variational Inequalities Arising in International Asset Pricing.
+This paper introduces a
+
+valuation model of international pricing in
+
+the presence of political risk. Shipments between countries are
+
+charged with shipping costs and the country specific production
+
+processes are modelled as diffusion processes. The political risk is
+
+modelled as a continous time jump process that affects the drift of the
+
+returns in the politically unstable countries. The valuation model
+
+gives rise to a singular stochastic control problem that is
+
+analyzed numerically. The fundamental tools come from the theory of
+
+viscosity solutions of the associated HamiltonJacobiBellman equation
+
+which turns out to be a system of integral-differential
+
+Variational
+
+Inequalities with gradient constraints.

@@ -1,0 +1,2 @@
+Efficient leader election using sense of direction.
+This paper presents a protocol for leader election in complete networks with a sense of direction. Sense of direction provides nodes the capability of distinguishing between their incident links according to a global scheme. We propose a protocol for leader election which requires O(N) messages and O(log N) time. The protocol is message optimal and the time complexity is a significant improvement over currently known protocols for this problem.

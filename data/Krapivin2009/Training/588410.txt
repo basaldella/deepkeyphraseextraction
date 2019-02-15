@@ -1,0 +1,2 @@
+Modified Adaptive Algorithms.
+It is well known that the adaptive algorithm is simple and easy to program but the results are not fully competitive with other nonlinear methods such as free knot spline approximation. We modify the algorithm to take full advantages of nonlinear approximation. The new algorithms have the same approximation order as other nonlinear methods, which is proved by characterizing their approximation spaces. One of our algorithms is implemented on the computer, with numerical results illustrated by figures and tables.

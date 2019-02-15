@@ -1,0 +1,2 @@
+Images and Preimages in Random Mappings.
+We present a general theorem that can be used to identify the limiting distribution for a class of combinatorial schemata. For example, many parameters in random mappings can be covered in this way. In particular, we can derive the limiting distribution of those points with a given number of total predecessors.

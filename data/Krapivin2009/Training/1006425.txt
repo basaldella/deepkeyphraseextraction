@@ -1,0 +1,2 @@
+Exact algorithms for finding minimum transversals in rank-3 hypergraphs.
+We present two algorithms for the problem of finding a minimum transversal in a hypergraph of rank 3, also known as the 3-Hitting Set problem. This problem is a natural extension of the vertex cover problem for ordinary graphs. The first algorithm runs in time O(1.6538n) for a hypergraph with n vertices, and needs polynomial space. The second algorithm uses exponential space and runs in time O(1.6316n).

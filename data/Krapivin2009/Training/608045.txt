@@ -1,0 +1,2 @@
+Verifying lossy channel systems has nonprimitive recursive complexity.
+Lossy channel systems are systems of finite state automata that communicate via unreliable unbounded fifo channels. It is known that reachability, termination and a few other verification problems are decidable for these systems. In this article we show that these problems cannot be solved in primitive recursive time.

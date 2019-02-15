@@ -1,0 +1,15 @@
+Co-Evolution in the Successful Learning of Backgammon Strategy.
+Following Tesauros work on TD-Gammon, we used a 4,000 parameter
+feedforward neural network to develop a competitive backgammon
+evaluation function. Play proceeds by a roll of the dice, application
+of the network to all legal moves, and selection of the position with
+the highest evaluation. However, no backpropagation,
+reinforcement or temporal difference learning methods were employed.
+Instead we apply
+simple hillclimbing in a relative fitness environment. We start with
+an initial champion of all zero weights and proceed simply by playing
+the current champion network against a slightly mutated challenger and
+changing weights if the challenger wins. Surprisingly, this worked
+rather well. We investigate how the peculiar dynamics of this domain
+enabled a previously discarded weak method to succeed, by preventing
+suboptimal equilibria in a meta-game of self-learning.

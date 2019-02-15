@@ -1,0 +1,27 @@
+Relations Between Regularization and Diffusion Filtering.
+Regularization may be regarded as diffusion filtering with an
+discretization where one single step is used. Thus, iterated
+regularization with small regularization parameters approximates
+a diffusion process. The goal of this paper is to analyse relations
+between noniterated and iterated regularization and diffusion
+filtering in image processing. In the linear regularization framework,
+we show that with iterated Tikhonov
+regularization noise can be better handled than with noniterated.
+In the nonlinear framework, two filtering strategies are considered:
+the total variation regularization technique and the diffusion filter
+technique of Perona and Malik. It is shown that the Perona-Malik
+equation decreases the total variation during its evolution.
+While noniterated and iterated total variation regularization is
+well-posed, one cannot expect to find a minimizing sequence which
+converges to a minimizer of the corresponding energy functional for
+the PeronaMalik filter. To overcome this shortcoming, a novel
+regularization technique of
+the PeronaMalik process is presented that allows to construct a
+weakly lower semi-continuous energy functional.
+In analogy to recently derived results for a well-posed class of
+regularized PeronaMalik filters, we introduce Lyapunov functionals
+and convergence results for regularization methods. Experiments on
+real-world images illustrate that iterated linear
+regularization performs better than noniterated, while
+no significant differences between noniterated and iterated total
+variation regularization have been observed.

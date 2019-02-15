@@ -1,0 +1,2 @@
+Interactive Orthogonal Graph Drawing.
+AbstractMany applications require human interaction during the design process. The user is given the ability to alter the graph as the design progresses. Interactive Graph Drawing allows the user to dynamically interact with the drawing of a graph. In this paper, we discuss features that are essential for an interactive orthogonal graph drawing system. We also describe some possible interactive drawing scenarios, present results on two of them, and compare their performance.

@@ -1,0 +1,10 @@
+Communication across Viewpoints.
+A case situation arising in a normal interaction among people is the
+baseline for discussing properties of the theory of viewpoints. In
+particular we consider how to ensure agreement on the meaning of certain
+utterances by agents who have different perspectives on the situation, while
+maintaning other knowledge as private. We argue that communication should be
+modeled as adding facts to the common knowledge of agents. We introduce the
+principle of referent sharing in communications and argue that common
+knowledge resulting from communication should only use constants whose
+referent is manifest to the parties involved.

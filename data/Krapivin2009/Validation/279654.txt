@@ -1,0 +1,14 @@
+Checkpointing Distributed Shared Memory.
+Distributed shared memory (DSM) is a very promising programming model
+for exploiting the parallelism of distributed memory systems, because
+it provides a higher level of abstraction than simple message passing.
+Although the nodes of standard distributed systems exhibit high crash
+rates only very few DSM environments have some kind of support for
+fault-tolerance.In this article, we present a checkpointing mechanism for a DSM system
+that is efficient and portable. It offers some portability because it
+is built on top of MPI and uses only the services offered by MPI and a
+POSIX compliant local file system.As far as we know, this is the first real implementation of such a
+scheme for DSM. Along with the description of the algorithm we present
+experimental results obtained in a cluster of workstations. We hope
+that our research shows that efficient, transparent and portable
+checkpointing is viable for DSM systems.

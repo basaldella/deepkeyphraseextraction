@@ -1,0 +1,2 @@
+Edge-Bandwidth of Graphs.
+The edge-bandwidth of a graph is the minimum, over all labelings of the edges with distinct integers, of the maximum difference between labels of two incident edges.  We prove that edge-bandwidth is at least as large as bandwidth for every graph, with equality for certain caterpillars. We obtain sharp or nearly sharp bounds on the change in edge-bandwidth under addition, subdivision, or contraction of edges.  We compute edge-bandwidth for Kn, Kn,n, caterpillars, and some theta graphs.

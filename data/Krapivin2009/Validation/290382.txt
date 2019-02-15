@@ -1,0 +1,14 @@
+Mixed-Mode BIST Using Embedded Processors.
+In complex systems, embedded processors may be used to
+run software routines for test pattern generation and response
+evaluation. For system components which are not completely
+random pattern testable, the test programs have to generate
+deterministic patterns after random testing. Usually the random
+test part of the program requires long run times whereas the
+part for deterministic testing has high memory requirements.In this paper it is shown that an appropriate selection of the
+random pattern test method can significantly reduce the memory
+requirements of the deterministic part. A new, highly efficient
+scheme for software-based random pattern testing is proposed,
+and it is shown how to extend the scheme for deterministic test
+pattern generation. The entire test scheme may also be used for
+implementing a scan based BIST in hardware.

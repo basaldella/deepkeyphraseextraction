@@ -1,0 +1,2 @@
+Realizability models for BLL-like languages.
+We give a realizability model of Girard-Scedrov-Scott's Bounded Linear Logic (BLL). This gives a new proof that all numerical functions representable in that system are polytime. Our analysis naturally justifies the design of the BLL syntax and suggests further extensions.

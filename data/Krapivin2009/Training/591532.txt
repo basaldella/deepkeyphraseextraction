@@ -1,0 +1,13 @@
+A Robotic Excavator for Autonomous Truck Loading.
+Excavators are used for the rapid removal of soil and other
+materials in mines, quarries, and construction sites. The automation
+of these machines offers promise for increasing productivity and
+improving safety. To date, most research in this area has focussed on
+selected parts of the problem. In this paper, we present a system
+that completely automates the truck loading task. The excavator uses
+two scanning laser rangefinders to recognize and localize the truck,
+measure the soil face, and detect obstacles. The excavators software
+decides where to dig in the soil, where to dump in the truck, and how
+to quickly move between these points while detecting and stopping for
+obstacles. The system was fully implemented and was demonstrated to
+load trucks as fast as human operators.

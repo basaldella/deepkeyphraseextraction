@@ -1,0 +1,2 @@
+Making Nondeterminism Unambiguous.
+We show that in the context of nonuniform complexity, nondeterministic logarithmic space bounded computation can be made unambiguous.  An analogous result holds for the class of problems reducible to context-free languages.  In terms of complexity classes, this can be stated as    NL/poly

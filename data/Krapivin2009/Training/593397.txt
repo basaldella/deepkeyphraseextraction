@@ -1,0 +1,18 @@
+Design of Extensible Component-Based Groupware.
+Tailoring is identified as a key requirement for CSCW applications.
+One major tailoring mechanism is the extension
+of an application at run-time to change its behavior.This article shows how synchronous CSCW component-based applications
+can be designed to be extensible at run-time.  We
+propose to split the act of tailoring into two steps: the
+design-time customization of new components in visual
+builder tools and their insertion into the running application.
+Thus the customization tool is not required to be
+part of the application.This article presents a new design pattern for extensibility and
+gives several examples based on that pattern.  With
+the help of the pattern extensible application frameworks can be
+systematically created from a non-extensible
+application design.  The different possibilities to place insertion
+points into the application design are discussed
+with respect to flexibility and ease of deployment.  Finally, we
+present the advantages and limitations of this
+approach.

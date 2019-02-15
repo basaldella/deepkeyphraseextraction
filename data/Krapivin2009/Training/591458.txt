@@ -1,0 +1,11 @@
+Slipping and Tripping Reflexes for Bipedal Robots.
+Many robot applications require legged robots to traverse rough or
+unmodeled terrain. This paper explores strategies that would enable
+legged robots to respond to two common types of surface contact
+error: slipping and tripping. Because of the rapid response required
+and the difficulty of sensing uneven terrain, we propose a set of
+reflexes that would permit the robot to react without modeling or
+analyzing the error condition in detail. These reflexive responses
+allow robust recovery from a variety of contact errors. We present
+simulation trials for single-slip tasks with varying coefficients of
+friction and single-trip tasks with varying obstacle heights.

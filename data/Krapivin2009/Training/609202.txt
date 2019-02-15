@@ -1,0 +1,12 @@
+Combining Program and Data Specialization.
+Program and data specialization have always been studied
+separately, although they are both aimed at processing early
+computations. Program specialization encodes the result of early
+computations into a new program&semi; while data specialization encodes
+the result of early computations into data structures.In this paper, we present an extension of the Tempo specializer, which
+performs both program and data specialization. We show how these
+two strategies can be integrated in a single specializer. This new
+kind of specializer provides the programmer with complementary
+strategies which widen the scope of specialization. We illustrate the benefits
+and limitations of these strategies and their combination
+on a variety of programs.

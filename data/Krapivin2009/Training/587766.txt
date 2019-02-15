@@ -1,0 +1,2 @@
+Twice Differentiable Spectral Functions.
+A function F on the space of n  n real symmetric matrices is called spectral if it depends only on the eigenvalues of its argument.  Spectral functions are just symmetric functions of the eigenvalues.  We show that a spectral function is twice (continuously) differentiable at a matrix if and only if the corresponding symmetric function is twice (continuously) differentiable at the vector of eigenvalues. We give a concise and usable formula for the Hessian.

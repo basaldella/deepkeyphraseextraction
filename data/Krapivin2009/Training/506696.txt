@@ -1,0 +1,2 @@
+Skepticism and floating conclusions.
+The purpose of this paper is to question some commonly accepted patterns of reasoning involving nonmonotonic logics that generate multiple extensions. In particular, I argue that the phenomenon of floating conclusions indicates a problem with the view that the skeptical consequences of such theories should be identified with the statements that are supported by each of their various extensions.

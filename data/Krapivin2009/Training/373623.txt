@@ -1,0 +1,22 @@
+Customer Retention via Data Mining.
+``Customer Retention'' is an increasingly pressing issue in
+
+today's ever-competitive commercial arena. This is especially relevant
+
+and important for sales and services related industries. Motivated by a
+
+real-world problem faced by a large company, we proposed a solution that
+
+integrates various techniques of data mining, such as feature
+
+selection via induction, deviation analysis, and mining multiple
+
+concept-level association rules to form an intuitive and novel approach
+
+to gauging customer loyalty and predicting their likelihood of
+
+defection. Immediate action triggered by these ``early-warnings''
+
+resulting from data mining is often the key to eventual customer
+
+retention.

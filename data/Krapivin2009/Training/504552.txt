@@ -1,0 +1,2 @@
+A new lower bound for the list update problem in the partial cost model.
+The optimal competitive ratio for a randomized online list update algorithm is known to be at least 1.5 and at most 1.6, but the remaining gap is not yet closed. We present a new lower bound of 1.50084 for the partial cost model. The construction is based on game trees with incomplete information, which seem to be generally useful for the competitive analysis of online algorithms. 2001 Elsevier Science B.V.

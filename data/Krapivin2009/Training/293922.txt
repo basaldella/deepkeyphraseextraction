@@ -1,0 +1,12 @@
+Synthesis of Novel Views from a Single Face Image.
+Images formed by a human face change with viewpoint. A new technique
+is described for synthesizing images of faces from new viewpoints, when only
+a single 2D image is available. A novel 2D image of a face can be computed
+without explicitly computing the 3D structure of the head. The technique
+draws on a single generic 3D model of a human head and on prior knowledge of
+faces based on example images of other faces seen in different poses. The
+example images are used to learn a pose-invariant shape and texture
+description of a new face. The 3D model is used to solve the correspondence
+problem between images showing faces in different poses. The proposed method is interesting for view independent face recognition
+tasks as well as for image synthesis problems in areas like teleconferencing
+and virtualized reality.

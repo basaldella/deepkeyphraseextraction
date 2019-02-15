@@ -1,0 +1,11 @@
+Vexillary Elements in the Hyperoctahedral Group.
+In analogy with the symmetric group, we define the vexillary
+elements in the hyperoctahedral group to be those for which the Stanley
+function is a single Schur Q-function. We show
+that the vexillary elements can be again determined by pattern avoidance
+conditions. These results can be extended to include the root systems of
+types A, B, C, and D.
+Finally, we give an algorithm for multiplication of Schur Q
+-functions with a superfied Schur function and
+a method for determining the shape of a vexillary signed permutation using
+de taquin.

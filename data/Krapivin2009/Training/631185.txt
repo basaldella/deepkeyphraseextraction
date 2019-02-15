@@ -1,0 +1,2 @@
+TLA in Pictures.
+Predicate-action diagrams, which are similar to standard state-transition diagrams, are precisely defined as formulas of TLA (the Temporal Logic of Actions). We explain how these diagrams can be used to describe aspects of a specificationand those descriptions then proved correcteven when the complete specification cannot be written as a diagram. We also use the diagrams to illustrate proofs.

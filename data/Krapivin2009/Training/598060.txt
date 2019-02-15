@@ -1,0 +1,8 @@
+Moderate deviations for queues in critical loading.
+We establish logarithmic asymptotics of moderate deviations for
+
+queue-length and waiting-time processes in single server queues and
+
+open queueing networks in critical loading. Our results complement earlier
+
+diffusion approximation results.

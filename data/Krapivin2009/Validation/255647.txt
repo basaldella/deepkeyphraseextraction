@@ -1,0 +1,25 @@
+A Teaching Strategy for Memory-Based Control.
+Combining different machine learning algorithms in the same system can
+produce benefits above and beyond what either method could achieve
+alone.  This paper demonstrates that genetic algorithms can be used in
+conjunction with lazy learning to solve examples of a difficult class of
+delayed reinforcement learning problems better than either method alone.
+This class, the class of differential games,
+includes numerous important control problems that arise in robotics,
+planning, game playing, and other areas, and solutions for differential
+games suggest solution strategies for the general class of planning
+and control problems. We conducted a series
+of experiments applying three learning approaches  lazy Q-learning,
+k-nearest neighbor (k-NN), and a genetic algorithm  to a
+particular differential game called a pursuit game.  Our experiments
+demonstrate that k-NN had great difficulty solving the problem, while a
+lazy version of Q-learning performed moderately well and
+the genetic algorithm performed even better.  These results
+motivated the next step in the experiments, where we hypothesized
+k-NN was having difficulty because it did not have good examples  a
+common source of difficulty for lazy learning.  Therefore, we used the
+genetic algorithm as a bootstrapping method for k-NN to create
+a system to provide these examples.  Our experiments
+demonstrate that the resulting joint system learned to solve the
+pursuit games with a high degree of accuracy  outperforming either
+method alone  and with relatively small memory requirements.

@@ -1,0 +1,11 @@
+Discovery of Frequent Episodes in Event Sequences.
+Sequences of events describing the behavior and actions of users or
+systems can be collected in several domains. An episode is a
+collection of events that occur relatively close to each other in a
+given partial order. We consider the problem of discovering
+frequently occurring episodes in a sequence. Once such episodes are
+known, one can produce rules for describing or predicting the
+behavior of the sequence. We give efficient algorithms for the
+discovery of all frequent episodes from a given class of episodes,
+and present detailed experimental results. The methods are in use in
+telecommunication alarm management.

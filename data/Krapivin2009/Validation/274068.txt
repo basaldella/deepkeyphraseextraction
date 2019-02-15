@@ -1,0 +1,27 @@
+Online Learning versus Offline Learning.
+We present an off-line variant of the mistake-bound model of
+learning. This is an intermediate model between the
+on-line learning model (Littlestone, 1988,
+Littlestone, 1989) and the
+self-directed learning model (Goldman, Rivest
+Schapire, 1993, Goldman & Sloan, 1994). Just like in the
+other two models, a learner in the off-line model has to learn an
+unknown concept from a sequence of elements of the instance space on
+which it makes guess and test trials. In all models,
+the aim of the learner is to make as few mistakes as possible. The
+difference between the models is that, while in the on-line model
+only the set of possible elements is known, in the
+off-line model the sequence of elements (i.e., the
+identity of the elements as well as the order in which they are to be
+presented) is known to the learner in advance. On the other hand, the
+learner is weaker than the self-directed learner, which is allowed to
+choose adaptively the sequence of elements presented to him.We study some of the fundamental properties of the
+off-line model. In particular, we compare the number of
+mistakes made by the off-line learner on certain concept classes to
+those made by the on-line and self-directed learners. We give bounds
+on the possible gaps between the various models and show examples
+that prove that our bounds are tight.Another contribution of this paper is the extension of the
+combinatorial tool of labeled trees to a unified approach that
+captures the various mistake bound measures of all the models
+discussed. We believe that this tool will prove to be useful for
+further study of models of incremental learning.

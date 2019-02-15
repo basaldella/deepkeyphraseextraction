@@ -1,0 +1,18 @@
+A Stochastic/Perturbation Global Optimization Algorithm for Distance Geometry Problems.
+We present a new global optimization approach for solving exactly or
+inexactly constrained distance geometry problems. Distance geometry problems
+are concerned with determining spatial structures from measurements of
+internal distances. They arise in the structural interpretation of nuclear
+magnetic resonance data and in the prediction of protein structure. These
+problems can be naturally formulated as global optimization problems which
+generally are large and difficult. The global optimization method that we
+present is related to our previous stochastic/perturbation global
+optimization methods for finding minimum energy configurations, but has
+several key differences that are important to its success. Our computational
+results show that the method readily solves a set of artificial problems
+introduced by Mor and Wu that have up to 343 atoms. On a set of
+considerably more difficult protein fragment problems introduced by
+Hendrickson, the method solves all the problems with up to 377 atoms exactly,
+and finds nearly exact solution for all the remaining problems which have up
+to 777 atoms. These preliminary results indicate that this approach has very
+good promise for helping to solve distance geometry problems.

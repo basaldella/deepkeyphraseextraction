@@ -1,0 +1,2 @@
+Excluding any graph as a minor allows a low tree-width 2-coloring.
+This article proves the conjecture of Thomas that, for every graph G, there is an integer k such that every graph with no minor isomorphic to G has a 2-coloring of either its vertices or its edges where each color induces a graph of tree-widlh at most k. Some generalizations are also proved.

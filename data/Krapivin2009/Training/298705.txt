@@ -1,0 +1,2 @@
+Basic Operations on the OTIS-Mesh Optoelectronic Computer.
+AbstractIn this paper, we develop algorithms for some basic operationsbroadcast, window broadcast, prefix sum, data sum, rank, shift, data accumulation, consecutive sum, adjacent sum, concentrate, distribute, generalize, sorting, random access read and writeon the OTIS-Mesh [1] model. These operations are useful in the development of efficient algorithms for numerous applications [2].

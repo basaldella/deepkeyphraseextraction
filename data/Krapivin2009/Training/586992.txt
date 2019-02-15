@@ -1,0 +1,2 @@
+The Density of Weakly Complete Problems under Adaptive Reductions.
+Given a real number $\alpha < 1$, every language that is weakly $\leq_{n^{\alpha / 2} - {\rm T}}^{{\rm P}} $-hard for  E or weakly $\leq_{n^{\alpha} - {\rm T}}^{\rm P}$-hard for E2 is shown to be exponentially dense.  This simultaneously strengthens the results of Lutz and Mayordomo (1994) and Fu (1995).

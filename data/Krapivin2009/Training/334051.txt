@@ -1,0 +1,2 @@
+On the Sequence of Consecutive Powers of a Matrix in a Boolean Algebra.
+In this paper we consider the sequence of consecutive powers of a matrix in a Boolean algebra. We characterize the ultimate behavior of this sequence, we study the transient part of the sequence, and we derive upper bounds for the length of this transient part. We also indicate how these results can be used in the analysis of Markov chains and in max-plus algebraic system theory for discrete event systems.

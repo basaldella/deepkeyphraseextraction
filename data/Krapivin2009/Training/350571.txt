@@ -1,0 +1,2 @@
+The Online Transportation Problem.
+We study the online transportation problem under the assumption that the adversary has only half as many servers at each site as the online algorithm. We show that the GREEDY algorithm is $\Theta( {\rm min}(m, \lg C))$-competitive under this assumption, where m is the number of server sites and C is the total number of servers. We then present an algorithm BALANCE, which is a simple modification of the GREEDY algorithm, that is, O(1)-competitive under this assumption.

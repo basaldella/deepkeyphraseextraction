@@ -1,0 +1,12 @@
+Rational
+Under general conditions, linear decision rules of agents
+with rational expectations are equivalent to restricted error corrections.
+However, empirical rejections of rational expectation restrictions are the
+rule, rather than the exception, in macroeconomics. Rejections often are
+conditioned on the assumption that agents aim to smooth only the levels of
+actions or are subject to geometric random delays. Generalizations of
+dynamic frictions on agent activities are suggested that yield
+closed-form, higher-order decision rules with improved statistical
+fits and infrequent rejections of rational expectations restrictions.
+Properties of these generalized `rational' error corrections are illustrated
+for producer pricing in manufacturing industries.

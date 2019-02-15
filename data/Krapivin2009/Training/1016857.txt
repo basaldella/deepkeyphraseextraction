@@ -1,0 +1,2 @@
+Improving the static analysis of embedded languages via partial evaluation.
+Programs in embedded languages contain invariants that are not automatically detected or enforced by their host language. We show how to use macros to easily implement partial evaluation of embedded interpreters in order to capture invariants encoded in embedded programs and render them explicit in the terms of their host language. We demonstrate the effectiveness of this technique in improving the results of a value flow analysis.

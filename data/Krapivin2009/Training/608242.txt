@@ -1,0 +1,2 @@
+Controllability of Right-Invariant Systems on Solvable Lie Groups.
+We study controllability of right-invariant control systems groups. Necessary and sufficient controllability conditions for Lie groups not coinciding with their derived subgroup are obtained in terms of the root decomposition corresponding to the adjoint operator ad B. As an application, right-invariant systems on metabelian groups and matrix groups, and bilinear systems are considered.

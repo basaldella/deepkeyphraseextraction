@@ -1,0 +1,15 @@
+Extracting Hidden Context.
+Concept drift due to hidden changes in context complicates learning
+in many domains including financial prediction, medical diagnosis, and
+communication network performance. Existing machine learning approaches to
+this problem use an incremental learning, on-line paradigm. Batch, off-line
+learners tend to be ineffective in domains with hidden changes in context as
+they assume that the training set is homogeneous. An off-line,
+meta-learning approach for the identification of hidden context is
+presented. The new approach uses an existing batch learner and the process
+of {\it contextual clustering} to identify stable hidden
+contexts and the associated context specific, locally stable concepts. The
+approach is broadly applicable to the extraction of context reflected in
+time and spatial attributes. Several algorithms for the approach are
+presented and evaluated. A successful application of the approach to a
+complex flight simulator control task is also presented.

@@ -1,0 +1,11 @@
+Token-Templates and Logic Programs for Intelligent Web Search.
+We present a general framework for the information
+extraction from web pages based on a special wrapper language, called
+token-templates. By using token-templates in conjunction
+with logic programs we are able to reason about web page contents,
+search and collect facts and derive new facts from various web pages.
+We give a formal definition for the semantics of logic programs
+extended by token-templates and define a general
+answer-complete calculus for these extended programs. These methods
+and techniques are used to build intelligent mediators and web
+information systems.

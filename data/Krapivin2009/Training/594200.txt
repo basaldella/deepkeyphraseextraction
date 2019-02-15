@@ -1,0 +1,11 @@
+The TPTP Problem Library.
+This paper provides a detailed description of the CNF part of the TPTP
+Problem Library for automated theorem-proving systems. The library is
+available via the Internet and forms a common basis for development and
+experimentation with automated theorem provers. This paper explains the
+motivations and reasoning behind the development of the TPTP (thus
+implicitly explaining the design decisions made) and describes the TPTP
+contents and organization. It also provides guidelines for obtaining and
+using the library, summary statistics about release v1.2.1, and an overview
+of the tptp2X utility program. References for all the sources of TPTP
+problems are provided.

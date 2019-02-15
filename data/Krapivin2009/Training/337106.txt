@@ -1,0 +1,17 @@
+Hybrid Fault Simulation for Synchronous Sequential Circuits.
+We present a fault simulator for synchronous sequential
+circuits that combines the efficiency of three-valued logic
+simulation with the exactness of a symbolic approach. The simulator
+is hybrid in the sense that three different modes of
+operationthree-valued, symbolic and mixedare supported. We
+demonstrate how an automatic switching between the modes depending on
+the computational resources and the properties of the circuit under
+test can be realized, thus trading off time/space for accuracy of the
+computation. Furthermore, besides the usual Single Observation Time
+Test for the evaluation of the fault coverage, the
+simulator supports evaluation according to the more general Multiple
+Observation Time Test Strategy (MOT). Numerous experiments are given
+to demonstrate the feasibility and efficiency of our approach. In
+particular, it is shown that, at the expense of a reasonable time
+penalty, the exactness of the fault coverage computation can be
+improved even for the largest benchmark functions.

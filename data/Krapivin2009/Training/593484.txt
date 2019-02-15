@@ -1,0 +1,19 @@
+Parallel Formulations of Decision-Tree Classification Algorithms.
+Classification decision tree algorithms are used
+extensively for data mining in many domains such as retail target
+marketing, fraud detection, etc. Highly parallel algorithms for
+constructing classification decision trees are desirable for dealing
+with large data sets in reasonable amount of time. Algorithms for
+building classification decision trees have a natural concurrency,
+but are difficult to parallelize due to the inherent dynamic nature
+of the computation. In this paper, we present parallel formulations
+of classification decision tree learning algorithm based on
+induction. We describe two basic parallel formulations. One is
+based on Synchronous Tree Construction Approach and the other
+is based on Partitioned Tree Construction Approach. We discuss
+the advantages and disadvantages of using these methods and propose a
+hybrid method that employs the good features of these methods. We
+also provide the analysis of the cost of computation and
+communication of the proposed hybrid method. Moreover, experimental
+results on an IBM SP-2 demonstrate excellent speedups and
+scalability.

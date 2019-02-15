@@ -1,0 +1,2 @@
+An Efficient Algorithm for a Bounded Errors-in-Variables Model.
+We pose and solve a parameter estimation problem in the presence of bounded data uncertainties. The problem involves a minimization step and admits a closed form solution in terms of the positive root of a secular equation.

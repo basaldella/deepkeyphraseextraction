@@ -1,0 +1,2 @@
+Streams and strings in formal proofs.
+Streams are acyclic directed subgraphs of the logical flow graph of a proof representing bundles of paths with the same origin and the same end. The notion of stream is used to describe the evolution of proofs during cut-elimination in purely algebraic terms. The algebraic and combinatorial properties of flow graphs emerging from our analysis serve to elucidate logical phenomena. However, the full logical significance of the combinatorics, e.g. the absence of certain patterns within flow graphs, remains unclear.

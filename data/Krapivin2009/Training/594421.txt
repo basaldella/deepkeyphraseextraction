@@ -1,0 +1,19 @@
+Further Experiences with Scenarios and Checklists.
+Software inspection is one of the best methods of verifying
+software documents. Software inspection is a complex process,
+with many possible variations, most of which have received little
+or no evaluation. This paper reports on the evaluation of one
+component of the inspection process, detection aids, specifically
+using Scenario or Checklist approaches. The evaluation is by
+subject-based experimentation, and is currently one of three
+independent experiments on the same hypothesis. The paper describes
+the experimental process, the resulting analysis of the experimental
+data, and attempts to compare the results in this experiment
+with the other experiments. This replication is broadly supportive
+of the results from the original experiment, namely, that the
+Scenario approach is superior to the Checklist approach; and
+that the meeting component of a software inspection is not an
+effective defect detection mechanism. This experiment also tentatively
+proposes additional relationships between general academic performance
+and individual inspection performance; and between meeting loss
+and group inspection performance.

@@ -1,0 +1,11 @@
+Evolving Neural Networks to Play Go.
+Go is a difficult game for computers to master, and the best go
+programs are still weaker than the average human player. Since the
+traditional game playing techniques have proven inadequate, new approaches
+to computer go need to be studied. This paper presents a new approach to
+learning to play go. The SANE (Symbiotic, Adaptive Neuro-Evolution) method
+was used to evolve networks capable of playing go on small boards with no
+pre-programmed go knowledge. On a 9  9 go board, networks that were
+able to defeat a simple computer opponent were evolved within a few hundred
+generations. Most significantly, the networks exhibited several aspects of
+general go playing, which suggests the approach could scale up well.

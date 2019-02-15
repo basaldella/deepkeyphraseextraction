@@ -1,0 +1,13 @@
+Classifiers that approximate functions.
+A classifier system, XCSF, is introduced in which the prediction
+estimation mechanism is used to learn approximations to functions.
+The addition of weight vectors to the classifiers allows
+piecewise-linear approximation, where the classifier's
+prediction is calculated instead of being a fixed scalar.
+The weight vector and the classifier's condition co-adapt.
+Results on functions of up to six dimensions show high accuracy.
+The idea of calculating the prediction leads to the concept of
+a generalized classifier in which the payoff prediction approximates
+the environmental payoff function over a subspace defined by
+the classifier condition and an action restriction specified in the
+classifier, permitting continuous-valued actions.

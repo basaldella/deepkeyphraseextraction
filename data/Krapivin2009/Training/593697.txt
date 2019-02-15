@@ -1,0 +1,2 @@
+Regular Ordering and Applications in Control Policies.
+In this paper we introduce the notion of regular ordering for periodic sequences based on the gaps between the entries. We define the notion of regular preserving functions using Schur convexity. This is used to extend some optimization results in queuing control problems. In particular, we show that the maximal traveling time in a stochastic event graph as well as the transmission times in a channel with redundancy, decrease (in the stochastic sense) when the input sequence becomes more regular.

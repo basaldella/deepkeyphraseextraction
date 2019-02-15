@@ -1,0 +1,19 @@
+Efficient Specification-Based Component Retrieval.
+In this paper we present a mechanism for making
+specification-based component retrieval more efficient by limiting the
+amount of theorem proving required at query time. This is done by
+using a classification scheme to reduce the number of specification
+matching proofs that are required to process a query. Components are
+classified by assigning features that correspond to necessary
+conditions implied by the component specifications. We show how this
+method of feature assignment can be used to approximate reusability
+relationships between queries and library components. The set of
+possible classification features are formally defined, permitting
+automation of the classification process. The classification process
+itself is made efficient by using a specialized theorem proving tactic
+to prove feature implication. The retrieval mechanism was implemented
+and evaluated experimentally using a library of list manipulation
+components. The results indicate a better response time than existing
+formal approaches. The approach provides higher levels of consistency
+and automation than informal methods, with comparable retrieval
+performance.

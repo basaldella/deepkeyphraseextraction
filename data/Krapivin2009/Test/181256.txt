@@ -1,0 +1,2 @@
+Factorization of Matrix Polynomials with Symmetries.
+An $n \times n$ matrix polynomial $L(\lambda)$ (with real or complex coefficients) is called self-adjoint if Factorizations of selfadjoint and symmetric matrix polynomials of the form are studied, where $D$ is a constant matrix and $M(\lambda)$ is a matrix polynomial.  In particular, the minimal possible size of $D$ is described in terms of the elementary divisors of $L(\lambda)$ and (sometimes) signature of the Hermitian values of $L(\lambda)$.

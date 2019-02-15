@@ -1,0 +1,19 @@
+Large Occlusion Stereo.
+A method for solving the stereo matching problem in
+the presence of large occlusion is presented. A data structurethe
+disparity space imageis defined to facilitate
+the description of the effects of occlusion on the stereo matching
+process and in particular on dynamic programming (DP) solutions that
+find matches and occlusions simultaneously. We significantly improve
+upon existing DP stereo matching methods by showing that while some
+cost must be assigned to unmatched pixels, sensitivity to
+occlusion-cost and algorithmic complexity can be significantly reduced
+when highly-reliable matches, or ground control points, are
+incorporated into the matching process. The use of ground control
+points eliminates both the need for biasing the process towards a
+smooth solution and the task of selecting critical prior probabilities
+describing image formation. Finally, we describe how the detection of
+intensity edges can be used to bias the recovered solution such that
+occlusion boundaries will tend to be proposed along such edges,
+reflecting the observation that occlusion boundaries usually cause
+intensity discontinuities.

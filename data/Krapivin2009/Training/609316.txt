@@ -1,0 +1,17 @@
+Challenges and Solutions to Adaptive Computing and Seamless Mobility over Heterogeneous Wireless Networks.
+Recent years have witnessed the rapid evolution of commercially
+available mobile computing environments. This has given rise
+to the presence of several viable, but non-interoperable wireless networking
+technologies  each targeting a niche mobility environment and providing a
+distinct quality of service. The lack of a uniform set of standards, the
+heterogeneity in the quality of service, and the diversity in the networking
+approaches makes it difficult for a mobile computing environment to provide
+seamless mobility across different wireless networks. Besides, inter-network
+mobility will typically be accompanied by a change in the quality of service.
+The application and the environment need to collaboratively adapt their
+communication and data management strategies in order to gracefully react
+to the dynamic operating conditions.This paper presents the important challenges in building a mobile
+computing environment which provides seamless mobility and adaptive
+computing over commercially available wireless networks. It suggests
+possible solutions to the challenges, and describes an ongoing research
+effort to build such a mobile computing environment.

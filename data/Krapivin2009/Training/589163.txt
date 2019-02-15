@@ -1,0 +1,2 @@
+The Sequential Knapsack Polytope.
+In this paper we describe the convex hull of all solutions of the integer bounded knapsack problem in the special case when the weights of the items are divisible. The corresponding inequalities are defined via an inductive scheme that can also be used in a more general setting.

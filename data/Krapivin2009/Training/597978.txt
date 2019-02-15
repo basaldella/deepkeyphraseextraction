@@ -1,0 +1,20 @@
+Fluid approximations for a processor-sharing queue.
+In this paper a fluid approximation, also known as a functional
+
+strong law of large numbers (FSLLN) for a GI/G/1 queue
+
+under a processor-sharing service discipline is established and its
+
+properties are analysed. The fluid limit depends on the arrival rate, the
+
+service time distribution of the initial customers, and the service time
+
+distribution of the arriving customers. This is in contrast to the known result
+
+for the GI/G/1 queue under a FIFO service discipline, where the
+
+fluid limit is piecewise linear and depends on the service time distribution
+
+only through its mean. The piecewise linear form of the limit can be recovered
+
+by an equilibrium type choice of the initial service distribution.

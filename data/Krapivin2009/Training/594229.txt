@@ -1,0 +1,23 @@
+Integrating Computer Algebra into Proof Planning.
+Mechanized reasoning systems and computer algebra systems have different
+objectives. Their integration is highly desirable, since formal proofs often
+involve both of the two different tasks proving and calculating. Even more
+important, proof and computation are often interwoven and not easily
+separable.In this article we advocate an integration of computer algebra into
+mechanized reasoning systems at the proof plan level. This approach allows
+us to view the computer algebra algorithms as methods, that is, declarative
+representations of the problem-solving knowledge specific to a certain
+mathematical domain. Automation can be achieved in many cases by searching
+for a hierarchic proof plan at the method level by using suitable
+domain-specific control knowledge about the mathematical algorithms. In
+other words, the uniform framework of proof planning allows us to solve a
+large class of problems that are not automatically solvable by separate
+systems.Our approach also gives an answer to the correctness problems inherent in
+such an integration. We advocate an approach where the computer algebra
+system produces high-level protocol information that can be processed by an
+interface to derive proof plans. Such a proof plan in turn can be expanded
+to proofs at different levels of abstraction, so the approach is well suited
+for producing a high-level verbalized explication as well as for a
+low-level, machine-checkable, calculus-level proof.We present an implementation of our ideas and exemplify them using an
+automatically solved example.Changes in the criterion of rigor of the proof engender
+major revolutions in mathematics. H. Poincar, 1905

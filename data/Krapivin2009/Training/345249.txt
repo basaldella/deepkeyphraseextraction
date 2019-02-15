@@ -1,0 +1,24 @@
+A Machine Learning Approach to POS Tagging.
+We have applied the inductive learning of statistical
+decision trees and relaxation labeling to the Natural Language
+Processing (NLP) task of morphosyntactic
+disambiguation (Part Of Speech Tagging). The learning process is
+supervised and obtains a language model oriented to resolve POS
+ambiguities, consisting of a set of statistical decision trees
+expressing distribution of tags and words in some relevant contexts.
+The acquired decision trees have been directly used in a tagger that
+is both relatively simple and fast, and which has been tested and
+evaluated on the Wall Street Journal (WSJ) corpus with
+competitive accuracy. However, better results can be obtained by
+translating the trees into rules to feed a flexible relaxation
+labeling based tagger. In this direction we describe a tagger which
+is able to use information of any kind (n-grams, automatically
+acquired constraints, linguistically motivated manually written
+constraints, etc.), and in particular to incorporate the
+machine-learned decision trees. Simultaneously, we address the
+problem of tagging when only limited training material is available,
+which is crucial in any process of constructing, from scratch, an
+annotated corpus. We show that high levels of accuracy can be
+achieved with our system in this situation, and report some results
+obtained when using it to develop a 5.5 million words Spanish corpus
+from scratch.

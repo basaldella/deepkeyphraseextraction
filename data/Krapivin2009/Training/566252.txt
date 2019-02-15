@@ -1,0 +1,2 @@
+Weak bisimilarity between finite-state systems and BPA or normed BPP is decidable in polynomial time.
+We prove that weak bisimilarity is decidable in polynomial time between finite-state systems and several classes of infinite-state systems: context-free processes and normed basic parallel processes (normed BPP). To the best of our knowledge, these are the first polynomial algorithms for weak bisimilarity problems involving infinite-state systems.

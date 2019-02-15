@@ -1,0 +1,17 @@
+Graph Coloring with Adaptive Evolutionary Algorithms.
+This paper presents the results of an experimental
+investigation on solving graph coloring problems with Evolutionary
+Algorithms (EAs). After testing different algorithm variants we
+conclude that the best option is an asexual EA using order-based
+representation and an adaptation mechanism that periodically changes
+the fitness function during the evolution. This adaptive EA is
+general, using no domain specific knowledge, except, of course, from
+the decoder (fitness function). We compare this adaptive EA to a
+powerful traditional graph coloring technique DSatur and the Grouping
+Genetic Algorithm (GGA) on a wide range of problem
+instances with different size, topology
+and edge density. The results show that the adaptive EA is superior
+to the Grouping (GA) and outperforms DSatur on the hardest problem
+instances. Furthermore, it scales up better with the problem size
+than the other two algorithms and indicates a linear computational
+complexity.

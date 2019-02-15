@@ -1,0 +1,3 @@
+The look of the link - concepts for the user interface of extended hyperlinks.
+The design of hypertext systems has been subject to intense research. Apparently, one topic was mostly neglected: how to visualize and interact with link markers.
+This paper presents an overview of pragmatic historical approaches, and discusses problems evolving from sophisticated hypertext linking features. Blending the potential of an XLink-enhanced Web with old ideas and recent GUI techniques, a vision for browser link interfaces of the future is being developed. We hope to stimulate the development of a standard for hyperlink marker interfaces, which is easy-to-use, feasible for extended linking features, and more consistent than current approaches.

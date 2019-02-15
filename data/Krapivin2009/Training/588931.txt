@@ -1,0 +1,2 @@
+An Unconstrained Convex Programming Approach to Linear Semi-Infinite Programming.
+In this paper, an unconstrained convex programming dual approach for solving a class of linear semi-infinite programming problems is proposed. Both primal and dual convergence results are established under some basic assumptions. Numerical examples are also included to illustrate this approach.

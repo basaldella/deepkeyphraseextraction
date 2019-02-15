@@ -1,0 +1,10 @@
+The T-Ruby Design System.
+This paper describes the T-Ruby system for designing VLSI circuits,
+starting from formal specifications in which they are described in terms of
+relational abstractions of their behaviour. The design process involves
+correctness-preserving transformations based on proved equivalences between
+relations, together with the addition of constraints. A class of
+implementable relations is defined. The tool enables such relations to be
+simulated or translated into a circuit description in VHDL. The design
+process is illustrated by the derivation of a circuit for 2-dimensional
+convolution.

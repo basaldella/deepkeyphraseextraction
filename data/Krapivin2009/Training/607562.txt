@@ -1,0 +1,14 @@
+Factored Edge-Valued Binary Decision Diagrams.
+Factored Edge-Valued Binary Decision Diagrams form an extension to
+Edge-Valued Binary Decision Diagrams. By associating both an additive
+and a multiplicative weight with the edges, FEVBDDs can be used to
+represent a wider range of functions concisely. As a result, the
+computational complexity for certain operations can be significantly
+reduced compared to EVBDDs. Additionally, the introduction of
+multiplicative edge weights allows us to directly represent the
+so-called complement edges which are used in OBDDs, thus providing a
+one to one mapping of all OBDDs to FEVBDDs. Applications such as
+integer linear programming and logic verification that have been
+proposed for EVBDDs also benefit from the extension. We also present
+a complete matrix package based on FEVBDDs and apply the package to
+the problem of solving the Chapman-Kolmogorov equations.

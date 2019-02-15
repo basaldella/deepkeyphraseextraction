@@ -1,0 +1,2 @@
+Model Uncertainty in Discrete Event Systems.
+Earlier work concerning control of discrete event systems usually assumed that a correct model of the system to be controlled was available. A goal of this work is to provide an algorithm for determining the correct model from a set of models. The result of the algorithm is a finite language that can be used to test for the correct model or notification that the remaining models cannot be controllably distinguished. We use the finite state machine model with controllable and uncontrollable events presented by Ramadge and Wonham.

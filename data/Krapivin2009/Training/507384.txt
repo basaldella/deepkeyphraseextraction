@@ -1,0 +1,2 @@
+On first-order topological queries.
+One important class of spatial database queries is the class of topological queries, that is, queries invariant under homeomorphisms. We study topological queries expressible in the standard query language on spatial databases, first-order logic with various amounts of arithmetic. Our main technical result is a combinatorial characterization of the expressive power of topological first-order logic on regular spatial databases.

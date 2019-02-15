@@ -1,0 +1,19 @@
+A Theory of Single-Viewpoint Catadioptric Image Formation.
+Conventional video cameras have limited fields of view which make them
+restrictive for certain applications in computational vision. A
+catadioptric sensor uses a combination of lenses and mirrors placed in
+a carefully arranged configuration to capture a much wider field of
+view. One important design goal for catadioptric sensors is choosing
+the shapes of the mirrors in a way that ensures that the complete
+catadioptric system has a single effective viewpoint. The reason a
+single viewpoint is so desirable is that it is a requirement for the
+generation of pure perspective images from the sensed images. In this
+paper, we derive the complete class of single-lens single-mirror
+catadioptric sensors that have a single viewpoint. We describe all of
+the solutions in detail, including the degenerate ones, with reference
+to many of the catadioptric systems that have been proposed in the
+literature. In addition, we derive a simple expression for the spatial
+resolution of a catadioptric sensor in terms of the resolution of the
+cameras used to construct it. Moreover, we include detailed analysis
+of the defocus blur caused by the use of a curved mirror in a
+catadioptric sensor.

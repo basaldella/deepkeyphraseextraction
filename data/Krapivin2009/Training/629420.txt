@@ -1,0 +1,2 @@
+An Example of Deriving Performance Properties from a Visual Representation of Program Execution.
+AbstractThrough geometry, program visualization can yield performance properties. We derive all possible synchronization sequences and durations of blocking and concurrent execution for two process programs from a visualization mapping processes, synchronization, and program execution to Cartesian graph axes, line segments, and paths, respectively. Relationships to Petri nets are drawn.

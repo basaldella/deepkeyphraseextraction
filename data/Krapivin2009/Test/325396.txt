@@ -1,0 +1,2 @@
+A Highly Available Local Leader Election Service.
+AbstractWe define the highly available local leader election problem, a generalization of the leader election problem for partitionable systems. We propose a protocol that solves the problem efficiently and give some performance measurements of our implementation. The local leader election service has been proven useful in the design and implementation of several fail-aware services for partitionable systems.

@@ -1,0 +1,2 @@
+On the Perturbation Theory for Unitary Eigenvalue Problems.
+Some aspects of the perturbation theory for eigenvalues of unitary matrices are considered. Making use of the close relation between unitary and Hermitian eigenvalue problems a Courant--Fischer-type theorem for unitary  matrices is derived and an inclusion theorem analogous to the  Kahan theorem for  Hermitian matrices is presented. Implications for the special case of unitary Hessenberg matrices are discussed.

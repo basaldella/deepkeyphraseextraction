@@ -1,0 +1,2 @@
+Efficient Instruction Sequencing with Inline Target Insertion.
+Inline target insertion, a specific compiler and pipeline implementation method for delayed branches with squashing, is defined. The method is shown to offer two important features not discovered in previous studies. First, branches inserted into branch slots are correctly executed. Second, the execution returns correctly from interrupts or exceptions with only one program counter. These two features result in better performance and less software/hardware complexity than conventional delayed branching mechanisms.

@@ -1,0 +1,2 @@
+Graphs with Connected Medians.
+The median set of a graph G with weighted vertices comprises the vertices minimizing the average weighted distance to the vertices of G. We characterize the graphs in which, with respect to any nonnegative vertex weights, median sets always induce connected subgraphs. The characteristic conditions can be tested in polynomial time (by employing linear programming) and are immediately verified for a number of specific graph classes.

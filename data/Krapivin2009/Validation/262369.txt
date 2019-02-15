@@ -1,0 +1,16 @@
+Computing Accumulated Delays in Real-time Systems.
+We present a verification algorithm for duration properties of
+real-time systems. While simple real-time properties constrain the
+total elapsed time between events, duration properties constrain the
+accumulated satisfaction time of state predicates. We formalize the
+concept of durations by introducing duration measures for timed
+automata. A duration measure assigns to each finite run of a timed
+automaton a real number the duration of
+the run which may be the accumulated satisfaction time of a
+state predicate along the run. Given a timed automaton with a
+duration measure, an initial and a final state, and an arithmetic
+constraint, the duration-bounded reachability problem
+asks if there is a run of the automaton from the
+initial state to the final state such that the duration of the run
+satisfies the constraint. Our main result is an (optimal) PSPACE
+decision procedure for the duration-bounded reachability problem.

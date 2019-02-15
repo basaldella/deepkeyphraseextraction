@@ -1,0 +1,8 @@
+On-the-Fly Model Checking Under Fairness that Exploits Symmetry.
+An on-the-fly algorithm for model checking under fairness is
+presented. The algorithm utilizes symmetry in the program to
+reduce the state space, and employs novel techniques that make the
+on-the-fly model checking feasible. The algorithm uses state symmetry and
+eliminates parallel edges in the reachability graph. Experimental results
+demonstrating dramatic reductions in both the running time and memory
+usage are presented.

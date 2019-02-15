@@ -1,0 +1,15 @@
+A Feasibility Decision Algorithm for Rate Monotonic and Deadline Monotonic Scheduling.
+Rate monotonic and deadline monotonic scheduling are
+commonly used for periodic real-time task systems. This paper
+discusses a feasibility decision for a given real-time task system
+when the system is scheduled by rate monotonic and deadline monotonic
+scheduling. The time complexity of existing feasibility decision
+algorithms depends on both the number of tasks and maximum periods
+or deadlines when the periods and deadlines are integers. This
+paper presents a new necessary and sufficient condition for a
+given task system to be feasible and proposes a new feasibility
+decision algorithm based on that condition. The time complexity
+of this algorithm depends solely on the number of tasks. This
+condition can also be applied as a sufficient condition for a
+task system using priority inheritance protocols to be feasible
+with rate monotonic and deadline monotonic scheduling.

@@ -1,0 +1,9 @@
+On Harmonic Weight Enumerators of Binary Codes.
+We define some new polynomials associated
+to a linear binary code and a harmonic function of degree k.
+The case k=0 is the usual weight enumerator of the
+code. When divided by (xy)^k, they satisfy a MacWilliams
+type equality. When applied to certain harmonic functions constructed
+from Hahn polynomials, they can compute some information on the
+intersection numbers of the code. As an application, we classify
+the extremal even formally self-dual codes of length 12.

@@ -1,0 +1,2 @@
+An analysis of formal inter-agent dialogues.
+This paper studies argumentation-based dialogues between agents. It defines a set of locutions by which agents can trade arguments, a set of agent attitudes which relate what arguments an agent can build and what locutions it can make, and a set of protocols by which dialogues can be carried out. The paper then considers some properties of dialogues under the protocols, in particular termination and complexity, and shows how these relate to the agent attitudes.

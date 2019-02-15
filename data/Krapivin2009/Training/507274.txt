@@ -1,0 +1,18 @@
+Communication complexity method for measuring nondeterminism in finite automata.
+While deterministic finite automata seem to be well understood,
+surprisingly many important problems concerning nondeterministic
+finite automata (nfa's) remain open. One such problem area is the
+study of different measures of nondeterminism in finite automata
+and the estimation of the sizes of minimal nondeterministic finite
+automata. In this paper the concept of communication complexity is
+applied in order to achieve progress in this problem area. The main
+results are as follows:(1) Deterministic communication complexity
+provides lower bounds on the size of nfa's with bounded
+unambiguity. Applying this fact, the proofs of several results
+about nfa's with limited ambiguity can be simplified and presented
+in a uniform way. (2) There is a family of languages
+KONk2 with an exponential size gap
+between nfa's with polynomial leaf number/ambiguity and nfa's with
+ambiguity k. This partially provides an answer to the open
+problem posed by B. Ravikumar and O. Ibarra (1989, SIAM J. Comput.
+18, 1263-1282) and H. Leung (1998, SIAM J. Comput. 27, 1073-1082).

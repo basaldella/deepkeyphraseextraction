@@ -1,0 +1,30 @@
+Beyond the Turing Test.
+The main factor of intelligence is defined as the ability to
+
+comprehend, formalising this ability with the help of new constructs
+
+based on descriptional complexity. The result is a comprehension test,
+
+or C-test, which is exclusively defined in computational terms. Due to
+
+its absolute and non-anthropomorphic character, it is equally applicable
+
+to both humans and non-humans. Moreover, it correlates with classical
+
+psychometric tests, thus establishing the first firm connection between
+
+information theoretical notions and traditional IQ tests. The Turing
+
+Test is compared with the C-test and the combination of the two is
+
+questioned. In consequence, the idea of using the Turing Test as a
+
+practical test of intelligence should be surpassed, and substituted by
+
+computational and factorial tests of different cognitive abilities, a
+
+much more useful approach for artificial intelligence progress and for
+
+many other intriguing questions that present themselves beyond the
+
+Turing Test.

@@ -1,0 +1,2 @@
+Semantics of constraint logic programs with optimization.
+Many applications of constraint logic programming (CLP) languages require not only testing if a set of constraints is satisfiable, but also finding the optimal solution which satisfies them. Unfortunately, the standard declarative semantics for CLP languages does not consider optimization but only constraint satisfaction. Here we give a model theoretic semantics for optimization, which is a simple extension of the standard semantics, and a corresponding operational semantics, which may be efficiently implemented.

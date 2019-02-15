@@ -1,0 +1,2 @@
+A First-Order Isomorphism Theorem.
+We show that for most complexity classes of interest, all sets complete under first-order projections (fops) are isomorphic under first-order isomorphisms.  That is, a very restricted version of the Berman--Hartmanis conjecture holds.  Since "natural" complete problems seem to stay complete via fops, this indicates that up to first-order isomorphism there is only one "natural" complete problem for each "nice" complexity class.

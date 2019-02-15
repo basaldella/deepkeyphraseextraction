@@ -1,0 +1,2 @@
+Bounds on the Extreme Eigenvalues of Real Symmetric Toeplitz Matrices.
+We derive upper and lower bounds on the smallest and largest eigenvalues, respectively, of real symmetric Toeplitz matrices. The bounds are first obtained for positive-definite matrices and then extended to the general real symmetric case. They are computed as the roots of rational and polynomial approximations to spectral, or secular, equations for the symmetric and antisymmetric parts of the spectrum; this leads to separate bounds on the even and odd eigenvalues. We also present numerical results.

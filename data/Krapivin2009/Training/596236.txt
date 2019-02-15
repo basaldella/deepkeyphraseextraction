@@ -1,0 +1,2 @@
+Global Optimization by Multilevel Coordinate Search.
+Inspired by a method by Jones et al. (1993), we present a global optimization algorithm based on multilevel coordinate search. It is guaranteed to converge if the function is continuous in the neighborhood of a global minimizer. By starting a local search from certain good points, an improved convergence result is obtained. We discuss implementation details and give some numerical results.

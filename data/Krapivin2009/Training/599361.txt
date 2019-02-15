@@ -1,0 +1,13 @@
+Bayesian parameter estimation via variational methods.
+We consider a logistic regression model with a Gaussian prior
+distribution over the parameters. We show that an accurate
+variational transformation can be used to obtain a closed form
+approximation to the posterior distribution of the parameters
+thereby yielding an approximate posterior predictive model. This
+approach is readily extended to binary graphical model with
+complete observations. For graphical models with incomplete
+observations we utilize an additional variational transformation
+and again obtain a closed form approximation to the posterior.
+Finally, we show that the dual of the regression problem gives a
+latent variable density model, the variational formulation of
+which leads to exactly solvable EM updates.

@@ -1,0 +1,20 @@
+A cryptographic solution to implement access control in a hierarchy and more.
+The need for access control in a hierarchy arises in several
+different contexts. One such context is managing the information of
+an organization where the users are divided into different security
+classes depending on who has access to what. Several cryptographic
+solutions have been proposed to address this problem --- the
+solutions are based on generating cryptographic keys for each
+security class such that the key for a lower level security class
+depends on the key for the security class that is higher up in the
+hierarchy. Most solutions use complex cryptographic techniques:
+integrating these into existing systems may not be trivial. Others
+have impractical requirement: if a user at a security level wants
+to access data at lower levels, then all intermediate nodes must be
+traversed. Moreover, if there is an access control policy that does
+not conform to the hierarchical structure, such policy cannot be
+handled by existing solutions. We propose a new solution that
+overcomes the above mentioned shortcomings. Our solution not only
+addresses the problem of access control in a hierarchy but also can
+be used for general cases. It is a scheme similar to the RSA
+cryptosystem and can be easily incorporated in existing systems.

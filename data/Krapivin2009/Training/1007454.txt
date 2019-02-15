@@ -1,0 +1,2 @@
+The simplest examples where the simplex method cycles and conditions where expand fails to prevent cycling.
+This paper introduces a class of linear programming examples that cause the simplex method to cycle and that are the simplest possible examples showing this behaviour. The structure of examples from this class repeats after two iterations. Cycling is shown to occur for both the most negative reduced cost and steepest-edge column selection criteria. In addition it is shown that the expand anti-cycling procedure of Gill et al. is not guaranteed to prevent cycling.

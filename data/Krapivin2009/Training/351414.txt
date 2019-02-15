@@ -1,0 +1,4 @@
+Machine-adaptable dynamic binary translation.
+Dynamic binary translation is the process of translating and optimizing executable code for one machine to another at runtime, while the program is executing on the target machine.
+Dynamic translation techniques have normally been limited to two particular machines; a competitor's machine and the hardware manufacturer's machine. This research provides for a more general framework for dynamic translations, by providing a framework based on specifications of machines that can be reused or adapted to new hardware architectures. In this way, developers of such techniques can isolate design issues from machine descriptions and reuse many components and analyses.
+We describe our dynamic translation framework and provide some initial results obtained by using this system.

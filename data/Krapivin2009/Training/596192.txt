@@ -1,0 +1,16 @@
+A Constraint Satisfaction Approach to a Circuit Design Problem.
+A classical circuit-design problem from Ebers and Moll (1954) features a
+system of nine nonlinear equations in nine variables that is very
+challenging both for local and global methods. This system was solved
+globally using an interval method by Ratschek and Rokne (1993) in the box
+[0, 10]^9. Their algorithm had enormous costs (i.e., over 14
+months using a network of but they state that
+at this time, we know no other method which has been applied to this
+circuit design problem and which has led to the same guaranteed result of
+locating exactly one solution in this huge domain, completed with a reliable
+error estimate. The present paper gives a novel branch-and-prune algorithm
+that obtains a unique safe box for the above system within reasonable
+computation times. The algorithm combines traditional interval techniques
+with an adaptation of discrete constraint-satisfaction techniques to
+continuous problems. Of particular interest is the simplicity of the
+approach.

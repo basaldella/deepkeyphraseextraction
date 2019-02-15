@@ -1,0 +1,7 @@
+A Microeconomic View of Data Mining.
+We present a rigorous framework, based on optimization,
+for evaluating data mining operations such as associations and
+clustering, in terms of their utility in decision-making. This
+framework leads quickly to some interesting computational
+problems related to sensitivity analysis, segmentation and the
+theory of games.

@@ -1,0 +1,21 @@
+Mathematical Programming in Data Mining.
+Mathematical programming approaches to three fundamental problems
+will be described: feature selection, clustering and robust
+representation. The feature selection problem considered is that of
+discriminating between two sets while recognizing irrelevant and
+redundant features and suppressing them. This creates a lean model
+that often generalizes better to new unseen data. Computational
+results on real data confirm improved generalization of leaner
+models. Clustering is exemplified by the unsupervised learning of
+patterns and clusters that may exist in a given database and is a
+useful tool for knowledge discovery in databases (KDD). A
+mathematical programming formulation of this problem is proposed that
+is theoretically justifiable and computationally implementable in a
+finite number of steps. A resulting k-Median Algorithm is utilized to
+discover very useful survival curves for breast cancer patients from
+a medical database. Robust representation is concerned with
+minimizing trained model degradation when applied to new problems. A
+novel approach is proposed that purposely tolerates a small error in
+the training process in order to avoid overfitting data that may
+contain errors. Examples of applications of these concepts are
+given.

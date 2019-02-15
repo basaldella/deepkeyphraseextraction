@@ -1,0 +1,21 @@
+Multicategory Classification by Support Vector Machines.
+We examine the problem of how to discriminate between objects
+of three or more classes. Specifically, we investigate how two-class
+discrimination methods can be extended to the multiclass case. We
+show how the linear programming (LP) approaches based on the work of
+Mangasarian and quadratic programming (QP) approaches based on
+Vapniks Support Vector Machine (SVM) can be combined to yield two
+new approaches to the multiclass problem. In LP multiclass
+discrimination, a single linear program is used to construct a
+piecewise-linear classification function. In our proposed multiclass
+SVM method, a single quadratic program is used to construct a
+piecewise-nonlinear classification function. Each piece of this
+function can take the form of a polynomial, a radial basis function,
+or even a neural network. For the k > 2-class problems, the SVM
+method as originally proposed required the construction of a
+two-class SVM to separate each class from the remaining classes.
+Similarily, k two-class linear programs can be used for the
+multiclass problem. We performed an empirical study of the original
+LP method, the proposed k LP method, the proposed single QP method
+and the original k QP methods. We discuss the advantages and
+disadvantages of each approach.

@@ -1,0 +1,2 @@
+Proximal Minimization Methods with Generalized Bregman Functions.
+We consider methods for minimizing a convex function f that generate a sequence {xk} by taking xk+1 to be an approximate minimizer of f(x)+Dh(x,xk)/ck, where ck > 0 and Dh is the D-function of a Bregman function h.  Extensions are made to B-functions that generalize Bregman functions and cover more applications.  Convergence is established under criteria amenable to implementation.  Applications are made to nonquadratic multiplier methods for nonlinear programs.

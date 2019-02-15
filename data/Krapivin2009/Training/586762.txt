@@ -1,0 +1,2 @@
+The algebra and combinatorics of shuffles and multiple zeta values.
+The algebraic and combinatorial theory of shuffles, introduced by Chen and Ree, is further developed and applied to the study of multiple zeta values. In particular, we establish evaluations for certain sums of cyclically generated multiple zeta values. The boundary case of our result reduces to a former conjecture of Zagier.

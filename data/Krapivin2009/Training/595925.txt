@@ -1,0 +1,11 @@
+Off-Line Parsability and the Well-Foundedness of Subsumption.
+Typed feature structures are used extensively for the specification of
+linguistic information in many formalisms. The subsumption relation
+orders TFSs by their information content. We prove that subsumption of
+acyclic TFSs is well founded, whereas in the presence of cycles
+general TFS subsumption is not well founded. We show an application of
+this result for parsing, where the well-foundedness of subsumption is
+used to guarantee termination for grammars that are off-line
+parsable. We define a new version of off-line parsability that is less
+strict than the existing one; thus termination is guaranteed for
+parsing with a larger set of grammars.

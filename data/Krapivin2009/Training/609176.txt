@@ -1,0 +1,11 @@
+Retraction Approach to CPS Transform.
+We study the continuation passing style (CPS) transform and its
+generalization, the computational transform, in which the notion
+of computation is generalized from continuation passing to an
+arbitrary one. To establish a relation between direct style and
+continuation passing style interpretation of sequential
+call-by-value programs, we prove the Retraction Theorem which says
+that a lambda term can be recovered from its CPS form via a
+-definable retraction. The Retraction Theorem is proved in
+the logic of computational lambda calculus for the simply typable
+terms.

@@ -1,0 +1,12 @@
+A Parallel Algorithm to Reconstruct Bounding Surfaces in 3D Images.
+The growing size of 3D digital images causes
+sequential algorithms to be less and less usable on whole images and a
+parallelization of these algorithm is often required. We have developed an
+algorithm named Sewing Faces which synthesizes both geometrical and
+topological information on bounding surface of 6-connected3D
+objects. We call such combined information a skin. In
+this paper we present a parallelization of Sewing Faces. It is based on a
+splitting of 3D images into several sub-blocks. When all the
+sub-blocks are processed a gluing step consists of merging all the
+sub-skins to get the final skin. Moreover we propose a fine-grain approach
+where each sub-block is processed by several parallel processors.

@@ -1,0 +1,2 @@
+Numerical Approximation of the Maximal Solutions for a Class of Degenerate Hamilton-Jacobi Equations.
+In this paper we study an approximation scheme  for a class of Hamilton--Jacobi problems  for which uniqueness of the viscosity solution does not hold. This class includes the eikonal equation arising in the shape-from-shading problem. We show that, if an appropriate stability condition is satisfied, the scheme converges to the maximal viscosity solution of the problem. Furthermore we give an estimate for  the discretization error.

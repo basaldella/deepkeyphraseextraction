@@ -1,0 +1,14 @@
+Incremental Feature Selection.
+Feature selection is a problem of finding relevant features.
+When the number of features of a dataset is large and its number of patterns
+is huge, an effective method of feature selection can help in dimensionality
+reduction. An incremental probabilistic algorithm is designed and implemented
+as an alternative to the exhaustive and heuristic approaches.
+Theoretical analysis is given to
+support the idea of the probabilistic algorithm in finding an optimal or
+near-optimal subset of features. Experimental results suggest that
+(1) the probabilistic algorithm is effective in
+obtaining optimal/suboptimal feature subsets; (2) its incremental version
+expedites feature selection further when the number of patterns is large
+and can scale up without sacrificing the quality of selected
+features.

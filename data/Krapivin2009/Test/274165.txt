@@ -1,0 +1,23 @@
+Factorial Hidden Markov Models.
+Hidden Markov models (HMMs) have proven to be one of the most widely
+used tools for learning probabilistic models of time series data. In
+an HMM, information about the past is conveyed
+through a single discrete variablethe hidden state. We discuss a
+generalization of HMMs in which this state is factored into multiple
+state variables and is therefore represented in a distributed manner.
+We describe an exact algorithm for inferring the posterior
+probabilities of the hidden state variables given the observations,
+and relate it to the forwardbackward algorithm for HMMs and to
+algorithms for more general graphical models. Due to the combinatorial
+nature of the hidden state representation, this exact algorithm is
+intractable. As in other intractable systems, approximate inference
+can be carried out using Gibbs sampling or variational methods.
+Within the variational framework, we
+present a structured approximation in which the the state
+variables are decoupled, yielding a tractable
+algorithm for learning the parameters of the model. Empirical
+comparisons suggest that these approximations are efficient and
+provide accurate alternatives to the exact methods. Finally, we use the
+structured approximation to model Bachs chorales and show that
+factorial HMMs can capture statistical structure in this data set
+which an unconstrained HMM cannot.

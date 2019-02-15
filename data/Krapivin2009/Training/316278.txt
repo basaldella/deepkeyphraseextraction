@@ -1,0 +1,14 @@
+Stabilized Sequential Quadratic Programming.
+Recently, Wright proposed a stabilized sequential
+quadratic programming algorithm for inequality constrained optimization.
+Assuming the Mangasarian-Fromovitz constraint qualification and
+the existence of a strictly positive multiplier
+(but possibly dependent constraint gradients), he proved a local
+quadratic convergence result. In this paper, we establish quadratic
+convergence in cases where
+both strict complementarity and the
+Mangasarian-Fromovitz constraint qualification do not hold.
+The constraints on the stabilization parameter are relaxed, and linear
+convergence is demonstrated when the parameter is kept fixed.
+We show that the analysis of this method can be carried out using
+recent results for the stability of variational problems.

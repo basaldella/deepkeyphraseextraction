@@ -1,0 +1,2 @@
+The Recursive Inverse Eigenvalue Problem.
+The recursive inverse eigenvalue problem for matrices is studied, where for each leading principal submatrix an eigenvalue and associated left and right eigenvectors are assigned. Existence and uniqueness results as well as explicit formulas are proven, and applications to nonnegative matrices, Z-matrices, M-matrices, symmetric matrices, Stieltjes matrices, and inverse M-matrices are considered.

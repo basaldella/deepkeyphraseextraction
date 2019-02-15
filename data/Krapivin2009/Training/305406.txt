@@ -1,0 +1,19 @@
+Threads Yield Continuations.
+Just as a traditional continuation represents the rest of a
+computation from a given point in the computation, a subcontinuation
+represents the rest of a subcomputation from a
+given point in the subcomputation. Subcontinuations
+are more expressive than traditional continuations and have been shown to be
+useful for controlling tree-structured concurrency, yet they have
+previously been implemented only on uniprocessors. This article describes a
+concurrent implementation of one-shot subcontinuations. Like one-shot
+continuations, one-shot subcontinuations are first-class but may be invoked
+at most once, a restriction obeyed by nearly all programs that use
+continuations. The techniques used to implement one-shot subcontinuations
+may be applied directly to other one-shot continuation mechanisms and may be
+generalized to support multi-shot continuations as well. A novel feature of
+the implementation is that continuations are implemented in terms of
+threads. Because the implementation model does not rely upon any special
+language features or compilation techniques, the model is applicable to
+any language or language implementation that supports a small set of thread
+primitives.

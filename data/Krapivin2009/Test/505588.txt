@@ -1,0 +1,2 @@
+An algebraic approach to IP traceback.
+We present a new solution to the problem of determining the path a packet traversed over the Internet (called the traceback problem) during a denial-of-service attack. This article reframes the traceback problem as a polynomial reconstruction problem and uses algebraic techniques from coding theory and learning theory to provide robust methods of transmission and reconstruction.

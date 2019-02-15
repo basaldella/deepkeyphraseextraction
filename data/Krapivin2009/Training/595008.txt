@@ -1,0 +1,14 @@
+A Constraint Programming Framework for Local Search Methods.
+We propose in this paper a novel integration of local search
+algorithms within a constraint programming framework for combinatorial
+optimization problems, in an attempt to gain both the efficiency of local
+search methods and the flexibility of constraint programming while
+maintaining a clear separation between the constraints of the problem
+and the actual search procedure. Each neighborhood exploration is
+performed by branch-and-bound search, whose potential pruning capabilities
+open the door to more elaborate local moves, which could lead to even better
+approximate results. Two illustrations of this framework are provided,
+including computational results for the traveling salesman problem with
+time windows. These results indicate that it is one order of magnitude
+faster than the customary constraint programming approach to local search
+and that it is competitive with a specialized local search algorithm.

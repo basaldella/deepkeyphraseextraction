@@ -1,0 +1,30 @@
+ARMADA Middleware and Communication Services.
+Real-time embedded systems have evolved during the past
+several decades from small custom-designed digital hardware to
+large distributed processing systems. As these systems
+become more complex,
+their interoperability, evolvability and cost-effectiveness
+requirements motivate the use of commercial-off-the-shelf
+components. This raises the challenge of
+constructing dependable and predictable real-time services
+for application developers on top of the inexpensive hardware and
+software components which has minimal support for timeliness and
+dependability guarantees.
+We are addressing this challenge in the ARMADA project.ARMADA is set of communication and middleware services that provide
+support for fault-tolerance and end-to-end guarantees for
+embedded real-time distributed applications.
+Since real-time performance of such applications depends heavily
+on the communication subsystem, the first thrust of the project is to
+develop a predictable communication service and architecture to ensure
+QoS-sensitive message delivery.
+Fault-tolerance is of paramount importance to embedded
+safety-critical systems. In its second thrust,
+ARMADA aims to offload the complexity of
+developing fault-tolerant applications from the
+application programmer by focusing on a collection of
+modular, composable middleware for fault-tolerant group
+communication and replication under timing constraints.
+Finally, we develop tools for testing and validating the
+behavior of our services. We give an overview of the ARMADA
+project, describing the architecture and
+presenting its implementation status.

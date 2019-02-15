@@ -1,0 +1,50 @@
+Heavy traffic analysis of controlled multiplexing systems.
+The paper develops the mathematics of the heavy traffic approach to
+
+the control and optimal control problem for multiplexing systems, where there
+
+are many mutually independent sources which feed into a single channel via a
+
+multiplexer (or of networks composed of such subsystems). Due to the
+
+widely varying bit rates over all sources, control over admission, bandwidth,
+
+etc., is needed to assure good performance. Optimal control and heavy traffic
+
+analysis has been shown to yield systems with greatly improved performance.
+
+Indeed, the heavy traffic approach covers many cases of great current interest,
+
+and provides a useful and practical approach to problems of analysis and
+
+control arising in modern high speed telecommunications. Past works on the
+
+heavy traffic approach to the multiplexing problem concentrated on the
+
+uncontrolled system or on the use of the heavy traffic limit control problem
+
+for applications, and did not provide details of the proofs. This is done in
+
+the current paper. The basic control problem for the physical system is hard,
+
+and the heavy traffic approach provides much simplification. Owing to the
+
+presence of the control, as well as to the fact that the cost function of main
+
+interest is ergodic, the problem cannot be fully treated with
+
+classical methods of heavy traffic analysis for queueing
+
+networks. A basic result is that the optimal average costs per unit time for
+
+the physical problem converge to the optimal cost per unit time for the limit
+
+stationary process as the number of sources and the time interval goes to
+
+infinity. This convergence is both in the mean and pathwise senses.
+
+Furthermore, a nice nearly optimal control for the limit system
+
+provides nearly optimal values for the physical system, under heavy traffic, in
+
+both a mean and pathwise sense.

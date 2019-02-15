@@ -1,0 +1,21 @@
+A Syntactic Theory of Dynamic Binding.
+Dynamic binding, which traditionally has always been associated with
+Lisp, is still semantically obscure to many. Even though most programming
+languages favour lexical scope, not only does dynamic binding remain an
+interesting and expressive programming technique in specialised circumstances,
+but also it is a key notion in formal semantics. This article presents a
+syntactic theory that enables the programmer to perform equational reasoning on
+programs using dynamic binding. The theory is proved to be sound and complete
+with respect to derivations allowed on programs in dynamic-environment
+passing style. From this theory, we derive a sequential
+evaluation function
+in a context-rewriting system. Then, we further refine the evaluation function
+in two popular implementation strategies: deep binding and
+shallow binding with
+value cells. Afterwards, following the saying that deep binding is suitable
+for parallel evaluation, we present the parallel evaluation function of a
+future-based functional language extended with constructs for dynamic binding.
+Finally, we exhibit the power and usefulness of dynamic binding in two
+different ways. First, we prove that dynamic binding adds expressiveness to a
+purely functional language. Second, we show that dynamic binding is an
+essential notion in semantics that can be used to define exceptions.

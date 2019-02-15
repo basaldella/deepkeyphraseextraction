@@ -1,0 +1,2 @@
+Computing Display Conflicts in String Visualization.
+Strings are used to represent a variety of objects such as DNA sequences, text, and numerical sequences. A model for a system for the visualization and analysis of strings was proposed by D. Mehta and S. Sahni (1992). The problem of display conflicts that arise in this model was identified and methods to overcome it were suggested. These methods require the computation of display conflicts. We present efficient algorithms to compute display conflicts.

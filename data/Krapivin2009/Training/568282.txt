@@ -1,0 +1,2 @@
+Binary (generalized) post correspondence problem.
+We give a new proof for the decidability of the binary Post Correspondence Problem (PCP) originally proved in 1982 by Ehrenfeucht, Karhumki and Rozenberg. Our proof is complete and somewhat shorter than the original proof although we use the same basic. Copyright 2002 Elsevier Science B.V. All rights reserved.

@@ -1,0 +1,16 @@
+Research Demonstration of a Hardware Reference-Counting Heap.
+A hardware self-managing heap memory (RCM)
+for languages like Lisp, Smalltalk, and Java
+has been designed, built, tested and benchmarked.
+On every pointer write from the processor, reference-counting
+transactions are performed in real time within this memory, and
+garbage cells are reused without processor cycles.
+A processor allocates new nodes simply by reading from a distinguished
+location in its address space. The memory hardware also incorporates
+support for off-line, multiprocessing, mark-sweep garbage collection.Performance statistics are presented from a partial
+implementation of Scheme over five different memory
+models and two garbage collection
+strategies, from main memory (no access to RCM) to a fully
+operational RCM installed on an external bus.
+The performance of the RCM memory is more than
+competitive with main memory.

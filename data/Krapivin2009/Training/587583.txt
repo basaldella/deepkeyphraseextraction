@@ -1,0 +1,2 @@
+Stability of Perturbed Delay Differential Equations and Stabilization of Nonlinear Cascade Systems.
+In this paper  the effect of bounded input perturbations on the stability of nonlinear globally asymptotically stable delay  differential equations is analyzed. We investigate under which conditions global stability is preserved and if not, whether semiglobal stabilization is possible by controlling the size or shape of the perturbation. These results are used to study the stabilization of partially linear cascade systems with partial state feedback.

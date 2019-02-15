@@ -1,0 +1,13 @@
+Concepts for Resource Reservation in Advance.
+Resource management offers Quality-of-Service reliability for
+time-critical continuous-media applications. Currently, existing resource
+management systems in the Internet and ATM domain only provide means to
+reserve resources starting with the reservation attempt and lasting for an
+unspecified duration. However, for several applications such as video
+conferencing, the ability to reserve the required resources in advance is of
+great advantage. This paper outlines a new model for resource reservation in
+advance. We identify and discuss issues to be resolved for allowing resource
+reservation in advance. We show how the resource reservation in advance
+scheme can be embedded in a general architecture and describe the design and
+implementation of a resource management system providing reservation in
+advance functionality.

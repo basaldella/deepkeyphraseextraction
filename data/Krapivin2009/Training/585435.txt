@@ -1,0 +1,16 @@
+A Two-Variable Fragment of English.
+Controlled languages are regimented fragments of natural language
+designed to make the processing of natural language more efficient and
+reliable. This paper defines a controlled language, E2V, whose principal
+grammatical resources include determiners, relative clauses, reflexives
+and pronouns. We provide a formal syntax and semantics for E2V, in which
+anaphoric ambiguities are resolved in a linguistically natural way. We
+show that the expressive power of E2V is equal to that of the
+two-variable fragment of first-order logic. It follows that the problem
+of determining the satisfiability of a set of E2V sentences is NEXPTIME
+complete. We show that E2V can be extended in various ways without
+compromising these complexity results; however, relaxing our policy on
+anaphora resolution renders the satisfiability problem for E2V
+undecidable. Finally, we argue that our results have a bearing on the
+broader philosophical issue of the relationship between natural and
+formal languages.

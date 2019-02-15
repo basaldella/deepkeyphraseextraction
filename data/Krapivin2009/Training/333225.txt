@@ -1,0 +1,19 @@
+Image Sequence Analysis via Partial Differential Equations.
+This article deals with the problem of restoring and
+motion segmenting noisy image sequences with a static background.
+Usually, motion segmentation and image restoration are considered
+separately in image sequence restoration. Moreover, motion
+segmentation is often noise sensitive. In this article, the motion
+segmentation and the image restoration parts are performed in a
+coupled way, allowing the motion segmentation part to positively
+influence the restoration part and vice-versa. This is the key of our
+approach that allows to deal simultaneously with the problem of
+restoration and motion segmentation. To this end, we propose a
+theoretically justified optimization problem that permits to take
+into account both requirements. The model is theoretically
+justified. Existence and unicity are proved in the space of bounded
+variations. A suitable numerical scheme based on half quadratic
+minimization is then proposed and its convergence and stability
+demonstrated. Experimental results obtained on noisy synthetic data
+and real images will illustrate the capabilities of this original and
+promising approach.

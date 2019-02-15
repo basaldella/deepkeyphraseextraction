@@ -1,0 +1,2 @@
+A Comparison of Graphical Techniques for Asymmetric Decision Problems.
+We compare four graphical techniques for representation and solution of asymmetric decision problems-decision trees, influence diagrams, valuation networks, and sequential decision diagrams. We solve a modified version of Covaliu and Oliver's Reactor problem using each of the four techniques. For each technique, we highlight the strengths, weaknesses, and some open issues that perhaps can be resolved with further research.

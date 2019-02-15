@@ -1,0 +1,18 @@
+Stereo Matching with Transparency and Matting.
+This paper formulates and solves a new variant of the stereo
+correspondence problem: simultaneously recovering the disparities,
+true colors, and opacities of visible surface elements. This problem
+arises in newer applications of stereo reconstruction, such as view
+interpolation and the layering of real imagery with synthetic graphics
+for special effects and virtual studio applications. While this problem
+is intrinsically more difficult than traditional stereo correspondence,
+where only the disparities are being recovered, it provides a principled
+way of dealing with commonly occurring problems such as occlusions and
+the handling of mixed (foreground/background) pixels near depth
+discontinuities. It also provides a novel means for separating
+foreground and background objects (matting), without the use of a special
+blue screen. We formulate the problem as the recovery of colors and
+opacities in a generalized 3D (x, y, d) disparity
+space, and solve the
+problem using a combination of initial evidence aggregation followed by
+iterative energy minimization.

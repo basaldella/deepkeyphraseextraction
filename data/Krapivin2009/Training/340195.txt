@@ -1,0 +1,21 @@
+Spatial Color Indexing and Applications.
+We define a new image feature called the color correlogram
+and use it for image indexing and comparison. This feature distills the
+spatial correlation of colors and when computed efficiently, turns
+out to be both effective and inexpensive for content-based image
+retrieval. The correlogram is robust in tolerating large changes
+in appearance and shape caused by changes in viewing position,
+camera zoom, etc. Experimental evidence shows that this new
+feature outperforms not only the traditional color histogram method
+but also the recently proposed histogram refinement methods
+for image indexing/retrieval. We also provide a technique to
+cut down the storage requirement of the correlogram so that
+it is the same as that of histograms, with only negligible
+performance penalty compared to the original correlogram.We also suggest the use of color correlogram as a generic
+indexing tool to tackle various problems arising from image retrieval
+and video browsing. We adapt the correlogram to handle the
+problems of image subregion querying, object localization, object
+tracking, and cut detection. Experimental results again suggest
+that the color correlogram is more effective than the histogram
+for these applications, with insignificant additional
+storage or processing cost.

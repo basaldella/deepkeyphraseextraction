@@ -1,0 +1,2 @@
+Generalization by Neural Networks.
+The authors discuss the requirements of learning for generalization, where the traditional methods based on gradient descent have limited success. A stochastic learning algorithm based on simulated annealing in weight space is presented. The authors verify the convergence properties and feasibility of the algorithm. An implementation of the algorithm and validation experiments are described.

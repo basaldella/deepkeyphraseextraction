@@ -1,0 +1,2 @@
+Stabilized Finite Element Formulations for Shells in a Bending Dominated State.
+We consider the design of finite element methods for the Naghdi shell model in the case when the deformation is  bending dominated. Two formulations based on  stabilizing techniques are introduced and it is proved that they are stable, hence free from locking. The theoretical estimates are confirmed by numerical benchmark studies.

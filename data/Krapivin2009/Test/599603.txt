@@ -1,0 +1,14 @@
+A Principal Components Approach to Combining Regression Estimates.
+The goal of combining the predictions of multiple learned
+models is to form an improved estimator. A combining strategy must be
+able to robustly handle the inherent correlation, or
+multicollinearity, of the learned models while identifying the unique
+contributions of each. A progression of existing approaches and their
+limitations with respect to these two issues are discussed. A new
+approach, PCR&ast;, based on principal components regression is proposed
+to address these limitations. An evaluation of the new approach on a
+collection of domains reveals that (1) PCR&ast; was the most robust
+combining method, (2) correlation could be handled without eliminating
+any of the learned models, and (3) the principal components of the
+learned models provided a continuum of regularized weights from
+which PCR&ast; could choose.

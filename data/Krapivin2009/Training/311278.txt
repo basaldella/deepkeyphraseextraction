@@ -1,0 +1,32 @@
+A feedback based rate control algorithm for multicast transmitted video conferencing.
+This paper presents a feedback based rate control algorithm for
+video conferencing on the Internet. This algorithm adaptively
+controls the transmission rate of a video stream, which is being
+multicast to a heterogeneous group of receivers. The fact that the
+sender is transmitting a single video stream to many receivers
+introduces a number of issues. These issues include the variable
+nature of the available network resources and the fact that there
+is no easy way to determine the availability of these resources. In
+addition, even if we were able to track closely the changing
+network conditions, the best transmission rate for the aggregate
+means a trade off between high and low end receivers.
+
+The algorithm presented in this paper, called the Target
+Bandwidth Rate Control Algorithm, dynamically controls the output
+rate of the video coder by receiving and processing bandwidth
+levels from each receiver in the videoconference. The goal of this
+algorithm is to maximize the aggregate amount of video displayable
+at the receivers. This algorithm also allows us to limit the worst
+case loss experienced by the low-end receivers. In addition to
+considering the available network bandwidth in the feedback
+information, this algorithm allows for workstation and user
+requirements to be considered when determining the senders output
+rate.
+
+In order to show the effectiveness of this approach, we first
+analyze the algorithms performance in a simulation environment. In
+this set of tests we study the effects of different configurations
+of receivers in terms of the number of receivers and availability
+of resources. Additionally, we have implemented this algorithm in
+the VIC video conferencing system in order to analyze its
+effectiveness under real network conditions.

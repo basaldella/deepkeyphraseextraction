@@ -1,0 +1,32 @@
+Strategies in Combined Learning via Logic Programs.
+We discuss the adoption of a three-valued setting for
+inductive concept learning. Distinguishing between what is true, what
+is false and what is unknown can be useful in situations where
+decisions have to be taken on the basis of scarce, ambiguous, or
+downright contradictory information. In a three-valued setting, we
+learn a definition for both the target concept and its opposite,
+considering positive and negative examples as instances of two
+disjoint classes. To this purpose, we adopt Extended Logic Programs
+(ELP) under a Well-Founded Semantics with explicit negation
+(WFSX) as the representation formalism for learning, and show how
+ELPs can be used to specify combinations of strategies in a
+declarative way also coping with contradiction and exceptions.Explicit negation is used to represent the opposite concept,
+while default negation is used to ensure consistency and to
+handle exceptions to general rules. Exceptions are represented
+by examples covered by the definition for a concept that belong
+to the training set for the opposite concept.Standard Inductive Logic Programming techniques are employed to
+learn the concept and its opposite. Depending on the adopted
+technique, we can learn the most general or the least general
+definition. Thus, four epistemological varieties occur,
+resulting from the combination of most general and least general
+solutions for the positive and negative concept. We discuss the
+factors that should be taken into account when choosing and
+strategically combining the generality levels for positive and
+negative concepts.In the paper, we also handle the issue of strategic combination
+of possibly contradictory learnt definitions of a predicate and
+its explicit negation.All in all, we show that extended logic programs under
+well-founded semantics with explicit negation add expressivity
+to learning tasks, and allow the tackling of a number of
+representation and strategic issues in a principled way.Our techniques have been implemented and examples run on a
+state-of-the-art logic programming system with tabling which
+implements WFSX.

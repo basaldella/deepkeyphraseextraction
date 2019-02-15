@@ -1,0 +1,2 @@
+Quantum communication and complexity.
+In the setting of communication complexity, two distributed parties want to compute a function depending on both their inputs, using as little communication as possible. The required communication can sometimes be significantly lowered if we allow the parties the use of quantum  communication. We survey the main results of the young area of quantum communication its relation to teleportation and dense coding, the main examples of fast quantum communication protocols, lower bounds, and some applications.

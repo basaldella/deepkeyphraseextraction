@@ -1,0 +1,2 @@
+Affine Invariant Convergence Analysis for Inexact Augmented Lagrangian-SQP Methods.
+An affine invariant convergence analysis for inexact augmented Lagrangian-SQP methods is presented. The theory is used for the construction of an accuracy matching between iteration errors and truncation errors, which arise from the inexact linear system solvers. The theoretical investigations are illustrated numerically by an optimal control problem for the Burgers equation.

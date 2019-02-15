@@ -1,0 +1,2 @@
+Conversion of Units of Measurement.
+Algorithms are presented for converting units of measurement from a given form to a desired form. The algorithms are fast, are able to convert any combination of units to any equivalent combination, and perform dimensional analysis to ensure that the conversion is legitimate. Algorithms are also presented for simplification of symbolic combinations of units. Application of these techniques to perform automatic unit conversion and unit checking in a programming language is described.

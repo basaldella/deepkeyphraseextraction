@@ -1,0 +1,22 @@
+Symbolic Cache Analysis for Real-Time Systems.
+Caches
+impose a major problem for predicting execution times of real-time
+systems since the cache behavior depends on the history of previous
+memory references. Too pessimistic assumptions on cache hits
+can obtain worst-case execution time estimates that are prohibitive
+for real-time systems. This paper presents a novel approach for
+deriving a highly accurate analytical cache hit function for
+C-programs at compile-time based on the assumption that no external
+cache interference (e.g. process dispatching or DMA activity)
+occurs. First, a  symbolic tracefile of an instrumented C-program
+is generated based on  symbolic evaluation, which is a static
+technique to determine the dynamic behavior of programs. All
+memory references of a program are described by symbolic expressions
+and recurrences and stored in chronological order in the symbolic
+tracefile. Second, a cache hit function for several cache architectures
+is computed based on a  cache evaluation technique. Our approach
+goes beyond previous work by precisely modelling program control
+flow and program unknowns, modelling large classes of cache architectures,
+and providing very accurate cache hit predictions. Examples for
+the SPARC architecture are used to illustrate the accuracy and
+effectiveness of our symbolic cache prediction.

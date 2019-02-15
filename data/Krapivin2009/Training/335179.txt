@@ -1,0 +1,22 @@
+Affine Structure and Motion from Points, Lines and Conics.
+In this paper several new methods for estimating scene
+structure and camera motion from an image sequence taken by affine
+cameras are presented. All methods can incorporate both point, line
+and conic features in a unified manner. The correspondence between
+features in different images is assumed to be known.Three new
+tensor representations are introduced describing the viewing geometry
+for two and three cameras. The centred affine epipoles can be used to
+constrain the location of corresponding points and conics in two
+images. The third order, or alternatively, the reduced third order
+centred affine tensors can be used to constrain the locations of
+corresponding points, lines and conics in three images. The reduced
+third order tensors contain only 12 components compared to the
+components obtained when reducing the trifocal tensor to affine
+cameras.A new factorization method is presented. The novelty
+lies in the ability to handle not only point features, but also line
+and conic features concurrently. Another complementary method based
+on the so-called closure constraints is also presented. The advantage
+of this method is the ability to handle missing data in a simple and
+uniform manner.  Finally, experiments performed on both simulated and
+real data are given, including a comparison with other
+methods.

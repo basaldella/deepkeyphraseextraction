@@ -1,0 +1,11 @@
+The Topological Structure of Scale-Space Images.
+We investigate the deep structure of a scale-space
+image. The emphasis is on topology, i.e. we concentrate
+on critical pointspoints with vanishing gradientand
+top-pointscritical points with degenerate Hessianand
+monitor their displacements, respectively generic morsifications
+in scale-space. Relevant parts of catastrophe theory in the context of the
+scale-space paradigm are briefly reviewed, and subsequently
+rewritten into coordinate independent form. This enables one to implement
+topological descriptors using a
+conveniently defined coordinate system.

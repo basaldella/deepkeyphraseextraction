@@ -1,0 +1,11 @@
+Using Model Trees for Classification.
+Model trees, which are a type of decision tree with linear
+regression functions at the leaves, form the basis of a recent successful
+technique for predicting continuous numeric values. They can be applied to
+classification problems by employing a standard method of transforming a
+classification problem into a problem of function approximation.
+Surprisingly, using this simple transformation the model tree inducerM5
+, based on Quinlans M5,
+generates more accurate classifiers than the state-of-the-art decision tree
+learner C5.0, particularly when most of the attributes
+are numeric.

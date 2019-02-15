@@ -1,0 +1,12 @@
+Quasi-Invariant Parameterisations and Matching of Curves in Images.
+In this paper, we investigate quasi-invariance on a smooth
+manifold, and show that there exist quasi-invariant
+parameterisations which are not exactly invariant but
+approximately invariant under group transformations
+and do not require high order derivatives.
+The affine quasi-invariant parameterisation is
+investigated in more detail and exploited for defining general affine
+semi-local invariants from second order derivatives only.
+The new invariants are implemented and used for matching curve segments
+under general affine motions and extracting symmetry axes of
+objects with 3D bilateral symmetry.

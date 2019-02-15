@@ -1,0 +1,17 @@
+Conjectural Equilibrium in Multiagent Learning.
+Learning in a multiagent environment is complicated by the fact that
+as other agents learn, the environment effectively changes. Moreover,
+other agents actions are often not directly observable, and the
+actions taken by the learning agent can strongly bias which range of
+behaviors are encountered. We define the concept of a conjectural
+equilibrium, where all agents expectations are realized, and each
+agent responds optimally to its expectations. We present a generic multiagent
+exchange situation, in which competitive behavior constitutes a conjectural
+equilibrium. We then introduce an agent that executes a more sophisticated
+strategic learning strategy, building a model of the response of other
+agents. We find that the system reliably converges to a conjectural
+equilibrium, but that the final result achieved is highly sensitive to
+initial belief. In essence, the strategic learners actions tend to fulfill
+its expectations. Depending on the starting point, the agent may be
+better or worse off than had it not attempted to learn a model of the
+other agents at all.

@@ -1,0 +1,16 @@
+Tune Retrieval in the Multimedia Library.
+Musical scores are traditionally retrieved by title, composer or
+subject classification. Just as multimedia computer systems increase
+the range of opportunities available for presenting musical
+information, so they also offer new ways of posing musically-oriented
+queries. This paper shows how scores can be retrieved from a database
+on the basis of a few notes sung or hummed into a microphone. The
+design of such a facility raises several interesting issues
+pertaining to music retrieval. We first describe an interface that
+transcribes acoustic input into standard music notation. We then
+analyze string matching requirements for ranked retrieval of music
+and present the results of an experiment which tests how accurately
+people sing well known melodies. The performance of several string
+matching criteria are analyzed using two folk song databases.
+Finally, we describe a prototype system which has been developed for
+retrieval of tunes from acoustic input and evaluate its performance.

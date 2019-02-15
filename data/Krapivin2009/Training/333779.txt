@@ -1,0 +1,2 @@
+Derivation of Numerical Methods Using Computer Algebra.
+The use of computer algebra systems in a course on scientific computation is demonstrated. Various examples, such as the derivation of Newton's iteration formula, the secant method, Newton--Cotes and Gaussian integration formulas, as well as Runge--Kutta formulas, are presented. For the derivations, the computer algebra system Maple is used.

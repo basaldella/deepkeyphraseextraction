@@ -1,0 +1,2 @@
+Answer set programming and plan generation.
+The idea of answer set programming is to represent a given computational problem by a logic program whose answer sets correspond to solutions, and then use an answer set solver, such as SMODELS or DLV, to find an answer set for this program. Applications of this method to planning are related to the line of research on the frame problem that started with the invention of formal nonmonotonic reasoning in 1980.

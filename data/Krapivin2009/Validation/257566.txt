@@ -1,0 +1,9 @@
+Implementing a Probabilistic Clock Synchronization Algorithm.
+In this paper we present a new probabilistic clock synchronization
+algorithm, its prototype implementation and experimental results. The
+algorithm follows the client-server programming paradigm and is designed to
+work in a departmental environment with few servers and a number of clients
+connected through an arbitrary network topology. At the core of the algorithm is a remote clock reading method that
+mitigates the negative effects of message delay uncertainty. The
+implementation proves the effectiveness of this approach and corroborates the
+theoretical speculations.

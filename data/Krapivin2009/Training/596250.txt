@@ -1,0 +1,2 @@
+A Geometric Approach to Global Optimization.
+In this paper we consider the problem of optimizing a piecewise-linear objective function over a non-convex domain. In particular we do not allow the solution to lie in the interior of a prespecified region R. We discuss the geometrical properties of this problems and present algorithms based on combinatorial arguments. In addition we show how we can construct quite complicated shaped sets R while maintaining the combinatorial properties.

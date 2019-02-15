@@ -1,0 +1,18 @@
+On the Accuracy of Meta-learning for Scalable Data Mining.
+In this paper, we
+describe a general approach to scaling data mining applications that
+we have come to call meta-learning. Meta-Learning
+refers to a general strategy that seeks to learn how to combine a
+number of separate learning processes in an intelligent fashion. We
+desire a meta-learning architecture that exhibits two key behaviors.
+First, the meta-learning strategy must produce an accurate final
+classification system. This means that a meta-learning architecture
+must produce a final outcome that is at least as accurate as a
+conventional learning algorithm applied to all available data.
+Second, it must be fast, relative to an individual sequential learning
+algorithm when applied to massive databases of examples, and operate
+in a reasonable amount of time. This paper focussed primarily on
+issues related to the accuracy and efficacy of meta-learning as a
+general strategy. A number of empirical results are presented
+demonstrating that meta-learning is technically feasible in wide-area,
+network computing environments.

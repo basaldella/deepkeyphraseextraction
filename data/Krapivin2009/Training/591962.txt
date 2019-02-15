@@ -1,0 +1,10 @@
+Searching for a Global Search Algorithm.
+We report on a case study to assess the use of an advanced
+knowledge-based software design technique with programmers who have not
+participated in the techniques development. We use the KIDS approach
+to algorithm design to construct two global search algorithms that
+route baggage through a transportation net. Construction of the second
+algorithm involves extending the KIDS knowledge base. Experience with
+the case study leads us to integrate the approach with the spiral and
+prototyping models of software engineering, and to discuss ways to deal
+with incomplete design knowledge.

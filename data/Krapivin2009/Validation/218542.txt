@@ -1,0 +1,2 @@
+Evaluation and Selection of Biases in Machine Learning.
+In this introduction, we define the term bias as it is used in machine learning systems. We motivate the importance of automated methods for evaluating and selecting biases using a framework of bias selection as search in bias and meta-bias spaces. Recent research in the field of machine learning bias is summarized.

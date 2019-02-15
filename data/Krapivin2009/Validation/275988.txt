@@ -1,0 +1,2 @@
+The Value Function of the Singular Quadratic Regulator Problem with Distributed Control Action.
+We  study  the regularity properties of the value function  of  a quadratic  regulator problem for a linear  distributed  parameter system   with   distributed  control  action.   No   definiteness assumption on the cost functional is assumed. We  study  the regularity  in  time  of the value function and  also  the  space regularity in the case of a holomorphic semigroup system.

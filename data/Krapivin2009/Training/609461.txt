@@ -1,0 +1,28 @@
+Adaptive Modulation over Nakagami Fading Channels.
+We first study the capacity of Nakagami multipath fading (NMF) channels
+
+with an average power constraint for three power and rate adaptation
+
+policies. We obtain closed-form solutions for NMF
+
+channel capacity for each power and rate adaptation strategy.
+
+Results show that rate adaptation is the key to increasing
+
+link spectral efficiency.
+
+We then analyze
+
+the performance of practical constant-power variable-rate M-QAM schemes
+
+over NMF channels. We obtain closed-form
+
+expressions for the outage probability, spectral efficiency and
+
+average bit-error-rate (BER) assuming perfect channel
+
+estimation and negligible time delay between channel estimation
+
+and signal set adaptation. We also
+
+analyze the impact of time delay on the BER of adaptive M-QAM.

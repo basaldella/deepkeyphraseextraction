@@ -1,0 +1,2 @@
+Computational Complexity of Sparse Rational Interpolation.
+The authors analyze the computational complexity of sparse rational interpolation, and give the first deterministic algorithm for this problem with singly exponential bounds on the number of arithmetic  operations.

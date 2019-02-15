@@ -1,0 +1,2 @@
+Search Problems in the Decision Tree Model.
+The relative power of determinism, randomness, and nondeterminism for search problems in the Boolean decision tree model is studied. It is shown that the gaps between the nondeterministic, the randomized, and the deterministic complexities can be arbitrarily large for search problems.  An interesting connection of this model to the complexity of resolution proofs is also mentioned.

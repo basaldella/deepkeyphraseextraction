@@ -1,0 +1,7 @@
+Combinations of Modal Logics.
+There is increasing use of combinations of modal logics in both
+foundational and applied research areas. This article provides an
+introduction to both the principles of such combinations and to the
+variety of techniques that have been developed for them. In addition,
+the article outlines many key research problems yet to be tackled
+within this callenging area of work.

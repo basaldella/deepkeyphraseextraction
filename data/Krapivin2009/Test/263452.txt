@@ -1,0 +1,2 @@
+Approximating Bayesian Belief Networks by Arc Removal.
+AbstractI propose a general framework for approximating Bayesian belief networks through model simplification by arc removal. Given an upper bound on the absolute error allowed on the prior and posterior probability distributions of the approximated network, a subset of arcs is removed, thereby speeding up probabilistic inference.

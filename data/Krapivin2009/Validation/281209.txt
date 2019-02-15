@@ -1,0 +1,23 @@
+Multiple Experiment Environments for Testing.
+Concurrent simulation (CS) has been used successfully as a
+replacement for serial simulation. Based on storing differences from
+experiments, CS saves storage, speeds up simulation time and allows
+excellent internal observation of events. In this paper, we introduce
+Multiple Domain Concurrent Simulation (MDCS) which like concurrent
+simulation, maintains efficiency by only simulating differences. MDCS also
+allows experiments to interact with one another and create new experiments
+through the use of domains. These experiments can be traced and observed at
+any point, providing insight into the origin and causes of new experiments.
+While many experiment scenarios can be created, MDCS uses dynamic spawning
+and experiment compression rather than explicit enumeration to ensure that
+the number of experiment scenarios does not become exhaustive. MDCS does not
+require any pre-analysis or additions to the circuit under test. Providing
+this capability in digital logic simulators allows more test cases to be run
+in less time. MDCS gives the exact location and causes of every experiment
+behavior and can be used to track the signature paths of test patterns for
+coverage analysis.We will describe the algorithms for MDCS, discuss the rules for
+propagating experiments and describe the concepts of domains for making
+dynamic interactions possible. We will report on the effectiveness of MDCS
+for attacking an exhaustive simulation problem such as Multiple Stuck-at
+Fault simulations for digital logic. Finally, the applicability of MDCS for
+more general experimentation of digital logic systems will be discussed.

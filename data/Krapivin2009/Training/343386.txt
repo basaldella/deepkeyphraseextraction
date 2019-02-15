@@ -1,0 +1,2 @@
+Locality of order-invariant first-order formulas.
+A query is local if the decision of whether a tuple in a structure satisfies this query only depends on a small neighborhood of the tuple. We prove that all queries expressible by order-invariant first-order formulas are local.

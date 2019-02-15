@@ -1,0 +1,2 @@
+A Compression Algorithm for Probability Transition Matrices.
+This paper describes a compression algorithm for probability transition matrices.  The compressed matrix is itself a probability transition matrix. In general the compression is not error free, but the error appears to be small even for high levels of compression.

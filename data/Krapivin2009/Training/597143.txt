@@ -1,0 +1,22 @@
+QoS Management in Educational Digital Library Environments.
+Advances in multimedia computing technologies offer new approaches to
+the support of computer-assisted education and training within many
+application domains. Novel interactive presentation tools can be
+built to enhance traditional teaching methods with more active
+learning. Since a variety of user expectations are possible in such
+an environment, research must address the incorporation of these
+factors into presentation tools. During an interactive
+learning/training process, presentation tools must be able to handle
+various types of delays. A flexibly adjustable quality of service
+(QoS) should thus be supported. In this paper, we investigate a
+framework and systematic strategies for supporting the continuous and
+synchronized retrieval and presentation of multimedia data streams in
+a client/server distributed multimedia environment for educational
+digital libraries. Specifically, we establish a practical framework
+for specifying multimedia objects, tasks, schedules, and
+synchronization constraints between media streams. We identify the
+QoS parameters critical to the support of multimedia presentations
+for learning and training activities. Based on the proposed framework
+and QoS specifications, we develop presentation scheduling and buffer
+management strategies which can enforce the specified QoS
+requirements in an educational digital library environment.

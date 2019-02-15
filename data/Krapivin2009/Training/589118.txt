@@ -1,0 +1,2 @@
+Towards a Practical Volumetric Cutting Plane Method for Convex Programming.
+We consider the volumetric cutting plane method for finding a point in a convex set ${\cal C}\subset\Re^n$ that is characterized by a separation oracle. We prove polynomiality of the algorithm with each added cut placed directly through the current point and show that this "central cut" version of the method can be implemented using no more than 25n constraints at any time.

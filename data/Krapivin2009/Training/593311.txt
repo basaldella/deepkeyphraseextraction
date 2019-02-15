@@ -1,0 +1,14 @@
+Localizer.
+Local search is a traditional technique to solve combinatorial
+search problems which has raised much interest in recent years.
+The design and implementation of local search algorithms is not
+an easy task in general and may require considerable experimentation
+and programming effort. However, contrary to global search, little
+support is available to assist the design and implementation
+of local search algorithms. This paper describes the design and
+implementation of Localizer, a modeling language for
+implementing local search algorithms. Localizer makes
+it possible to express local search algorithms in a notation
+close to their informal descriptions in scientific papers. Experimental
+results on Boolean satisfiability, graph coloring, graph partitioning,
+and job-shop scheduling show the feasibility of the approach.

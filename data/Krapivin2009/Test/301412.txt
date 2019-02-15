@@ -1,0 +1,16 @@
+Parsimonious Least Norm Approximation.
+A theoretically justifiable fast finite successive linear
+approximation algorithm is proposed for obtaining a parsimonious
+solutionto a corrupted linear system Ax=b+p, where the
+corruptionp is due to noise or error in measurement. The
+proposedlinear-programming-based algorithm finds a solutionx
+by parametrically minimizing the number of
+nonzeroelements in x and the error
+&Verbar;Ax-b-p&Verbar;_1.Numerical tests on
+a signal-processing-based exampleindicate that the proposed method is
+comparable to a method that parametrically minimizesthe1
+-norm of the solution x and the error
+&Verbar;Ax-b-p&Verbar;_1, and that both
+methods are superior, byorders of magnitude, to solutions obtained by
+least squares as well by combinatorially choosing an optimal solution
+with a specific number of nonzero elements.

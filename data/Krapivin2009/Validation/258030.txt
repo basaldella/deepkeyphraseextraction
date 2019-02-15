@@ -1,0 +1,9 @@
+Image Processing with Complex Daubechies Wavelets.
+Analyses based on Symmetric Daubechies Wavelets (SDW) lead to
+complex-valued multiresolution representations of real signals.
+After a recall of the construction of the SDW, we present some
+specific properties of these new types of Daubechies wavelets. We
+then discuss two applications in image processing: enhancement and
+restoration. In both cases, the efficiency of this multiscale
+representation relies on the information encoded in the phase of the
+complex wavelet coefficients.

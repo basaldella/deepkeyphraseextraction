@@ -1,0 +1,7 @@
+Bayesian MARS.
+A Bayesian approach to multivariate adaptive regression spline (MARS) fitting
+(Friedman, 1991) is proposed. This takes the form of a probability distribution over the
+space of possible MARS models which is explored using reversible jump Markov chain Monte
+Carlo methods (Green, 1995). The generated sample of MARS models produced is shown to have
+good predictive power when averaged and allows easy interpretation of the relative
+importance of predictors to the overall fit.

@@ -1,0 +1,2 @@
+Privacy-Preserving Data Mining.
+Data mining is under attack from privacy advocates because of a misunderstanding about what it actually is and a valid concern about how it's generally done. This article shows how technology from the security community can change data mining for the better, providing all its benefits while still maintaining privacy.

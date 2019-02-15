@@ -1,0 +1,2 @@
+A survey of X protocol multiplexors.
+An X multiplexor allows a single X Window System client to be displayed and interacted with on several X servers simultaneously. Such a service is necessary for the construction of a computer-supported cooperative work (CSCW) environment such as JVTOS (Joint Viewing and Tele-Operation Service) which is being implemented within RACE II project CIO1. This paper describes several existing X multiplexors and evaluates their usefulness for JVTOS.

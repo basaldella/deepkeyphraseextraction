@@ -1,0 +1,2 @@
+On Parallelization of Static Scheduling Algorithms.
+AbstractMost static algorithms that schedule parallel programs represented by macro dataflow graphs are sequential. This paper discusses the essential issues pertaining to parallelization of static scheduling and presents two efficient parallel scheduling algorithms. The proposed algorithms have been implemented on an Intel Paragon machine and their performances have been evaluated. These algorithms produce high-quality scheduling and are much faster than existing sequential and parallel algorithms.

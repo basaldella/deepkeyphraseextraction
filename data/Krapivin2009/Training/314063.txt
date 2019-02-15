@@ -1,0 +1,8 @@
+Ranking Strategies for Navigation Based Query Formulation.
+Navigating through a hypermedia retrieval system bears the problem
+of selecting an item from a large number of options available to continue the
+trajectory. Ranking these options according to some criterion is a method to
+ease the task of navigation. A number of ranking strategies have already been
+proposed. This paper presents a formalization of the concept of ranking, and
+of the aforementioned strategies. Furthermore we propose two strategies
+allowing a personalized approach to ranking.

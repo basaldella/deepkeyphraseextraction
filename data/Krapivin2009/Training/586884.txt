@@ -1,0 +1,2 @@
+Separation of NP-Completeness Notions.
+We use hypotheses of structural complexity theory to separate various NP-completeness notions. In particular, we introduce an hypothesis from which we describe a set in NP that is $\mbox{${\leq}^{\rm P}_{\rm T}$}$-complete but not $\mbox{${\leq}^{\rm P}_{tt}$}$-complete.  We provide fairly thorough analyses of the hypotheses that we introduce.

@@ -1,0 +1,12 @@
+A Neural Network Diagnosis Approach for Analog Circuits.
+This paper presents a neural network system for the diagnosis of analog
+circuits and shows how the performance of such a
+system can be affected by the choice of different
+techniques used by its submodules. In particular we discuss the influence
+of feature extraction techniques such as
+Fourier Transforms, Wavelets and Principal Component
+Analysis. The system uses several different power supplies and as many
+neural networks in parallel. Two different algorithms that can
+be used to combine the candidate sets produced by each network are
+also presented. The system is capable of diagnosing multiple
+faults even if trained on single ones.

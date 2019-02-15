@@ -1,0 +1,2 @@
+Lower bounds for the rate of convergence in nonparametric pattern recognition.
+We show that there exist individual lower bounds corresponding to the upper bounds for the rate of convergence of nonparametric pattern recognition which are arbitrarily close to Yang's minimax lower bounds, for certain "cubic" classes of regression functions used by Stone and others. The rates are equal to the ones of the corresponding regression function estimation problem. Thus for these classes classification is not easier than regression function estimation.

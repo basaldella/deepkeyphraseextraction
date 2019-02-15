@@ -1,0 +1,23 @@
+Sensor-Based Control Architecture for a Car-Like Vehicle.
+This paper presents a control architecture endowing a car-like
+vehicle moving
+in a dynamic and partially known environment with autonomous motion
+capabilities. Like most recent control architectures for autonomous robot
+systems, it combines three functional components: a set of basic
+real-time
+skills, a reactive execution mechanism and a decision module. The main
+novelty of the architecture proposed lies in the introduction of a fourth
+component akin to a meta-level of skills: the sensor-based
+manoeuvers,
+i.e., general templates that encode high-level expert human knowledge and
+heuristics about how a specific motion task is to be performed. The concept
+of sensor-based manoeuvers permit to reduce the planning effort required to
+address a given motion task, thus improving the overall response-time of the
+system, while retaining the good properties of a skill-based architecture,
+i.e., robustness, flexibility and reactivity. The paper focuses on the
+trajectory planning function (which is an important part of the
+decision
+module) and two types of sensor-based manoeuvers, trajectory following
+and parallel parking, that have been implemented and successfully
+tested on a real automatic car-like vehicle placed in different
+situations.

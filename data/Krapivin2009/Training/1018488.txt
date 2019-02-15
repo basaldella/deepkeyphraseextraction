@@ -1,0 +1,2 @@
+Nested semantics over finite trees are equationally hard.
+This paper studies nested simulation and nested trace semantics over the language BCCSP, a basic formalism to express finite process behaviour. It is shown that none of these semantics affords finite (in)equational axiomatizations over BCCSP. In particular, for each of the nested semantics studied in this paper, the collection of sound, closed (in)equations over a singleton action set is not finitely based.

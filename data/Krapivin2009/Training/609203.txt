@@ -1,0 +1,24 @@
+Certifying Compilation and Run-Time Code Generation.
+A certifying compiler takes a source language program and produces
+object code, as well as a certificate that can be used to verify
+that the object code satisfies desirable properties, such as type
+safety and memory safety. Certifying compilation helps to increase
+both compiler robustness and program safety. Compiler robustness is
+improved since some compiler errors can be caught by checking the
+object code against the certificate immediately after compilation.
+Program safety is improved because the object code and certificate
+alone are sufficient to establish safety: even if the object code and
+certificate are produced on an unknown machine by an unknown compiler
+and sent over an untrusted network, safe execution is guaranteed as
+long as the code and certificate pass the verifier.Existing work in certifying compilation has addressed statically
+generated code. In this paper, we extend this to code generated at
+run time. Our goal is to combine certifying compilation with run-time
+code generation to produce programs that are both fast and verifiably
+safe. To achieve this goal, we present two new languages with
+explicit run-time code generation constructs: Cyclone, a type safe
+dialect of C, and TAL/T, a type safe assembly language. We have
+designed and implemented a system that translates a safe C program
+into Cyclone, which is then compiled to TAL/T, and finally assembled
+into executable object code. This paper focuses on our overall
+approach and the front end of our system&semi; details about TAL/T will
+appear in a subsequent paper.

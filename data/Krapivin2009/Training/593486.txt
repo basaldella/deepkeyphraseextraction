@@ -1,0 +1,20 @@
+Effect of Data Distribution in Parallel Mining of Associations.
+Association rule mining is an important new problem in data
+mining. It has crucial applications in decision support and marketing
+strategy. We proposed an efficient parallel algorithm for mining association
+rules on a distributed share-nothing parallel system. Its
+efficiency is attributed to the incorporation of two
+powerful candidate set pruning techniques. The two techniques,
+distributed and global prunings, are
+sensitive to two data distribution characteristics: data
+skewness and workload balance. The prunings are very effective
+when both the skewness and balance
+are high. We have implemented FPM on an IBM SP2 parallel system.
+The performance studies show that FPM outperforms CD consistently, which
+is a parallel version of the representative Apriori
+algorithm (Agrawal and Srikant, 1994). Also, the results have
+validated our observation
+on the effectiveness of the two pruning techniques with respect
+to the data distribution characteristics. Furthermore, it shows
+that FPM has nice scalability and parallelism,
+which can be tuned for different business applications.

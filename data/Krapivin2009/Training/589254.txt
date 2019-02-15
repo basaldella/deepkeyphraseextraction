@@ -1,0 +1,2 @@
+Optimality Conditions for Optimization Problems with Complementarity Constraints.
+Optimization problems with complementarity constraints are closely related to optimization problems with variational inequality constraints and bilevel programming problems. In this paper, under mild constraint qualifications, we derive some necessary and sufficient optimality conditions involving the proximal coderivatives. As an illustration of applications, the result is applied to the bilevel programming problems where the lower level is a parametric linear quadratic problem.

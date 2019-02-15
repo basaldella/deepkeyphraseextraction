@@ -1,0 +1,2 @@
+The Combinatorial Structure of Wait-Free Solvable Tasks.
+This paper presents a self-contained study of wait-free solvable tasks. A new necessary condition for wait-free solvability, based on a restricted set of executions, is proved. This set of executions induces a very simple-to-understand structure, which is used to prove tight bounds for k-set consensus and renaming. The framework is based on topology, but uses only elementary combinatorics, and, in contrast to previous works, does not rely on algebraic or geometric arguments.

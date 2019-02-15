@@ -1,0 +1,22 @@
+Ordering Constraints over Feature Trees.
+Feature trees
+are the formal basis for algorithms manipulating record like
+structures in constraint programming, computational linguistics
+and in concrete applications like software configuration management.
+Feature trees model records, and constraints over feature trees
+yield extensible and modular record descriptions. We introduce
+the constraint system FEAT of ordering constraints
+interpreted over feature trees. Under the view that feature trees
+the relation \leq
+corresponds to the information ordering (carries less information
+than). We present two algorithms in cubic time, one for the
+satisfiability problem and one for the entailment problem of
+FEAT.  We show that FEAT has the independence property.
+We are thus able to handle negative conjuncts via entailment
+and obtain a cubic algorithm that decides the satisfiability
+of conjunctions of positive and negated ordering constraints
+over feature trees. Furthermore, we reduce the satisfiability
+problem of Drres weak subsumption constraints to the satisfiability
+problem of FEAT and improve the complexity bound for
+solving weak subsumption constraints from O(n^5)
+to O(n^3).

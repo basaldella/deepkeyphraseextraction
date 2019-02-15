@@ -1,0 +1,13 @@
+Tabu Search for Frequency Assignment in Mobile Radio Networks.
+The main goal of the Frequency Assignment Problem in mobile radio
+networks consists of assigning a limited number of frequencies to each
+radio cell in a cellular network while minimizing electromagnetic
+interference due to the reuse of frequencies. This problem, known to be
+NP-hard, is of great importance in practice since better solutions will
+allow a telecommunications operator to manage larger cellular networks.
+This paper presents a new Tabu Search algorithm for this application. The
+algorithm is tested on realistic and large problem instances and compared
+with other methods based on simulated annealing, constraint programming
+and graph coloring algorithms. Empirical evidence shows that the Tabu
+algorithm is very competitive by giving the best solutions to the tested
+instances.

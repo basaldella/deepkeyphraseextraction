@@ -1,0 +1,13 @@
+A Methodological View of Constraint Solving.
+Constraints are an effective tool
+to define sets of data by means of logical formulae. Our goal
+here is to survey the notion of constraint system and to give
+examples of constraint systems operating on various domains,
+such as natural, rational or real numbers, finite domains, and
+term domains. We classify the different methods used for solving
+constraints, syntactic methods based on transformations, semantic
+methods based on adequate representations of constraints, hybrid
+methods combining transformations and enumerations. The concepts
+and methods are illustrated via examples. We also discuss applications
+of constraints to various fields, such as programming, operations
+research, and theorem proving.

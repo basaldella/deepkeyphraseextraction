@@ -1,0 +1,15 @@
+A Function Point-Like Measure for Object-Oriented Software.
+We
+present a method for estimating the size, and consequently effort
+and duration, of object oriented software development projects.
+Different estimates may be made in different phases of the development
+process, according to the available information. We define an
+adaptation of traditional function points, called Object Oriented
+Function Points, to enable the measurement of object oriented
+analysis and design specifications. Tools have been constructed
+to automate the counting method. The novel aspect of our method
+is its flexibility. An organization can experiment with different
+counting policies, to find the most accurate predictors of size,
+effort, etc. in its environment. The method and preliminary results
+of its application in an industrial environment are presented
+and discussed.

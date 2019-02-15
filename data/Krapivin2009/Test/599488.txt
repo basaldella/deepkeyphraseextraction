@@ -1,0 +1,2 @@
+An Improvement of McMillan''s Unfolding Algorithm.
+McMillan has recently proposed a new technique to avoid the state explosion problem in the verification of systems modelled with finite-state Petri nets. The technique requires to construct a finite initial part of the unfolding of the net. McMillan's algorithm for this task may yield initial parts that are larger than necessary (exponentially larger in the worst case). We present a refinement of the algorithm which overcomes this problem.

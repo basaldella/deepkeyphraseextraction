@@ -1,0 +1,2 @@
+A Computationally Efficient Feasible Sequential Quadratic Programming Algorithm.
+A sequential quadratic programming (SQP) algorithm generating feasible iterates is described and analyzed. What distinguishes this algorithm from previous feasible SQP algorithms proposed by various authors is a reduction in the amount of computation required to generate a new iterate while the proposed scheme still enjoys the same global and fast local convergence properties. A preliminary implementation has been tested and some promising numerical results are reported.

@@ -1,0 +1,19 @@
+The Use of Lemmas in the Model Elimination Procedure.
+When the model elimination (ME) procedure was first proposed, the notion
+of lemma was put forth as a promising augmentation to the basic complete
+proof procedure. Here the lemmas that are used are also discovered by the
+procedure in the same proof run. Several implementations of ME now exist, but
+only a 1970s implementation explicitly examined this lemma mechanism, with
+indifferent results. We report on the successful use of lemmas using the
+METEOR implementation of ME. Not only does the lemma device permit METEOR to
+obtain proofs not otherwise obtainable by METEOR, or any other ME prover not
+using lemmas, but some well-known challenge problems are solved. We discuss
+several of these more difficult problems, including two challenge problems
+for uniform general-purpose provers, where METEOR was first in obtaining the
+proof. The problems are not selected simply to show off the lemma device, but
+rather to understand it better. Thus, we choose problems with widely
+different characteristics, including one where very few lemmas are created
+automatically, the opposite of normal behavior. This selection points out the
+potential of, and the problems with, lemma use. The biggest problem normally
+is the selection of appropriate lemmas to retain from the large number
+generated.

@@ -1,0 +1,18 @@
+Supporting Content-Based Retrieval in Large Image Database Systems.
+In this paper, we investigate approaches to supporting effective and
+efficient retrieval of image data based on content. We first
+introduce an effective block-oriented image decomposition structure
+which can be used to represent image content in
+image database systems. We then discuss the
+application of this image data model to content-based image retrieval.
+Using wavelet transforms to extract image features,
+significant content features can be extracted from image data
+through decorrelating the data in their pixel format
+into frequency domain. Feature vectors of
+images can then be constructed. Content-based image retrieval
+is performed by comparing the feature vectors of the query image
+and the decomposed segments in database images.
+Our experimental analysis illustrates that the proposed
+block-oriented image representation
+offers a novel decomposition structure to be used to
+facilitate effective and efficient image retrieval.

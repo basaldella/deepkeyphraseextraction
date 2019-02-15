@@ -1,0 +1,2 @@
+Space-efficient planar convex hull algorithms.
+A space-efficient algorithm is one in which the output is given in the same location as the input and only a small amount of additional memory is used by the algorithm. We describe four space-efficient algorithms for computing the convex hull of a planar point set.

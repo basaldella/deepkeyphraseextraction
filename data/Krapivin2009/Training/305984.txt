@@ -1,0 +1,16 @@
+Relaxing the Triangle Inequality in Pattern Matching.
+Any notion of closeness in pattern matching should
+have the property that if A is close to B, and B
+is close to C, then A is close to C.
+Traditionally, this property is attained because of
+the triangle inequality
+d(B, C), where d represents a notion of
+distance). However, the full power of the triangle inequality
+is not needed for this property to hold.
+Instead, a relaxed triangle inequality suffices, of the form
+d(B, C)), where c is a constant that is not
+too large. In this paper, we show that one of the measures used for
+distances between shapes in (an experimental version of) IBMs QBIC1
+(Query by Image Content) system (Niblack et al., 1993)
+satisfies a relaxed triangle inequality,
+although it does not satisfy the triangle inequality.

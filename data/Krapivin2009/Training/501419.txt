@@ -1,0 +1,2 @@
+Neighborhood aware source routing.
+A novel approach to source routing in ad hoc networks is introduced that takes advantage of maintaining information regarding the two-hop neighborhood of a node. The neighborhood aware source routing (NSR) protocol is presented based on this approach, and its performance is compared by simulation with the peformance of the Dynamic Source Routing (DSR) protocol. The simulation analysis indicates that NSR requires much fewer control packets while delivering at least as many data packets as DSR.

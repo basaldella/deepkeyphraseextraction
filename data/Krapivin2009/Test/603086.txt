@@ -1,0 +1,2 @@
+Efficient approximate planning in continuous space Markovian decision problems.
+Monte-Carlo planning algorithms for planning in continuous state-space, discounted Markovian Decision Problems (MDPs) having a smooth transition law and a finite action space are considered. We prove various polynomial complexity results for the considered algorithms, improving upon several known bounds.

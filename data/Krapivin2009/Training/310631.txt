@@ -1,0 +1,2 @@
+An Experimental Study of Projective Structure From Motion.
+AbstractWe describe an essentially algorithm-independent experimental comparison of projective versus Euclidean reconstruction. The Euclidean approach is as accurate as the projective one, even with significant calibration error and for the pure projective structure. Projective optimization has less of a local-minima problem than its Euclidean equivalent. We describe techniques that enhance the convergence of optimization algorithms.

@@ -1,0 +1,11 @@
+Linearly Derived Steiner Triple Systems.
+We attach a graph to every Steiner triple system. The
+chromatic number of this graph is related to the possibility
+of extending the triple system to a quadruple system. For example,
+the triple systems with chromatic number one are precisely the
+classical systems of points and lines of a projective geometry
+over the two-element field, the Hall triple systems have chromatic
+number three (and, as is well-known, are extendable) and all
+Steiner triple systems whose graph has chromatic number two are
+extendable. We also give a configurational characterization of
+the Hall triple systems in terms of mitres.

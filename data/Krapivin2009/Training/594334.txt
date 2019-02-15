@@ -1,0 +1,2 @@
+Checking Simple Properties of Transition Systems Defined by Thue Specifications.
+In (possibly infinite) deterministic labeled transition systems defined by Thue congruences, labels are considered as functions of states into states. This paper provides a method for computing domains of such functions for a large class of transition systems. The latter are related to model checking of transition systems defined by Thue congruences.

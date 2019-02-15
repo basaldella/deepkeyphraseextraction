@@ -1,0 +1,2 @@
+Superlinear Convergence of an Interior-Point Method Despite Dependent Constraints.
+We show that an interior-point method for monotone variational inequalities exhibits superlinear convergence provided that all the standard assumptions hold except for the well-known assumption that the Jacobian of the active constraints has full rank at the solution. We show that superlinear convergence occurs even when the constant-rank condition on the Jacobian assumed in an earlier work does not hold.

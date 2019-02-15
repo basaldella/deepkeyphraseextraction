@@ -1,0 +1,2 @@
+Probabilistic Analysis of An Infeasible-Interior-Point Algorithm for Linear Programming.
+We consider an infeasible-interior-point algorithm, endowed with a finite termination scheme, applied to random linear programs generated according to a model of Todd. Such problems have degenerate optimal solutions, and possess no feasible starting point. We use no information regarding an optimal solution in the initialization of the algorithm. Our main result is that the expected number of iterations before termination with an exact optimal solution is O(n ln(n)).

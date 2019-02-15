@@ -1,0 +1,16 @@
+Continuation-Based Multiprocessing.
+Any multiprocessing facility must include three features:
+elementary exclusion, data protection, and process saving. While
+elementary exclusion must rest on some hardware
+facility (e.g., a test-and-set instruction), the other two
+requirements are fulfilled by features already present
+in applicative languages. Data protection may be obtained through
+the use of procedures (closures or funargs), and process
+saving may be obtained through the use of the catch operator. The use of
+catch, in particular, allows an elegant
+treatment of process saving.We demonstrate these techniques by writing the kernel and
+some modules for a multiprocessing system. The kernel is very
+small. Many functions which one would normally expect to find
+inside the kernel are completely decentralized. We consider
+the implementation of other schedulers, interrupts, and the
+implications of these ideas for language design.

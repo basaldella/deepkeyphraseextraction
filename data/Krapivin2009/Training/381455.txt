@@ -1,0 +1,9 @@
+A polynomial-time approximation scheme for base station positioning in UMTS networks.
+We consider the following optimization problem for UMTS networks: For a specified teletraffic demand and possible base station locations, choose positions for base stations such that
+
+the construction costs are below a given limit,
+as much teletraffic as possible is supplied,
+the ongoing costs are minimal, and
+the intra-cell interference in the range of each base station is low.
+
+We prove that for a particular specification of teletraffic (the so called demand node concept), this problem has a polynomial-time approximation scheme, but cannot have a fully polynomial-time approximation scheme unless

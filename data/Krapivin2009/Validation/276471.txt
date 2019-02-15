@@ -1,0 +1,2 @@
+Wavelet-Based Numerical Homogenization.
+A numerical homogenization procedure for elliptic differential equations is presented. It is based on wavelet decompositions of discrete operators in fine and  coarse scale components  followed by the elimination of the fine scale contributions. If the operator is in divergence form, this is preserved by the homogenization procedure. For periodic problems, results similar to classical effective coefficient theory are proved. The procedure can be applied to problems that are not cell-periodic.

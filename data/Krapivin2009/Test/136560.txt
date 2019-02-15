@@ -1,0 +1,2 @@
+Detecting Unsafe Error Recovery Schedules.
+A mechanism for modeling timing, precedence, and data-consistency constraints on concurrently executing processes is presented. The model allows durations and intervals between events to be specified. An algorithm is provided to detect schedules which may be unsafe with respect to the constraints. This work, motivated by the design and validation of autonomous error-recovery strategies on the Galileo spacecraft, appears to be applicable to a variety of asynchronous real-time systems.

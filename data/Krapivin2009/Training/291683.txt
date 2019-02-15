@@ -1,0 +1,9 @@
+On Residue Symbols and the Mullineux Conjecture.
+This paper is concerned with properties of the Mullineux
+map, which plays a rle in p-modular representation theory of
+symmetric groups. We introduce the residue symbol for a p-regular
+partitions, a variation of the Mullineux symbol, which makes the
+detection and removal of good nodes (as introduced by Kleshchev) in
+the partition easy to describe. Applications of this idea include a
+short proof of the combinatorial conjecture to which the Mullineux
+conjecture had been reduced by Kleshchev.

@@ -1,0 +1,16 @@
+Handling Updates and Crashes in VoD Systems.
+Though there have been several recent efforts to develop disk based
+video servers, these approaches have all ignored the topic of updates and
+disk server crashes. In this paper, we present a priority based
+model for building video servers that handle two classes of events: user
+events that could include enter, play, pause,
+rewind, fast-forward, exit, as well assystem
+events such as insert, delete, server-down,server-up
+that correspond to uploading new movie blocks onto
+the disk(s), eliminating existing blocks from the disk(s), and/or
+experiencing a disk server crash. We will present algorithms to handle such
+events. Our algorithms are provably correct, and computable in polynomial
+time. Furthermore, we guarantee that under certain reasonable conditions,
+continuing clients experience jitter free presentations. We further justify
+the efficiency of our techniques with a prototype implementation and
+experimental results.

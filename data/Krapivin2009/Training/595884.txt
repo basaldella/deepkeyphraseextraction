@@ -1,0 +1,13 @@
+Definability of Polyadic Lifts of Generalized Quantifiers.
+We study generalized quantifiers on finite structures.
+With every function f :
+we associate a quantifier Q_f by letting Q_fx
+&phis; say there are at least f(n) elementsx
+satisfying &phis;, where n is the size
+of the universe. This is the general form of
+what is known as a monotone quantifier of type  1 .
+We study so called polyadic lifts
+of such quantifiers. The particular lifts we consider
+are Ramseyfication, branching and resumption.
+In each case we get exact criteria for
+definability of the lift in terms of simpler quantifiers.

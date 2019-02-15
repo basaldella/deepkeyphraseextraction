@@ -1,0 +1,18 @@
+3-D Scene Data Recovery Using Omnidirectional Multibaseline Stereo.
+A traditional approach to extracting geometric information from a
+large scene is to compute multiple 3-D depth maps from stereo pairs
+or direct range finders, and then to merge the 3-D data. However, the
+resulting merged depth maps may be subject to merging errors if the
+relative poses between depth maps are not known exactly. In addition,
+the 3-D data may also have to be resampled before merging, which adds
+additional complexity and potential sources of errors.This paper provides a means of directly extracting 3-D data covering
+a very wide field of view, thus by-passing the need for numerous
+depth map merging. In our work, cylindrical images are first
+composited from sequences of images taken while the camera is rotated
+360 about a vertical axis. By taking such image panoramas at
+different camera locations, we can recover 3-D data of the scene
+using a set of simple techniques: feature tracking, an 8-point
+structure from motion algorithm, and multibaseline stereo. We also
+investigate the effect of median filtering on the recovered 3-D point
+distributions, and show the results of our approach applied to both
+synthetic and real scenes.

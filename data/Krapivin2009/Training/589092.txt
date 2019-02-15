@@ -1,0 +1,2 @@
+Auction Algorithms for Shortest Hyperpath Problems.
+The auction-reduction algorithm is a strongly polynomial version of the auction method for the shortest path problem. In this paper we extend the  auction-reduction algorithm to different types of shortest hyperpath problems in directed hypergraphs. The results of preliminary computational experiences show that the auction-reduction method is comparable to other known methods for specific  classes of hypergraphs.

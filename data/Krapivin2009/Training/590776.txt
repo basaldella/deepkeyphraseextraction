@@ -1,0 +1,15 @@
+Overcoming the Myopia of Inductive Learning Algorithms with RELIEFF.
+Current inductive machine learning algorithms typically use greedy search
+with limited lookahead. This prevents them to detect significant conditional
+dependencies between the attributes that describe training objects. Instead
+of myopic impurity functions and lookahead, we propose to use RELIEFF,
+an extension of
+RELIEF developed by Kira and Rendell &lsqb;10, 11&rsqb;,
+for heuristic guidance of inductive learning
+algorithms. We have reimplemented  Assistant, a system for top down induction of decision
+trees, using RELIEFF as an estimator of attributes at each selection step.
+The algorithm is tested on several artificial and several real world problems and the results
+are compared with some other well known machine learning algorithms.
+Excellent results on artificial data sets and two real world problems show the advantage
+of the presented approach to inductive
+learning.

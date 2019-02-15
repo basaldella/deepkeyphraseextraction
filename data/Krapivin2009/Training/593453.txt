@@ -1,0 +1,29 @@
+Parallel Algorithms for Discovery of Association Rules.
+Discovery of association rules is an important data mining task.
+Several parallel and sequential algorithms have been proposed in the
+literature to solve this problem. Almost all of these algorithms make
+repeated passes over the database to determine the set of frequent
+itemsets (a subset of database items), thus incurring
+high I/O overhead. In the parallel case, most algorithms perform a
+sum-reduction at the end of each pass to construct the global counts, also
+incurring high synchronization cost.In this paper we describe new parallel association mining algorithms. The
+algorithms use novel itemset clustering techniques to approximate the set of
+potentially maximal frequent itemsets. Once this set has been identified,
+the algorithms make use of efficient traversal techniques to generate the
+frequent itemsets contained in each cluster. We propose two clustering
+schemes based on equivalence classes and maximal hypergraph cliques, and
+study two lattice traversal techniques based on bottom-up and hybrid search.
+We use a vertical database layout to cluster related transactions together.
+The database is also selectively replicated so that the portion of the
+database needed for the computation of associations is local to each
+processor. After the initial set-up phase, the algorithms do not need any
+further communication or synchronization. The algorithms minimize I/O
+overheads by scanning the local database portion only twice. Once in the
+set-up phase, and once when processing the itemset clusters. Unlike previous
+parallel approaches, the algorithms use simple intersection operations to
+compute frequent itemsets and do not have to maintain or search complex hash
+structures.Our experimental testbed is a 32-processor DEC Alpha cluster
+inter-connected by the Memory Channel network. We present results on the
+performance of our algorithms on various databases, and compare it against a
+well known parallel algorithm. The best new algorithm outperforms it by an
+order of magnitude.

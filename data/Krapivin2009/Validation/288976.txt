@@ -1,0 +1,30 @@
+Directions of Motion Fields are Hardly Ever Ambiguous.
+If instead of the full motion field, we consider only the direction
+of the motion field due to a rigid motion, what can we say about the
+three-dimensional motion information contained in it? This paper provides a
+geometric analysis of this question based solely on the constraint that the
+depth of the surfaces in view is positive. The motivation behind this
+analysis is to provide a theoretical foundation for image constraints
+employing only the sign of flow in various directions and justify their
+utilization for addressing 3D dynamic vision problems.It is shown that, considering as the imaging surface the whole sphere,
+independently of the scene in view, two different rigid motions cannot give
+rise to the same directional motion field. If we restrict the image to half
+of a sphere (or an infinitely large image plane) two different rigid motions
+with instantaneous translational and rotational velocities(t_1
+cannot give rise to the same
+directional motion field unless the plane through t_1 and
+t_2 is perpendicular to the plane through
+_1 and _2 (i.e., (t_1
+t_2)  (_1
+In addition, in order to give practical
+significance to these uniqueness results for the case of a limited field of
+view, we also characterize the locations on the image where the motion
+vectors due to the different motions must have different directions.If (_1  _2)
+(t_1  t_2) &equals; 0 and certain
+additional constraints are met, then the two rigid motions could produce
+motion fields with the same direction. For this to happen the depth of each
+corresponding surface has to be within a certain range, defined by a second
+and a third order surface. Similar more restrictive constraints are obtained
+for the case of multiple motions. Consequently, directions of motion fields
+are hardly ever ambiguous. A byproduct of the analysis is that full motion
+fields are never ambiguous with a half sphere as the imaging surface.

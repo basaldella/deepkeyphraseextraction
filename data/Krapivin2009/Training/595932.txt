@@ -1,0 +1,34 @@
+Group Theory and Computational Linguistics.
+There is currently much interest in bringing together the tradition
+of categorial grammar, and especially the Lambek calculus, with the
+recent paradigm of linear logic to which it has strong ties. One
+active research area is designing non-commutative versions of linear
+logic (Abrusci, 1995; Retor, 1993) which can be sensitive to word
+order while retaining the hypothetical reasoning capabilities of
+standard (commutative) linear logic (Dalrymple et al., 1995). Some
+connections between the Lambek calculus and computations in groups
+have long been known (van Benthem, 1986) but no serious attempt has
+been made to base a theory of linguistic processing solely on group
+structure. This paper presents such a model, and demonstrates the
+connection between linguistic processing and the classical algebraic
+notions of non-commutative free group,
+conjugacy, and
+group presentations. A grammar in this model, or
+G-grammar is a collection of lexical expressions which are
+products of logical forms, phonological forms, and inverses of
+those. Phrasal descriptions are obtained by forming products of
+lexical expressions and by cancelling contiguous elements which are
+inverses of each other. A G-grammar provides a symmetrical
+specification of the relation between a logical form and a
+phonological string that is neutral between parsing and generation
+modes. We show how the G-grammar can be oriented for each of the
+modes by reformulating the lexical expressions as rewriting rules
+adapted to parsing or generation, which then have strong
+decidability properties (inherent reversibility). We give examples
+showing the value of conjugacy for handling long-distance movement
+and quantifier scoping both in parsing and generation. The paper
+argues that by moving from the free monoid over a vocabulary V
+(standard in formal language theory) to the free group over V, deep
+affinities between linguistic phenomena and classical algebra come
+to the surface, and that the consequences of tapping the
+mathematical connections thus established can be considerable.

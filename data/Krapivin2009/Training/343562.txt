@@ -1,0 +1,2 @@
+A New Convergence Proof for Finite Volume Schemes Using the Kinetic Formulation of Conservation Laws.
+We give a new convergence proof for finite  volume schemes approximating scalar conservation  laws. The main ingredients of the proof are the kinetic formulation of scalar conservation  laws, a discrete entropy inequality, and the velocity averaging technique.

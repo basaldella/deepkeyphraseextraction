@@ -1,0 +1,19 @@
+Temporalizing Epistemic Default Logic.
+We present an epistemic default logic, based on the metaphore of a
+meta-level architecture. Upward reflection is formalized by a nonmonotonic
+entailment relation, based on the objective facts that are either known or
+unknown at the object level. Then, the meta (monotonic) reasoning process
+generates a number of default-beliefs of object-level formulas. We
+extend this framework by proposing a mechanism to reflect these defaults
+down. Such a reflection is seen as essentially having a temporal flavour:
+defaults derived at the meta-level are projected as facts in a next
+object level state. In this way, we obtain temporal models for default
+reasoning in meta-level formalisms which can be conceived as labeled
+branching trees. Thus, descending the tree corresponds to shifts in time
+that model downward reflection, whereas the branching of the tree
+corresponds to ways of combining possible defaults. All together, this
+yields an operational or procedural semantics of reasoning by default,
+which admits one to reason about it by means of branching-time temporal
+logic. Finally, we define sceptical and credulous entailment relations
+based on these temporal models and we characterize Reiter extensions in
+our semantics.

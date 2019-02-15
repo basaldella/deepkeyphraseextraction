@@ -1,0 +1,22 @@
+Coordinating electronic commerce activities in MANIFOLD.
+Modern electronic commerce environments are heavily web-based
+
+and involve issues such as distributed execution, multiuser interactive access
+
+or interface with and use of middleware platforms. Thus, their components
+
+exhibit the properties of communication, cooperation and coordination as in
+
+CSCW, groupware or workflow management systems. In this paper we examine the
+
+potential of using coordination technology to model electronic commerce
+
+activities and we show the benefits of such an approach. Furthermore, we argue
+
+that control-oriented, event-driven coordination models (which
+
+enjoy some inherent properties such as security) are more suitable for
+
+electronic commerce than data-driven ones which are based on accessing an
+
+open shared communication medium in almost unrestricted ways.

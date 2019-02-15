@@ -1,0 +1,2 @@
+Template-driven interfaces for numerical subroutines.
+This paper describes a set of interfaces for numerical subroutines. Typing a short (often one-line) description allows one to solve problems in application domains including least-squares data fitting, differential equations, minimization, root finding, and integration. Our approach of template-driven programming makes it easy to build such an interface: a simple one takes a few hours to construct, while a few days suffice to build the most complex program we describe.

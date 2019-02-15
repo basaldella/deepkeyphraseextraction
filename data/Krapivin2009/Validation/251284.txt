@@ -1,0 +1,26 @@
+Nondegeneracy of Polyhedra and Linear Programs.
+This paper deals with nondegeneracy of polyhedra and
+linear programming (LP) problems. We allow for the possibility
+that the polyhedra and the feasible polyhedra of the LP
+problems under consideration be non-pointed.
+polyhedron is pointed if it has a vertex.) With respect to a given polyhedron, we consider two notions of
+nondegeneracy and then provide several equivalent characterizations
+for each of them. With respect to LP problems, we study the
+notion of constant cost nondegeneracy first introduced by
+Tsuchiya [25] under a different name, namely
+dual nondegeneracy. (We do not follow this terminology since
+the term dual nondegeneracy is already used to refer to a related
+but different type of nondegeneracy.) We show two main results about constant cost nondegeneracy of an LP problem.
+The first one shows that constant cost nondegeneracy of an LP
+problem is equivalent to the condition that the union of all minimal
+faces of the feasible polyhedron be equal to the set of feasible points
+satisfying a certain generalized strict complementarity condition.
+When the feasible polyhedron of an LP is nondegenerate,
+the second result shows
+that constant cost nondegeneracy is equivalent to the condition
+that the set of feasible points satisfying the generalized
+condition be equal to the set of feasible points satisfying
+the same complementarity condition strictly.
+For the purpose of giving a preview of the paper,
+the above results specialized to the context of polyhedra and
+LP problems in standard form are described in the introduction.

@@ -1,0 +1,2 @@
+Spectral Sequences on Combinatorial Simplicial Complexes.
+The goal of this paper is twofold. First, we give an elementary introduction to the usage of spectral sequences in the combinatorial setting. Second we list a number of applications.In the first group of applications the simplicial complex is the nerve of a poset&semi; we consider general posets and lattices, as well as partition-type posets. Our last application is of a different nature: the {\cal S}_n-quotient of the complex of directed forests is a simplicial complex whose cell structure is defined combinatorially.

@@ -1,0 +1,2 @@
+An Efficient Algorithm for Row Minima Computations on Basic Reconfigurable Meshes.
+AbstractA matrix A of size mn containing items from a totally ordered universe is termed monotone if, for every i, j, 1 i  2. In case $m = n^\epsilon$ for some constant $\epsilon,$$(0 < \epsilon \le 1),$ our algorithm runs in O(log log n) time.

@@ -1,0 +1,21 @@
+Timing Analysis for Data and Wrap-Around Fill Caches.
+The
+contributions of this paper are twofold. First, an automatic
+tool-based approach is described to bound worst-case  data cache
+performance. The approach works on fully optimized code, performs
+the analysis over the entire control flow of a program, detects
+and exploits both spatial and temporal locality within data references,
+and produces results typically within a few seconds. Results
+obtained by running the system on representative programs are
+presented and indicate that timing analysis of data cache behavior
+usually results in significantly tighter worst-case performance
+predictions. Second, a method to deal with realistic cache filling
+approaches, namely wrap-around-filling for cache misses, is presented
+as an extension to pipeline analysis. Results indicate that worst-case
+timing predictions become significantly tighter when wrap-around-fill
+analysis is performed. Overall, the contribution of this paper
+is a comprehensive report on methods and results of worst-case
+timing analysis for data caches and wrap-around caches. The approach
+taken is unique and provides a considerable step toward realistic
+worst-case execution time prediction of contemporary architectures
+and its use in schedulability analysis for hard real-time systems.

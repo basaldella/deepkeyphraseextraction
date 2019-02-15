@@ -1,0 +1,2 @@
+Localizing Failures in Distributed Synchronization.
+AbstractThe fault-tolerance of distributed algorithms is investigated in asynchronous message passing systems with undetectable process failures. Two specific synchronization problems are considered, the dining philosophers problem and the binary committee coordination problem. The abstraction of a bounded doorway is introduced as a general mechanism for achieving individual progress and good failure locality. Using it as a building block, optimal fault-tolerant algorithms are constructed for the two problems.

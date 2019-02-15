@@ -1,0 +1,9 @@
+Analyzing bounding boxes for object intersection.
+Heuristics that exploit bouning boxes are common in algorithms for rendering, modeling, and animation. While experience has shown that bounding boxes improve the performance of these algorithms in practice, the previous theoretical analysis has concluded that bounding boxes perform poorly in the worst case. This paper reconciles this discrepancy by analyzing intersections among n geometric objects in terms of two parameters: &agr; an upper bound on the aspect ratio or elongatedness of each object; and &sgr; an upper bound on the scale factor or size disparity between the largest and smallest  objects. Letting Ko
+and Kb be the number of intersecting object       pairs and bounding box pairs, respectively, we analyze a ratio measure of the   bounding boxes'  efficiency,   r=Kb/n+Ko  . The analysis proves that   r=Oas log2s   and   r=Was  .
+One important consequence is that if &agr; and &sgr; are small constants (as is often the case in practice), then
+Kb=
+O(Ko)+
+O(n, so an algorithm that uses bounding boxes has time complexity proportional to the number of actual object intersections. This theoretical result validates the efficiency that bounding boxes have demonstrated in practice. Another consequence of our analysis is a proof of the output-sensitivity of an algorithm for reporting all intersecting pairs in a set of n convex polyhedra with constant &agr; and &sgr;. The algorithm takes time O(nlogd1n+
+Kolog
+d1n) for dimension 3. This running time improves on the performance of previous algorithms, which make no assumptions about &agr; and &sgr;.

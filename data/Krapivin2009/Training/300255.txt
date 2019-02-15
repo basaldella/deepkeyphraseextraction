@@ -1,0 +1,15 @@
+Selected Research Issues in Decision Support Databases.
+A flurry of buzzwords awaits anyone investigating database
+technology for decision support:
+data warehouse, multidimensional and dimensional database, on-line analytical
+processing, star
+schema, slicing, dicing, drill-down and roll-up. We introduce the area via
+an example based on a
+long-ago project to design a repository on energy information for the US
+Department of Energy. Once we
+have introduced some terminology, we explore research issues associated with
+decision-support
+databases, including representation, modeling, metadata, architectures
+and query processing. The
+purpose of this paper is to provide researchers with the background they
+need to contribute to this area.

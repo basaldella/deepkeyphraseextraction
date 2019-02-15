@@ -1,0 +1,22 @@
+Intelligent Adaptive Information Agents.
+Adaptation in open, multi-agent information gathering systems is
+important for several reasons. These reasons include the inability to
+accurately predict future problem-solving workloads, future changes in
+existing information requests, future failures and additions of agents and
+data supply resources, and other future task environment characteristic
+changes that require system reorganization. We have developed a multi-agent
+distributed system infrastructure, RETSINA (REusable Task Structure-based
+Intelligent Network Agents) that handles adaptation in an open Internet
+environment. Adaptation occurs both at the individual agent level as well as
+at the overall agent organization level. The RETSINA system has three types
+of agents. Interface agents interact with the user
+receiving user specifications and delivering results. They acquire, model,
+and utilize user preferences to guide system coordination in support of the
+users tasks. Task agents help users perform tasks by
+formulating problem solving plans and carrying out these plans through
+querying and exchanging information with other software agents. Information
+agents provide intelligent access to a heterogeneous
+collection of information sources. In this paper, we concentrate on the
+adaptive architecture of the information agents. We use as the domain of
+application WARREN, a multi-agent financial portfolio management system that
+we have implemented within the RETSINA framework.

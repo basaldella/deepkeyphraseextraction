@@ -1,0 +1,24 @@
+On reducing the processing cost of on-demand QoS path computation.
+Quality of Service (QoS) routing algorithms have become the
+focus of recent research due to their potential for increasing the
+utilization of an Integrated Services Packet Network (ISPN) serving
+requests with QoS requirements. While heuristics for determining
+paths for such requests have been formulated for a variety of QoS
+models, little attention has been given to the overall processing
+complexity of the QoS routing protocol. This paper deals with the
+processing complexity of determining QoS paths in link state based
+routing architectures. Although on-demand path computation is very
+attractive due to its simplicity, many believe that its processing
+cost will be prohibitive in environments with high request rates.
+In this work, we first characterize the processing cost of QoS
+routing algorithms that use the widest-shortest path heuristic.
+Then we study alternatives to on-demand path computation that can
+reduce this processing overhead. In addition to the well known
+solution of path pre-computation, we introduce and study path
+caching, an incremental modification of on-demand path computation.
+By simulating realistic topologies and traffic conditions we
+investigate the performance of both alternatives. Our results show
+that caching is an effective alternative to path pre-computation
+and that both path caching and pre-computation can achieve
+significant processing cost savings without severely compromising
+routing performance.

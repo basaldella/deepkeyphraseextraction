@@ -1,0 +1,21 @@
+Rational Filters for Passive Depth from Defocus.
+A fundamental problem in depth from defocus is the measurement of
+relative defocus between images. The performance of previously proposed
+focus operators are inevitably sensitive to the frequency spectra of local
+scene textures. As a result, focus operators such as the Laplacian of
+Gaussian result in poor depth estimates. An alternative is to use large
+filter banks that densely sample the frequency space. Though this approach
+can result in better depth accuracy, it sacrifices the computational
+efficiency that depth from defocus offers over stereo and structure from
+motion. We propose a class of broadband operators that, when used together,
+provide invariance to scene texture and produce accurate and dense depth
+maps. Since the operators are broadband, a small number of them are
+sufficient for depth estimation of scenes with complex textural properties.
+In addition, a depth confidence measure is derived that can be computed from
+the outputs of the operators. This confidence measure permits further
+refinement of computed depth maps. Experiments are conducted on both
+synthetic and real scenes to evaluate the performance of the proposed
+operators. The depth detection gain error is less than
+irrespective of texture frequency. Depth accuracy is found to be
+0.51.2% of the distance of the object from the imaging
+optics.

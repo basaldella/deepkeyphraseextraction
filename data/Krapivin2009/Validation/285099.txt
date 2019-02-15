@@ -1,0 +1,21 @@
+Capabilities-Based Query Rewriting in Mediator Systems.
+Users today are struggling to integrate a broad range of information
+sources providing different levels of query capabilities. Currently, data
+sources with different and limited capabilities are accessed either by
+writing rich functional wrappers for the more primitive sources, or by
+dealing with all sources at a lowest common denominator. This
+paper explores a third approach, in which a mediator ensures that sources
+receive queries they can handle, while still taking advantage of all of the
+query power of the source. We propose an architecture that enables this, and
+identify a key component of that architecture, the Capabilities-Based
+Rewriter (CBR). The CBR takes as input a description of the capabilities of
+a data source, and a query targeted for that data source. From these, the
+CBR determines component queries to be sent to the sources, commensurate
+with their abilities, and computes a plan for combining their results using
+joins, unions, selections, and projections. We provide a language to
+describe the query capability of data sources and a plan generation
+algorithm. Our description language and plan generation algorithm are schema
+independent and handle SPJ queries. We also extend CBR with a cost-based
+optimizer. The net effect is that we prune without losing completeness.
+Finally we compare the implementation of a CBR for the Garlic project with
+the algorithms proposed in this paper.

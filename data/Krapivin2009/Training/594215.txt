@@ -1,0 +1,12 @@
+What You Always Wanted to Know about Rigid E-Unification.
+This paper solves an open problem posed by a number of researchers: the
+construction of a complete calculus for matrix-based methods with rigid
+E-unification. The use of rigid E-unification and simultaneous rigid
+E-unification for such methods was proposed by Gallier et al., in 1987.
+After our proof of the undecidability of simultaneous rigid E-unification in
+1995. (Degtyarev and Voronkov, 1996d), it became clear that one should look
+for more refined techniques to deal with equality in matrix-based methods.
+In this article, we define a complete proof procedure for first-order logic
+with equality based on an incomplete but terminating procedure for rigid
+E-unification. Our approach is applicable to the connection method and the
+tableau method and is illustrated on the tableau method.

@@ -1,0 +1,17 @@
+Learning to Recognize Volcanoes on Venus.
+Dramatic improvements in sensor and image acquisition technology
+have created a demand for automated tools that can aid in the analysis of
+large image databases. We describe the development of JARtool, a trainable
+software system that learns to recognize volcanoes in a large data set of
+Venusian imagery. A machine learning approach is used because it is much
+easier for geologists to identify examples of volcanoes in the imagery than
+it is to specify domain knowledge as a set of pixel-level constraints. This
+approach can also provide portability to other domains without the need for
+explicit reprogramming; the user simply supplies the system with a new set
+of training examples. We show how the development of such a system requires
+a completely different set of skills than are required for applying machine
+learning to toy world domains. This paper discusses important
+aspects of the application process not commonly encountered in the
+toy world, including obtaining labeled training data, the
+difficulties of working with pixel data, and the automatic extraction of
+higher-level features.

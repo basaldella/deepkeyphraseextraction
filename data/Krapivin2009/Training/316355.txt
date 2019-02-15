@@ -1,0 +1,9 @@
+An Interior-Point Algorithm for Nonconvex Nonlinear Programming.
+The paper describes an interior-point algorithm for nonconvex nonlinear
+programming which is a direct extension of interior-point methods for linear
+and quadratic programming. Major modifications include a merit function and
+an altered search direction to ensure that a descent direction for the merit
+function is obtained. Preliminary numerical testing indicates that the
+method is robust. Further, numerical comparisons with MINOS and
+LANCELOT show that the method is efficient, and has the promise of
+greatly reducing solution times on at least some classes of models.

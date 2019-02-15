@@ -1,0 +1,13 @@
+Exactly Learning Automata of Small Cover Time.
+We present algorithms for exactly learning unknown environments that
+can be described by deterministic finite automata. The learner
+performs a walk on the target automaton, where at each step it
+observes the output of the state it is at, and chooses a labeled edge
+to traverse to the next state. The learner has no means of a reset,
+and does not have access to a teacher that answers equivalence
+queries and gives the learner counterexamples to its hypotheses. We
+present two algorithms: The first is for the case in which the
+outputs observed by the learner are always correct, and the second is
+for the case in which the outputs might be corrupted by random
+noise. The running times of both algorithms are polynomial in the
+cover time of the underlying graph of the target automaton.

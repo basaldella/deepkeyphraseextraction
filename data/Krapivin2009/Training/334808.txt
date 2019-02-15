@@ -1,0 +1,14 @@
+The Martin Boundary of the Young-Fibonacci Lattice.
+In this paper we find the Martin boundary for the Young-Fibonacci
+lattice YF. Along with the lattice of Young diagrams,
+this is the most interesting example of a differential partially
+ordered set. The Martin boundary construction provides an
+explicit Poisson-type integral representation of non-negative
+harmonic functions on YF. The latter are in a canonical
+correspondence with a set of traces on the locally semisimple Okada
+algebra. The set is known to contain all the indecomposable
+traces. Presumably, all of the traces in the set are
+indecomposable, though we have no proof of this conjecture. Using
+an explicit product formula for Okada characters, we derive
+precise regularity conditions under which a sequence of
+characters of finite-dimensional Okada algebras converges.

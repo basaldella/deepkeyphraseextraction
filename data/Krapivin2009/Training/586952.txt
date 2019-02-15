@@ -1,0 +1,2 @@
+A Randomized Time-Work Optimal Parallel Algorithm for Finding a Minimum Spanning Forest.
+We present a randomized algorithm to find a minimum spanning forest (MSF) in an undirected graph. With high probability, the algorithm runs in logarithmic time and linear work on an exclusive read exclusive write (EREW) PRAM. This result is optimal w.r. t. both work and parallel time, and is the first provably optimal parallel algorithm for this problem under both measures. We also give a simple, general processor allocation scheme for tree-like computations.

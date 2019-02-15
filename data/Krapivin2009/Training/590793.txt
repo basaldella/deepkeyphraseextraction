@@ -1,0 +1,25 @@
+Learning Structure from Data and Its Application to Ozone Prediction.
+In this paper we propose an algorithm for structure learning in
+predictive expert systems based on a probabilistic network
+representation. The idea is to have the simplest structure
+(minimum number of links) with acceptable predictive capability. The
+algorithm starts by building a tree structure based on measuring
+mutual information between pairs of variables, and then it adds links
+as necessary to obtain certain predictive performance. We have
+applied this method for ozone prediction in Mxico City, where
+the ozone level is used as a global indicator for the air quality in
+different parts of the city. It is important to predict the ozone
+level a day, or at least several hours in advance, to reduce the
+health hazards and industrial losses that occur when the ozone
+reaches emergency levels. We obtained as a first approximation a
+tree-structured dependency model for predicting ozone in one part of
+the city. We observe that even with only three parameters, its
+estimations are acceptable.A causal network representation and the structure learning techniques
+produced some very interesting results for the ozone prediction
+problem. Firstly, we got some insight into the dependence structure
+of the phenomena. Secondly, we got an indication of which are the
+important and not so important variables for ozone forecasting.
+Taking this into account, the measurement and computational costs for
+ozone prediction could be reduced. And thirdly, we have obtained
+satisfactory short term ozone predictions based on a small set of the
+most important parameters.

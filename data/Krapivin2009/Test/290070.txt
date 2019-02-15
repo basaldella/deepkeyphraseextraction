@@ -1,0 +1,16 @@
+The Synchronous Approach to Designing Reactive Systems.
+Synchronous programming is available through several formally
+defined languages having very different characteristics: Esterel is
+imperative, while Lustre and Signal are declarative in style; Statecharts
+and Argos are graphical languages that allow one to program by constructing
+hierarchical automata. Our motivation for taking the synchronous design
+paradigm further, integrating imperative, declarative (or dataflow), and
+graphical programming styles, is that real systems typically have
+components that match each of these profiles. This paper motivates our
+interest in the mixed language programming of embedded software around a
+number of examples, and sketches the semantical foundation of the
+Synchronie toolset which ensures a coherent computational model. This
+toolset supports a design trajectory that incorporates rapid prototyping
+and systematic testing for early design validation, an object oriented
+development methodology for long term software management, and formal
+verification at the level of automatically generated object code.

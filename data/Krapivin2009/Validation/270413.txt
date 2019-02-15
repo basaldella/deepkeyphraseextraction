@@ -1,0 +1,2 @@
+Optimal Parallel Routing in Star Networks.
+AbstractStar networks have recently been proposed as attractive alternatives to the popular hypercube for interconnecting processors on a parallel computer. In this paper, we present an efficient algorithm that constructs an optimal parallel routing in star networks. Our result improves previous results for the problem.

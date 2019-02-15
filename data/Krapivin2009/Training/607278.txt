@@ -1,0 +1,15 @@
+Simple 8-Designs with Small Parameters.
+We show the existence of simple 8-(31,10,93) and 8-(31,10,100)
+designs. For each value of  we show 3 designs in full
+detail. The designs are constructed with a prescribed group of automorphisms
+using the method of Kramer and Mesner KramerMesner76.
+They are the first 8-designs with small parameters which are known
+explicitly. We do not yet know if PSL(3,5) is the full group
+of automorphisms of the given designs. There are altogether 138 designs with
+designs with
+PSL(3,5) as a group of automorphisms. We prove that they are
+all pairwise non-isomorphic. For this purpose, a brief account on the
+intersection numbers of these designs is given. The proof is done in two
+different ways. At first, a quite general group theoretic observation shows
+that there are no isomorphisms. In a second approach we use the block
+intersection types as invariants, they classify the designs completely.

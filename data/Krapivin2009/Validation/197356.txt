@@ -1,0 +1,2 @@
+Powerlist: a structure for parallel recursion.
+Many data-parallel algorithmsFast Fourier Transform, Batcher's sorting schemes, and the prefix-sumexhibit recursive structure. We propose a data structure called powerlist that permits succinct descriptions of such algorithms, highlighting the roles of both parallelism and recursion. Simple algebraic properties of this data structure can be explotied to derive properties of these algorithms and to establish equivalence of different algorithms that solve the same problem.

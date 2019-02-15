@@ -1,0 +1,2 @@
+Boolean Similarity Measures for Resource Discovery.
+AbstractAs the number of Internet servers increases rapidly, it becomes difficult to determine the relevant servers when searching for information. We develop a new method to rank Internet servers for Boolean queries. Our method reduces time and space complexity from exponential to polynomial in the number of Boolean terms. We contrast it with other known methods and describe its implementation.

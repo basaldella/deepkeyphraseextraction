@@ -1,0 +1,2 @@
+A mutual exclusion algorithm for ad hoc mobile networks.
+A fault-tolerant distributed mutual exclusion algorithm that adjusts to node mobility is presented, along with proof of correctness and simulation results. The algorithm requires nodes to communicate with only their current neighbors, making it well-suited to the ad hoc environment. Experimental results indicate that adaptation to mobility can improve performance over that of similar non-adaptive algorithms when nodes are mobile.

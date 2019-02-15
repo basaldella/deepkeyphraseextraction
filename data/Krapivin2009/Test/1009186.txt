@@ -1,0 +1,2 @@
+Solving Equations in the Relational Algebra.
+Enumerating all solutions of a relational algebra equation is a natural and powerful operation which, when added as a query language primitive to the nested relational algebra, yields a query language for nested relational databases, equivalent to the well-known powerset algebra.  We study sparse equations, which are equations with at most polynomially many solutions.  We look at their complexity and compare their expressive power with that of similar notions in the powerset algebra.

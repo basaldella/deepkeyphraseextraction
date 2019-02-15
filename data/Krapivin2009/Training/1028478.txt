@@ -1,0 +1,2 @@
+Short Signatures from the Weil Pairing.
+We introduce a short signature scheme based on the Computational DiffieHellman assumption on certain elliptic and hyperelliptic curves. For standard security parameters, the signature length is about half that of a DSA signature with a similar level of security. Our short signature scheme is designed for systems where signatures are typed in by a human or are sent over a low-bandwidth channel. We survey a number of properties of our signature scheme such as signature aggregation and batch verification.

@@ -1,0 +1,2 @@
+Transforming the .NET intermediate language using path logic programming.
+Path logic programming is a modest extension of Prolog for the specification of program transformations. We give an informal introduction to this extension, and we show how it can be used in coding standard compiler optimisations, and also a number of obfuscating transformations. The object language is the Microsoft .NET intermediate language (IL).

@@ -1,0 +1,10 @@
+Pruning Algorithms for Rule Learning.
+Pre-pruning and Post-pruning are two standard techniques for handling
+noise in decision tree learning. Pre-pruning deals with noise during
+learning, while post-pruning addresses this problem after an
+overfitting theory has been learned. We first review several
+adaptations of pre- and post-pruning techniques for
+separate-and-conquer rule learning algorithms and discuss some
+fundamental problems. The primary goal of this paper is to show how
+to solve these problems with two new algorithms that combine and
+integrate pre- and post-pruning.

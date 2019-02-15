@@ -1,0 +1,9 @@
+Testing Positiveness of Polynomials.
+Many problems in mathematics, logic, computer science, and engineering
+can be reduced to the problem of testing positiveness of polynomials (over
+real numbers). Although the problem is decidable (shown by Tarski in 1930),
+the general decision methods are not always practically applicable because
+of their high computational time requirements. Thus several partial methods
+were proposed in the field of term rewriting systems. In this paper, we
+exactly determine how partial these methods are, and we propose simpler
+and/or more efficient methods with the same power.

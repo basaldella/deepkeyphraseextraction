@@ -1,0 +1,5 @@
+Hash based parallel algorithms for mining association rules.
+In this paper, we propose four parallel algorithms (NPA, SPA, HPA and  HPA-ELD) for mining association rules on shared-nothing parallel machines to improve its performance.
+In NPA, candidate itemsets are just copied amongst all the processors which can lead to memory overflow for large transaction databases. The remaining three algorithms partition the candidate itemsets over the processors. If it is partitioned simply (SPA), transaction data has to be braodcast to all processors. HPA partitions the candidate itemsets using a hash function to eliminate broadcasting, which also reduces the comparison workload significantly. HPA-ELD fully utilizes the available memory space by detecting the extremely large itemsets and copying them, which is also very effective at flattering  the load over the processors.
+We implemented these algorithms in a shared-nothing environment.
+Performance evaluations show that the best algorithm, HPA-ELD, attains good linearity on speedup ratio and is effective for handling skew.

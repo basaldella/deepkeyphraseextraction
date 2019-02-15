@@ -1,0 +1,13 @@
+Bounded Delay Timing Analysis of a Class of CSP Programs.
+We describe an algebraic technique for performing timing analysis of
+a class of asynchronous circuits described as CSP programs (including
+Martins probe operator) with the restrictions that there is no OR-causality
+and that guard selection is either completely free or mutually exclusive.
+Such a description is transformed into a safe Petri net with interval time
+delays specified on the places of the net. The timing analysis we perform
+determines the extreme separation in time between two communication actions
+of the CSP program for all possible timed executions of the system. We
+formally define this problem, propose an algorithm for its solution, and
+demonstrate polynomial running time on a non-trivial parameterized example.
+Petri nets with 3000 nodes and 10^16 reachable states have been
+analyzed using these techniques.

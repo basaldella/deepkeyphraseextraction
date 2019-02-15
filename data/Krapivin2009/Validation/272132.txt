@@ -1,0 +1,15 @@
+The Static Parallelization of Loops and Recursions.
+We demonstrate approaches to the static parallelization of loops and
+recursions on the example of the polynomial product. Phrased as a loop nest,
+the polynomial product can be parallelized automatically by applying a
+space-time mapping technique based on linear algebra and linear programming.
+One can choose a parallel program that is optimal with respect to some
+objective function like the number of execution steps, processors, channels,
+etc. However,at best,linear execution time complexity can be atained.
+Through phrasing the polynomial product as a divide-and-conquer recursion,
+one can obtain a parallel program with sublinear execution time. In this
+case, the target program is not derived by an automatic search but given as
+a program skeleton, which can be deduced by a sequence of equational program
+transformations. We discuss the use of such skeletons, compare and assess
+the models in which loops and divide-and-conquer resursions are parallelized
+and comment on the performance properties of the resulting parallel implementations.

@@ -1,0 +1,17 @@
+Rapid Concept Learning for Mobile Robots.
+Concept learning in robotics is an extremely challenging problem:
+sensory data is often high-dimensional, and noisy due to specularities and
+other irregularities. In this paper, we investigate two general strategies
+to speed up learning, based on spatial decomposition of the sensory
+representation, and simultaneous learning of multiple classes using a shared
+structure. We study two concept learning scenarios: a hallway navigation
+problem, where the robot has to induce features such as
+opening or wall. The second task is recycling,
+where the robot has to learn to recognize objects, such as a trash
+can. We use a common underlying function approximator in both studies
+in the form of a feedforward neural network, with several hundred input
+units and multiple output units. Despite the high degree of freedom afforded
+by such an approximator, we show the two strategies provide sufficient bias
+to achieve rapid learning. We provide detailed experimental studies on an
+actual mobile robot called PAVLOV to illustrate the effectiveness of this
+approach.

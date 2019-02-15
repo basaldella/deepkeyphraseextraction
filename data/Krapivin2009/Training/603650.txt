@@ -1,0 +1,2 @@
+Relative undecidability in term rewriting.
+For a hierarchy of properties of term rewriting systems related to termination we prove relative undecidability: For implications X  Y in the hierarchy the property X is undecidable for term rewriting systems satisfying Y. For most implications we obtain this result for term rewriting systems consisting of a single rewrite rule.

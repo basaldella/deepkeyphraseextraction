@@ -1,0 +1,2 @@
+A Faster and Simpler Algorithm for Sorting Signed Permutations by Reversals.
+We give a quadratic time algorithm for finding the minimum number of reversals needed to sort a signed permutation. Our algorithm is faster than the previous algorithm of Hannenhalli and Pevzner and its faster implementation by Berman and Hannenhalli. The algorithm is conceptually simple and does not require special data structures. Our study also considerably simplifies the combinatorial structures used by the analysis.

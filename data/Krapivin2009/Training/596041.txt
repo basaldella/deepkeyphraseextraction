@@ -1,0 +1,7 @@
+Towards the Use of Automated Reasoning in Discourse Disambiguation.
+In this paper, we claim that the disambiguation of
+referring expressions in discourse can be formulated in terms automated
+reasoners can address. Specifically, we show that consistency,
+informativity and minimality are criteria which (i) can be implemented
+using automated reasoning tools and (ii) can be used to disambiguate
+noun-noun compounds, metonymy and definite descriptions.

@@ -1,0 +1,2 @@
+The structural cause of file size distributions.
+We propose a user model that explains the shape of the distribution of file sizes in local file systems and in the World Wide Web. We examine evidence from 562 file systems, 38 web clients and 6 web servers, and find that the model is a good description of these systems. These results cast doubt on the widespread view that the distribution of file sizes is long-tailed and that long-tailed distributions are the cause of self-similarity in the Internet.

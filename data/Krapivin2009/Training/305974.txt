@@ -1,0 +1,17 @@
+Exploiting Discontinuities in Optical Flow.
+Most optical flow estimation techniques have substantial difficulties
+dealing with flow discontinuities. Methods which simultaneously detect
+flow boundaries and use the detected boundaries to aid in flow
+estimation can produce significantly improved results. Current
+approaches to implementing these methods still have important
+limitations, however. We demonstrate three such problems: errors due
+to the mixture of image properties across boundaries, an intrinsic
+ambiguity in boundary location when only short sequences are
+considered, and difficulties insuring that the motion of a boundary
+aids in flow estimation for the surface to which it is attached without
+corrupting the flow estimates for the occluded surface on the other
+side. The first problem can be fixed by basing flow estimation only on
+image changes at edges. The second requires an analysis of longer time
+intervals. The third can be aided by using a boundary detection
+mechanism which classifies the sides of boundaries as occluding and
+occluded at the same time as the boundaries are detected.

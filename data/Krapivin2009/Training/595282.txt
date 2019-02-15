@@ -1,0 +1,20 @@
+A KDD framework to support database audit.
+Understanding data semantics from real-life databases is
+
+considered following an audit perspective: it must help experts to
+
+analyse what properties actually hold in the data and support the comparison
+
+with desired properties. This is a typical problem of knowledge discovery in
+
+databases (KDD) and it is specified within the framework of Mannila
+
+and Toivonen where data mining consists in querying theories e.g., the theories
+
+of approximate inclusion dependencies. This formalization enables us to
+
+identify an important subtask to support database audit as well as a generic
+
+algorithm. Next, we consider the DREAM relational database reverse engineering
+
+method and DREAM heuristics are revisited within this new setting.

@@ -1,0 +1,13 @@
+Simple Bayesian Model for Bitmap Compression.
+Bitmaps are a useful, but storage voracious, component of many
+information retrieval systems. Earlier efforts to compress bitmaps
+were based on models of bit generation, particularly Markov models.
+While these permitted considerable reduction in storage, the short
+memory of Markov models may limit their compression efficiency. In
+this paper we accept the state orientation of Markov models, but
+introduce a Bayesian approach to assess the state&semi; the analysis is
+based on data accumulating in a growing window. The paper describes
+the details of the probabilistic assumptions governing the Bayesian
+analysis, as well as the protocol for controlling the window that
+receives the data. We find slight improvement over the best
+performing strictly Markov models.

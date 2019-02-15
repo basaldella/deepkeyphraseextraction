@@ -1,0 +1,13 @@
+How to Determine the Expressive Power of Constraints.
+Some constraint languages are more powerful
+than others because they allow us to express a larger collection
+of problems. In this paper, we give a precise meaning to this
+concept of expressive power for constraints over finite sets
+of values. The central result of the paper is that the expressive
+power of a given set of constraint types is determined by certain
+algebraic properties of the underlying relations. These algebraic
+properties can be calculated by solving a particular constraint
+satisfaction problem, which we call an indicator problem. We
+discuss the connection between expressive power and computational
+complexity, and show that indicator problems provide a simple
+method to test for tractability.

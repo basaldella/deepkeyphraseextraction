@@ -1,0 +1,2 @@
+Stability Analysis of Second-Order Switched Homogeneous Systems.
+We study the stability of second-order switched homogeneous systems. Using the concept of generalized first integrals we explicitly characterize the "most destabilizing" switching-law and construct  a Lyapunov function that yields an easily verifiable, necessary and sufficient condition for asymptotic stability. Using the duality between stability analysis and control synthesis, this also leads to a novel algorithm for designing  a stabilizing switching controller.

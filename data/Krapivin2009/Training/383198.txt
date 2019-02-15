@@ -1,0 +1,5 @@
+Querying the World Wide Web.
+The World Wide Web is a large, heterogeneous, distributed collection
+of documents connected by hypertext links. The most common technology currently used for searching the Web depends on sending information retrieval requests to index servers. One problem with this is that these queries cannot exploit the structure and topology of the document network.
+In this paper we propose a query language, Web-SQL, that takes
+advantage of multiple index servers without requiring users to know about them, and that integrates textual retrieval with structure and topology-based queries. We give a formal semantics for Web-SQL using a calculus based on a novel query locality, that is, how much of the network must be visited to answer a particular query.  Finally, we describe a prototype implementation of WebSQL written in Java.

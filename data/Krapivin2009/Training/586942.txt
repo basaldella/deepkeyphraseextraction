@@ -1,0 +1,2 @@
+Linear Time Algorithms for Hamiltonian Problems on (Claw,Net)-Free Graphs.
+We prove that claw-free graphs, containing an induced dominating path, have a Hamiltonian path, and that 2-connected claw-free graphs, containing an induced doubly dominating cycle or a pair of vertices such that there exist two internally disjoint induced dominating paths connecting them, have a Hamiltonian cycle. As a consequence, we obtain linear time algorithms for both problems if the input is  restricted to (claw,net)-free graphs. These graphs enjoy those interesting structural properties.

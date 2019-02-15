@@ -1,0 +1,10 @@
+A Channel Sharing Scheme for Cellular Mobile Communications.
+This paper presents a channel sharing scheme, Neighbor Cell Channel
+Sharing (NCCS) , based on region partitioning of cell coverage for wireless
+cellular networks. Each cell is divided into an inner-cell region and an
+outer-cell region. Cochannel interference is suppressed by limiting the
+usage of sharing channels in the inner-cell region. The channel sharing
+scheme achieves a traffic-adaptive channel assignment and does not require
+any channel locking. Performance analysis shows that using the NCCS scheme
+leads to a lower call blocking probability and a better channel utilization
+as compared with other previously proposed channel assignment schemes.

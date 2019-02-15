@@ -1,0 +1,24 @@
+Knowledge Extraction from Transducer Neural Networks.
+Previously neural networks have shown interesting performance
+results for tasks such as classification, but they still
+suffer from an insufficient focus on the structure of the
+knowledge represented therein. In this paper, we analyze
+various knowledge extraction techniques in detail and we develop new
+transducer extraction techniques for the interpretation of recurrent
+neural network learning. First, we provide an overview of different
+possibilities to express structured knowledge using neural
+networks. Then, we analyze a type of recurrent network
+rigorously, applying a broad range of different techniques.
+We argue that analysis techniques, such as
+weight analysis using Hinton diagrams, hierarchical cluster analysis, and
+principal component analysis may be useful for providing certain views on
+the underlying knowledge. However, we demonstrate that these techniques are
+too static and too low-level for interpreting
+recurrent network classifications. The contribution of
+this paper is a particularly broad analysis of knowledge
+extraction techniques. Furthermore, we propose dynamic learning analysis
+and transducer extraction as two new dynamic interpretation techniques. Dynamic
+learning analysis provides a better understanding of
+how the network learns, while transducer extraction
+provides a better understanding of what the
+network represents.

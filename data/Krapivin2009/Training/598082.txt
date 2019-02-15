@@ -1,0 +1,51 @@
+Subexponential loss rates in a GI/GI/1 queue with applications.
+Consider a single server queue with i.i.d. arrival and service
+
+processes, \{A,\ A_n,n\geq 0\} and \{C,\ C_n,n\geq
+
+0\}, respectively, and a finite buffer B. The queue content
+
+process \{Q^B_n,\ n\geq 0\} is recursively defined as
+
+Q^B_{n+1}=\min((Q^B_n+A_{n+1}-C_{n+1})^+,B),
+
+q^+=\max(0,q). When \mathbb{E}(A-C)<0, and
+
+A has a subexponential distribution, we show that the stationary
+
+expected loss rate for this queue
+
+\mathbb{E}(Q^B_n+A_{n+1}-C_{n+1}-B)^+ has the following explicit
+
+asymptotic characterization:
+
+\mathbb{E}(Q^B_n+A_{n+1}-C_{n+1}-B)^+\sim \mathbb{E}(A-B)^+ \quad
+
+\hbox{as} \ B\rightarrow \infty, independently of the server process
+
+C_n. For a fluid queue with capacity c,
+
+M/G/\infty arrival process A_t, characterized by
+
+intermediately regularly varying on periods \tau^{\mathrm{on}},
+
+which arrive with Poisson rate \Lambda, the average loss rate
+
+\lambda_{\mathrm{loss}}^B satisfies
+
+{\lambda_{\mathrm{loss}}^B}\sim \Lambda
+
+\mathbb{E}(\tau^{\mathrm{on}}\eta-B)^+ \quad \hbox{as}\ B\rightarrow
+
+\infty, where \eta=r+\rho-c,
+
+
+r) is the rate at which the fluid is arriving during an on period.
+
+Accuracy of the above asymptotic relations is verified with extensive numerical
+
+and simulation experiments. These explicit formulas have potential application
+
+in designing communication networks that will carry traffic with
+
+long-tailed characteristics, e.g., Internet data services.

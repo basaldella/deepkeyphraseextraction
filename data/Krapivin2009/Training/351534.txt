@@ -1,0 +1,2 @@
+Mesh Independence of Matrix-Free Methods for Path Following.
+In this paper we consider a matrix-free path following algorithm for nonlinear parameter-dependent compact fixed point problems. We show that if these problems are discretized so that certain collective compactness and strong convergence properties hold, then this algorithm can follow smooth folds and capture simple bifurcations in a mesh-independent way.

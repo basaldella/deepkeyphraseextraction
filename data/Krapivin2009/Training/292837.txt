@@ -1,0 +1,18 @@
+Continuous Time Matching Constraints for Image Streams.
+Corresponding image points of a rigid object in a discrete sequence
+of images fulfil the so-called multilinear constraint.
+In this paper the continuous time analogue of this
+constraint, for a continuous stream of images, is introduced and studied.
+The constraint
+links the Taylor series expansion of the motion of the image points with the
+Taylor series expansion of the relative motion and orientation between
+the object and the camera.
+The analysis is done both for calibrated and uncalibrated cameras.
+Two simplifications are also presented for the uncalibrated camera
+case. One simplification is made using an affine reduction and
+the so-called kinetic depths.
+The second simplification is based upon a projective
+reduction with respect to the image of a planar configuration.
+The analysis shows that the constraint involving second-order derivatives
+are needed to determine camera motion. Experiments
+with real and simulated data are also presented.

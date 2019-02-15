@@ -1,0 +1,21 @@
+Fundamental Laws and Assumptions of Software Maintenance.
+Researchers must pay far more attention to discovering
+and validating the principles that underlie software maintenance
+and evolution. This was one of the major conclusions reached
+during the International Workshop on Empirical Studies of Software
+Maintenance. This workshop, held in November 1996 in Monterey,
+California, brought together an international group of researchers
+to discuss the successes, challenges and open issues in software
+maintenance and evolution.This article documents
+the discussion of the subgroup on fundamental laws and assumptions
+of software maintenance. The participants of this group included
+researchers in software engineering, the behavioral sciences,
+information systems and statistics. Their main conclusion was
+that insufficient effort has been paid to synthesizing research
+conjectures into validated theories and that this problem has
+slowed progress in software maintenance. To help support this
+vision they identified the following supporting conclusions.
+(1) need to develop a genuine scientific approachmore
+than just using empirical methods, (2) other disciplines can
+help, (3) need to explore a wider range of approaches to empirical
+studies, (4) need to study both evolution and maintenance.

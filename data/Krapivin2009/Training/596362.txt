@@ -1,0 +1,2 @@
+Global Optimization of Marginal Functions with Applications to Economic Equilibrium.
+We discuss the applicability of the cutting angle method to global minimization of marginal functions. The search of equilibrium prices in the exchange model can be reduced to the global minimization of certain functions, which include marginal functions. This problem has been approximately solved by the cutting angle method. Results of numerical experiments are presented and discussed.

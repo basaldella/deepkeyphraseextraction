@@ -1,0 +1,2 @@
+Kleene algebra with tests.
+We introduce Kleene algebra with tests, an equational system for manipulating programs. We give a purely equational proof, using Kleene algebra with tests and commutativity conditions, of the following classical result: every while program can be simulated by a while program can be simulated by a while program with at most one while loop. The proof illustrates the use of Kleene algebra with tests and commutativity conditions in program equivalence proofs.

@@ -1,0 +1,21 @@
+Learning to Parse Natural Language with Maximum Entropy Models.
+This paper presents a machine learning system
+for parsing natural language that
+learns from manually parsed example sentences, and
+parses unseen data at state-of-the-art accuracies.
+Its machine learning technology, based on
+the maximum entropy framework,
+is highly reusable and not specific to the parsing problem,
+while the linguistic hints that it uses to learn
+can be specified concisely.
+It therefore requires a minimal amount of
+human effort and linguistic knowledge for its construction.
+In practice, the running time of the parser on a test sentence
+is linear with respect to the sentence length.
+We also demonstrate that the parser can train from other domains
+without modification
+to the modeling framework or the linguistic hints it uses to learn.
+Furthermore, this paper shows that research
+into rescoring the top 20 parses returned by the parser
+might yield accuracies dramatically higher than the
+state-of-the-art.

@@ -1,0 +1,2 @@
+Ordered binary decision diagrams as knowledge-bases.
+We consider the use of ordered binary decision diagrams (OBDDs) as a means of realizing knowledge-bases, and show that, from the view point of space requirement, the OBDD-based representation is more efficient and suitable in some cases, compared with the traditional CNF-based and/or model-based representations. We then present polynomial time algorithms for the two problems of testing whether a given OBDD represents a unate Boolean function, and of testing whether it represents a Horn function.

@@ -1,0 +1,6 @@
+A New Criterion for Comparing Fuzzy Logics for Uncertain Reasoning.
+A new criterion is introduced for judging the suitability of
+various fuzzy logics for practical uncertain reasoning in a
+probabilistic world and the relationship of this criterion to several
+established criteria, and its consequences for truth functional belief,
+are investigated.

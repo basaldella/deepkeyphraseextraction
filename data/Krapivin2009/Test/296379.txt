@@ -1,0 +1,20 @@
+Tracking the Best Disjunction.
+Littlestone developed a simple deterministic on-line learning
+algorithm for learning k-literal disjunctions. This algorithm
+(called {\sc Winnow}) keeps one weight for each of then
+variables and does multiplicative updates to its weights. We
+develop a randomized version of {\sc Winnow} and prove bounds
+for an adaptation of the algorithm for the case when the disjunction may
+change over time. In this case a possible target {\it disjunction
+schedule} &Tgr; is a sequence of disjunctions (one per trial) and
+the {\it shift size} is the total number of literals that are
+added/removed from the disjunctions as one progresses through the
+sequence.We develop an algorithm that predicts nearly as well as the best
+disjunction schedule for an arbitrary sequence of examples. This algorithm
+that allows us to track the predictions of the best disjunction is hardly
+more complex than the original version. However, the amortized analysis
+needed for obtaining worst-case mistake bounds requires new techniques. In
+some cases our lower bounds show that the upper bounds of our algorithm have
+the right constant in front of the leading term in the mistake bound and
+almost the right constant in front of the second leading term. Computer
+experiments support our theoretical findings.

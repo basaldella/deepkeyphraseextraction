@@ -1,0 +1,2 @@
+The Number of Intersection Points Made by the Diagonals of a Regular Polygon.
+We give a formula for the number of interior intersection points made by the diagonals of a regular n-gon. The answer is a polynomial on each residue class modulo 2520. We also compute the number of regions formed by the diagonals, by using Euler's formula 2.

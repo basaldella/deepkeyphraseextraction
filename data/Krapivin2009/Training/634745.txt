@@ -1,0 +1,22 @@
+Monotonicity and Collective Quantification.
+This article studies the monotonicity behavior of plural determiners
+that quantify over collections. Following previous work, we describe the
+collective interpretation of determiners such as all, some and
+most using generalized quantifiers of a higher type that are
+obtained systematically by applying a type shifting operator to the
+standard meanings of determiners in Generalized Quantifier Theory. Two
+processes of counting and existential quantification that
+appear with plural quantifiers are unified into a single determiner
+fitting operator, which, unlike previous proposals, both captures
+existential quantification with plural determiners and respects their
+monotonicity properties. However, some previously unnoticed facts
+indicate that monotonicity of plural determiners is not always preserved
+when they apply to collective predicates. We show that the proposed
+operator describes this behavior correctly, and characterize the
+monotonicity of the collective determiners it derives. It is proved that
+determiner fitting always preserves monotonicity properties of
+determiners in their second argument, but monotonicity in the first
+argument of a determiner is preserved if and only if it is monotonic in
+the same direction in the second argument. We argue that this asymmetry
+follows from the conservativity of generalized quantifiers in
+natural language.

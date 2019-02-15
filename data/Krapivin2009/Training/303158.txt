@@ -1,0 +1,12 @@
+Visualizing implicit queries for information management and retrieval.
+In this paper, we describe the use of similarity metrics in a
+novel visual environment for storing and retrieving favorite web
+pages. The similarity metrics, called Implicit Queries, are
+used to automatically highlight stored web pages that are related
+to the currently selected web page. Two experiments explored how
+users manage their personal web information space with and without
+the Implicit Query highlighting and later retrieve their stored web
+pages. When storing and organizing web pages, users with Implicit
+Query highlighting generated slightly more categories. Implicit
+Queries also led to faster web page retrieval time, although the
+results were not statistically significant.

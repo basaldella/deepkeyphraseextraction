@@ -1,0 +1,2 @@
+Three-Processor Tasks Are Undecidable.
+We show that no algorithm exists for deciding whether a finite task for three or more processors is wait-free solvable in the asynchronous read-write shared-memory model. This impossibility result implies that there is no constructive (recursive) characterization of wait-free solvable tasks. It also applies to other shared-memory models of distributed computing, such as the comparison-based model.

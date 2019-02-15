@@ -1,0 +1,14 @@
+Jacobi Polynomials, Type II Codes, and Designs.
+Jacobi polynomials were introduced by
+Ozeki in analogy with Jacobi forms of lattices. They are useful
+to compute coset weight enumerators, and weight enumerators of
+children. We determine them in most interesting cases in length
+at most 32, and in some cases in length 72.
+We use them to construct group divisible designs, packing designs,
+covering designs, and (t,r)-designs in the sense
+of Calderbank-Delsarte. A major tool is invariant theory of finite
+groups, in particular simultaneous invariants in the sense of
+Schur, polarization, and bivariate Molien series. A combinatorial
+interpretation of the Aronhold polarization operator is given.
+New rank parameters for spaces of coset weight distributions
+and Jacobi polynomials are introduced and studied here.

@@ -1,0 +1,2 @@
+On Hoare logic and Kleene algebra with tests.
+We show that Kleene algebra with tests (KAT) subsumes propositional Hoare logic (PHL). Thus the specialized syntax and deductive apparatus of Hoare logic are inessential and can be replaced by simple equational reasoning. In addition, we show that all relationally valid inference rules are derivable in KAT and that deciding the relational validity of such rules is PSPACE-complete.

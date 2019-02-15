@@ -1,0 +1,14 @@
+Structural Fault Testing of Embedded Cores Using Pipelining.
+The purpose of this paper is to develop a global design for
+test methodology for testing a core-based system in its entirety. This
+is achieved by introducing a bypass mode for each core by
+which the data can be transferred from a core input port to the
+output port without interfering the core circuitry itself. The
+interconnections are thoroughly tested because they are used to
+propagate test data (patterns or signatures) in the system. The
+system is modeled as a directed weighted graph in which the
+accessibility (of the core input and output ports) is solved as a
+shortest path problem. Finally, a pipelined test schedule is made to
+overlap accessing input ports (to send test patterns) and output
+ports (to observe the signatures). The experimental results show
+higher fault coverage and shorter test time.

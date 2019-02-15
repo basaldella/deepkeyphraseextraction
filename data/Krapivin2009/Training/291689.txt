@@ -1,0 +1,12 @@
+The Enumeration of Fully Commutative Elements of Coxeter Groups.
+A Coxeter group element w is fully commutative if any
+reduced expression for w can be obtained from any other via the
+interchange of commuting generators. For example, in the symmetric group of
+degree n, the number of fully commutative elements is the
+nth Catalan number. The Coxeter groups with finitely many fully
+commutative elements can be arranged into seven infinite families
+A_n, B_n, D_n, E_n,
+F_n, H_n and I_2(m). For each family,
+we provide explicit generating functions for the number of fully commutative
+elements and the number of fully commutative involutions; in each case, the
+generating function is algebraic.

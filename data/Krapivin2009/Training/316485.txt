@@ -1,0 +1,25 @@
+Homotopy of Non-Modular Partitions and the Whitehouse Module.
+We present a class of subposets of the partition
+lattice n with the following property:
+The order complex is homotopy equivalent to the order complex
+of n  1, and the Sn-module
+structure of the homology coincides with a recently discovered lifting
+of the Sn
+1-action on the homology of n  1.
+This is the Whitehouse representation on Robinsons space of
+fully-grown trees, and has also appeared in work of Getzler and
+Kapranov, Mathieu, Hanlon and Stanley, and Babson et al.One example is the subposet Pnn
+1 of the lattice of set partitions
+n, obtained by removing all elements with a unique
+nontrivial block. More generally, for 2  k  n
+the subposet of the partition lattice
+obtained by removing all elements with a unique
+nontrivial block of size equal to k, and let Pnk &equals; \bigcapi &equals; 2k Qni. We show that Pnk is Cohen-Macaulay,
+and that Pnk and
+Qnk are both homotopy equivalent
+to a wedge of spheres of dimension (n  4), with Betti number
+(n  1) \!{n - k\over k}. The
+posets Qnk are neither shellable nor
+Cohen-Macaulay. We show that the Sn-module structure of
+the homology generalises the Whitehouse module in a simple way.We also present a short proof of the well-known result that
+rank-selection in a poset preserves the Cohen-Macaulay property.

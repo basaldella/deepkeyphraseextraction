@@ -1,0 +1,2 @@
+A flexible message passing mechanism for objective VHDL.
+When defining an object-oriented extension to VHDL, the necessary message passing is one of the most complex issues and has a large impact on the whole language. This paper identifies the requirements for message passing suited to model hardware and classifies different approaches. To allow abstract communication and reuse of protocols on system level, a new, flexible message passing mechanism proposed for Objective VHDL will be introduced.

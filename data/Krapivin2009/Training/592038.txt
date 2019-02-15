@@ -1,0 +1,19 @@
+Efficient Implementations of Software Architectures via Partial Evaluation.
+The notion of flexibility (that is, the ability to adapt to
+changing requirements or execution contexts) is recognized as a key
+concern in structuring software, and many architectures have been
+designed to that effect. However, the corresponding implementations
+often come with performance and code size overheads. The source of
+inefficiency can be identified to be in the loose integration of
+components, because flexibility is often present not only at the
+design level but also in the implementation. To solve this flexibility
+vs. efficiency dilemma, we advocate the
+use of partial evaluation, which is an automated technique to produce
+efficient, specialized instances of generic programs. As supporting
+case studies, we consider several flexible mechanisms commonly found
+in software architectures: selective broadcast, pattern matching,
+interpreters, software layers, and generic libraries. Using Tempo,
+our specializer for C, we show how partial evaluation can safely
+optimize implementations of those mechanisms. Because this
+optimization is automatic, it preserves the original genericity and
+extensibility of the implementation.

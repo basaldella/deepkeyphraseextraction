@@ -1,0 +1,2 @@
+On Improving the Convergence of Radau IIA Methods Applied to Index 2 DAEs.
+This paper presents a simple new technique to improve the order behavior of Runge--Kutta methods when applied to index 2 differential-algebraic equations. It is then shown how this can be incorporated into a more efficient version of the code {\sc radau5} developed by E. Hairer and G. Wanner.

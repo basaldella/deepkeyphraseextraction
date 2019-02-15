@@ -1,0 +1,2 @@
+Optimal Scheduling for Parallel CBR Video Servers.
+Parallel video servers are necessary for large-scale video-on-demand and other multimedia systems. This paper addresses the scheduling problem of parallel video servers. We discuss scheduling requirements of constant bit rate (CBR) video streams. Optimal algorithms are presented for conflict-free scheduling, delay minimization, request relocation, and admission control. With these algorithms, video streams can be precisely scheduled for Quality of Service requirements. Performance of these algorithms is also presented.

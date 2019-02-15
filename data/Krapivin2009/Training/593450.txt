@@ -1,0 +1,16 @@
+Adaptive Fraud Detection.
+One method for detecting fraud is to check for suspicious changes in
+user behavior. This paper describes the automatic design of user
+profiling methods for the purpose of fraud detection, using a series
+of data mining techniques. Specifically, we use a rule-learning
+program to uncover indicators of fraudulent behavior from a large
+database of customer transactions. Then the indicators are used to
+create a set of monitors, which profile legitimate customer behavior
+and indicate anomalies. Finally, the outputs of the monitors are used
+as features in a system that learns to combine evidence to generate
+high-confidence alarms. The system has been applied to the problem of
+detecting cellular cloning fraud based on a database of call
+records. Experiments indicate that this automatic approach performs
+better than hand-crafted methods for detecting fraud. Furthermore,
+this approach can adapt to the changing conditions typical of fraud
+detection environments.

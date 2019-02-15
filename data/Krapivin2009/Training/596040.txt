@@ -1,0 +1,10 @@
+The Constraint Language for Lambda Structures.
+This paper presents the Constraint Language for Lambda Structures
+(CLLS), a first-order language for semantic underspecification that
+conservatively extends dominance constraints. It is interpreted over
+lambda structures, tree-like structures that encode
+-terms. Based on
+CLLS, we present an underspecified, uniform analysis of scope,
+ellipsis, anaphora, and their interactions. CLLS solves a variable
+capturing problem that is omnipresent in scope underspecification and
+can be processed efficiently.

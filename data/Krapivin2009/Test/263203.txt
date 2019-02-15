@@ -1,0 +1,2 @@
+The Matrix Sign Function Method and the Computation of Invariant Subspaces.
+A perturbation analysis shows that if a numerically stable procedure is used to compute the matrix sign function, then it is competitive with conventional methods for computing invariant subspaces. Stability analysis of the Newton iteration improves an earlier result of Byers and confirms that ill-conditioned iterates may cause numerical instability. Numerical examples demonstrate the theoretical results.

@@ -1,0 +1,2 @@
+Coordinating autonomous entities with STL.
+This paper describes ECM, a new coordination model and STL its corresponding language. STL's power and expressiveness are shown through a distributed implementation of a generic autonomy-based multi-agent system, which is applied to a collective robotics simulation, thus demonstrating the appropriateness of STL for developing a generic coordination platform for autonomous agents.

@@ -1,0 +1,2 @@
+The complexity of the exponential output size problem for top-down and bottom-up tree transducers.
+The exponential output size problem is to determine whether the size of output trees of a tree transducer grows exponentially in the size of input trees. In this paper the complexity of this problem is studied. It is shown to be NL-complete for total top-down tree transducers, DEXPTIME-complete for general top-down tree transducers, and P-complete for bottom-up tree tranducers. Copyright 2001 Academic Press.

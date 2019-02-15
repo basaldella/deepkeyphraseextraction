@@ -1,0 +1,8 @@
+On Generalized Hamming Weights for Galois Ring Linear Codes.
+The definition of generalized Hamming weights (GHW)
+for linear codes over Galois rings is discussed. The properties
+of GHW for Galois ring linear codes are stated. Upper and existence
+bounds for GHW of ZF_4 linear codes and a lower
+bound for GHW of the Kerdock code over Z_4
+are derived. GHW of some ZF_4 linear codes are
+determined.

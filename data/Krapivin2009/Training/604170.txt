@@ -1,0 +1,2 @@
+The consensus operator for combining beliefs.
+The consensus operator provides a method for combining possibly conflicting beliefs within the Dempster-Shafer belief theory, and represents an alternative to the traditional Dempster's rule. This paper describes how the consensus operator can be applied to dogmatic conflicting opinions, i.e., when the degree of conflict is very high. It overcomes shortcomings of Dempster's rule and other operators that have been proposed for combining possibly conflicting beliefs.

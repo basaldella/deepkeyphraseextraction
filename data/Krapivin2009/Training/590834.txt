@@ -1,0 +1,32 @@
+Multiple Adaptive Agents for Tactical Driving.
+Recent research in automated highway systems has ranged from
+low-level vision-based controllers to high-level route-guidance software.
+However, there is currently no system for tactical-level reasoning. Such a
+system should address tasks such as passing cars, making exits on time, and
+merging into a traffic stream. Many previous approaches have attempted to
+hand construct large rule-based systems which capture the interactions
+between multiple input sensors, dynamic and potentially conflicting
+subgoals, and changing roadway conditions. However, these systems are
+extremely difficult to design due to the large number of rules, the manual
+tuning of parameters within the rules, and the complex interactions between
+the rules. Our approach to this intermediate-level planning is a system
+which consists of a collection of autonomous agents, each of which
+specializes in a particular aspect of tactical driving. Each agent examines
+a subset of the intelligent vehicles sensors and independently recommends
+driving decisions based on their local assessment of the tactical
+situation. This distributed framework allows different reasoning agents to
+be implemented using different algorithms.When using a collection of agents to solve a single task, it is vital to
+carefully consider the interactions between the agents. Since each reasoning
+object contains several internal parameters, manually finding values for
+these parameters while accounting for the agents possible interactions is a
+tedious and error-prone task. In our system, these parameters, and the
+systems overall dependence on each agent, is automatically tuned using a
+novel evolutionary optimization strategy, termed Population-Based
+Incremental Learning (PBIL).Our system, which employs multiple automatically trained agents, can
+competently drive a vehicle, both in terms of the user-defined evaluation
+metric, and as measured by their behavior on several driving situations
+culled from real-life experience. In this article, we describe a method for
+multiple agent integration which is applied to the automated highway system
+domain. However, it also generalizes to many complex robotics tasks where
+multiple interacting modules must simultaneously be configured without
+individual module feedback.

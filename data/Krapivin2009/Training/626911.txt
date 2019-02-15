@@ -1,0 +1,2 @@
+Assignment of Task Modules in Hypercube Multicomputers with Component Failures for Communication Efficiency.
+The problem of assigning task modules within a hypercube multicomputer with possible link failures is investigated. A concept of indirect optimization is introduced and a function, called communication traffic, is proposed as the objective of optimization. The assignments obtained from optimizing this function are shown to significantly improve the actual communication performance measure, called communication turnaround time, over random assignments.

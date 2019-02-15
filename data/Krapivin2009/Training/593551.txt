@@ -1,0 +1,16 @@
+A Discrete Event Systems Approach for Protocol Conversion.
+A protocol mismatch occurs when heterogeneous networks
+try to communicate with each other. Such mismatches are inevitable
+due to the proliferation of a multitude of networking architectures,
+hardware, and software on one hand, and the need for global connectivity
+on the other hand. In order to circumvent this problem the solution
+of protocol conversion has been proposed. In this paper we present
+a systematic approach to protocol conversion using the theory
+of supervisory control of discrete event systems, which was partially
+first addressed by Inan. We study the problem of designing a
+converter for a given mismatched pair of protocols, using their
+specifications, and the specifications for the channel and the
+user services. We introduce the notion of converter languages
+and use it to obtain a necessary and sufficient condition for
+the existence of protocol converter and present an effective
+algorithm for computing it whenever it exists.

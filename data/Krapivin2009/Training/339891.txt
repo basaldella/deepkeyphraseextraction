@@ -1,0 +1,2 @@
+Integral Equation Preconditioning for the Solution of Poisson''s Equation on Geometrically Complex Regions.
+This paper is concerned with the implementation and investigation of integral equation based solvers as preconditioners for finite difference discretizations of Poisson equations in geometrically complex domains.  The target discretizations are those associated with "cut-out" grids. We discuss such grids and also describe a software structure which enables their rapid construction. Computational results are presented.

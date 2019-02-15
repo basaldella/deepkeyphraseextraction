@@ -1,0 +1,13 @@
+Modeling a Hardware Synthesis Methodology in Isabelle.
+Formal Synthesis is a methodology
+developed at the university of Kent
+for combining circuit design and verification, where a circuit is
+constructed from a proof that it meets a given formal specification.
+We have reinterpreted this methodology in ISABELLES theory of
+higher-order logic so that circuits are incrementally built during
+proofs using higher-order resolution. Our interpretation simplifies
+and extends Formal Synthesis both conceptually and in implementation.
+It also supports integration of this development style with other
+proof-based synthesis methodologies and leads to techniques for
+developing new classes of circuits, e.g., recursive descriptions of
+parametric designs.
