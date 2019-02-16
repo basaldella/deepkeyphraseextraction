@@ -61,7 +61,7 @@ if DATASET == Semeval2017:
     MAX_DOCUMENT_LENGTH = 540  # gl: same as hulth, so it uses same conv; 400 if use dedicated conv
     MAX_VOCABULARY_SIZE = 12000  # gl: was 20000
     MAX_ANSWER_LENGTH = 12  # gl: was 16 or 27
-    EMBEDDINGS_SIZE = 300
+    EMBEDDINGS_SIZE = 1024
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 256
     EPOCHS = 10
