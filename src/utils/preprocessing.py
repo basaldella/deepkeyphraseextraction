@@ -1,6 +1,6 @@
 from keras.preprocessing.sequence import pad_sequences
 from keras.utils import np_utils
-from utils import glove
+from utils import glove, elmo
 from nlp import dictionary as dict
 import logging
 import numpy as np
@@ -123,20 +123,26 @@ def prepare_answer(train_doc, train_answer, train_candidates,
 
     # prepare the matrix for the embedding layer
     word_index = dictionary.word_index
-    embeddings_index = glove.load_glove('', embeddings_size)
 
     num_words = min(max_vocabulary_size, 1 + len(word_index))
 
     logging.debug("Building embedding matrix of size [%s,%s]..." % (num_words, embeddings_size))
 
     embedding_matrix = np.zeros((num_words, embeddings_size))
-    for word, i in word_index.items():
-        if i >= num_words:
-            continue
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            # words not found in embedding index will be all-zeros.
-            embedding_matrix[i] = embedding_vector
+
+    if embeddings_size <= 300:
+        embeddings_index = glove.load_glove('', embeddings_size)
+        for word, i in word_index.items():
+            if i >= num_words:
+                continue
+            embedding_vector = embeddings_index.get(word)
+            if embedding_vector is not None:
+                # words not found in embedding index will be all-zeros.
+                embedding_matrix[i] = embedding_vector
+    else:
+        print('elmo')
+        embedding_vectors = elmo.load_elmo(word_index)
+        embedding_matrix[1:] = embedding_vectors
 
     return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, embedding_matrix, dictionary
 
@@ -316,21 +322,26 @@ def prepare_answer_2(train_doc, train_answer, train_candidates,
 
     # prepare the matrix for the embedding layer
     word_index = dictionary.word_index
-    # embeddings_index = glove.load_glove('', embeddings_size)
-    embeddings_index = glove.load_glove('../data/glove', embeddings_size)
 
     num_words = min(max_vocabulary_size, 1 + len(word_index))
 
     logging.debug("Building embedding matrix of size [%s,%s]..." % (num_words, embeddings_size))
 
     embedding_matrix = np.zeros((num_words, embeddings_size))
-    for word, i in word_index.items():
-        if i >= num_words:
-            continue
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            # words not found in embedding index will be all-zeros.
-            embedding_matrix[i] = embedding_vector
+
+    if embeddings_size <= 300:
+        embeddings_index = glove.load_glove('', embeddings_size)
+        for word, i in word_index.items():
+            if i >= num_words:
+                continue
+            embedding_vector = embeddings_index.get(word)
+            if embedding_vector is not None:
+                # words not found in embedding index will be all-zeros.
+                embedding_matrix[i] = embedding_vector
+    else:
+        print('elmo')
+        embedding_vectors = elmo.load_elmo(word_index)
+        embedding_matrix[1:] = embedding_vectors
 
     return [train_q, train_a], train_y, [test_q, test_a], test_y, [val_q, val_a], val_y, \
            [val_q_balanced, val_a_balanced], val_y_balanced, embedding_matrix, dictionary
@@ -438,21 +449,26 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, 
 
     # prepare the matrix for the embedding layer
     word_index = dictionary.word_index
-    # embeddings_index = glove.load_glove('', embeddings_size)
-    embeddings_index = glove.load_glove('../data/glove', embeddings_size)
 
     num_words = min(max_vocabulary_size, 1 + len(word_index))
 
     logging.debug("Building embedding matrix of size [%s,%s]..." % (num_words, embeddings_size))
 
     embedding_matrix = np.zeros((num_words, embeddings_size))
-    for word, i in word_index.items():
-        if i >= num_words:
-            continue
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            # words not found in embedding index will be all-zeros.
-            embedding_matrix[i] = embedding_vector
+
+    if embeddings_size <= 300:
+        embeddings_index = glove.load_glove('', embeddings_size)
+        for word, i in word_index.items():
+            if i >= num_words:
+                continue
+            embedding_vector = embeddings_index.get(word)
+            if embedding_vector is not None:
+                # words not found in embedding index will be all-zeros.
+                embedding_matrix[i] = embedding_vector
+    else:
+        print('elmo')
+        embedding_vectors = elmo.load_elmo(word_index)
+        embedding_matrix[1:] = embedding_vectors
 
     return train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix
 
