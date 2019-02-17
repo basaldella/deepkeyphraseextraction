@@ -53,7 +53,7 @@ KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NO
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Krapivin2009
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -84,6 +84,16 @@ elif DATASET == Kp20k:
     EMBEDDINGS_SIZE = 200  # gl: was 50
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 2048
+    EPOCHS = 9
+elif DATASET == Krapivin2009:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "../data/Krapivin2009"
+    MAX_DOCUMENT_LENGTH = 550  # gl: was 454
+    MAX_VOCABULARY_SIZE = 20000
+    MAX_ANSWER_LENGTH = 12
+    EMBEDDINGS_SIZE = 300  # gl: was 50
+    BATCH_SIZE = 256
+    PREDICT_BATCH_SIZE = 256
     EPOCHS = 9
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
