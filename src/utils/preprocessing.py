@@ -457,7 +457,7 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, 
     embedding_matrix = np.zeros((num_words, embeddings_size))
 
     if embeddings_size <= 300:
-        embeddings_index = glove.load_glove('', embeddings_size)
+        embeddings_index = glove.load_glove('../data/glove', embeddings_size)
         for word, i in word_index.items():
             if i >= num_words:
                 continue
