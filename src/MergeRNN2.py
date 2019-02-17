@@ -53,7 +53,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Hulth
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -84,6 +84,14 @@ elif DATASET == Kp20k:
     DATASET_FOLDER = "../data/Kp20k"
     MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
     MAX_VOCABULARY_SIZE = 400000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 32  # gl: was 32
+    EPOCHS = 13  # gl: was 10
+elif DATASET == Krapivin2009:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "../data/Krapivin2009"
+    MAX_DOCUMENT_LENGTH = 454
+    MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32  # gl: was 32
     EPOCHS = 13  # gl: was 10
@@ -151,7 +159,7 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                        trainable=False)(summary)
     # print(encoded_summary)  # gl
     # encoded_summary = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_summary)
-    if DATASET == Hulth:
+    if DATASET == Hulth or DATASET == Krapivin2009:
         encoded_summary = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_summary)
     elif DATASET == Semeval2017:
         encoded_summary = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_summary)
