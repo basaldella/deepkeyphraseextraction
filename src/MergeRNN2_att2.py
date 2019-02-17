@@ -53,7 +53,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Krapivin2009
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -89,6 +89,15 @@ elif DATASET == Kp20k:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32  # gl: was 32
     EPOCHS = 13  # gl: was 10
+elif DATASET == Krapivin2009:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "../data/Krapivin2009"
+    MAX_DOCUMENT_LENGTH = 454  # gl: was 454
+    MAX_VOCABULARY_SIZE = 20000
+    EMBEDDINGS_SIZE = 300
+    ATT_DIM = 50  # dim. of attentive output; best: 50
+    BATCH_SIZE = 32
+    EPOCHS = 13
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
