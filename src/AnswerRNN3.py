@@ -53,7 +53,7 @@ KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NO
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Krapivin2009
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -72,10 +72,10 @@ elif DATASET == Hulth:
     MAX_DOCUMENT_LENGTH = 554
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
-    EMBEDDINGS_SIZE = 50  # gl: was 50
+    EMBEDDINGS_SIZE = 300  # gl: was 50
     ENC_CANDIDATE_POOL_SIZE = 2
     BATCH_SIZE = 512
-    PREDICT_BATCH_SIZE = 2048
+    PREDICT_BATCH_SIZE = 2048  # gl was 2048
     EPOCHS = 8  # 143
 elif DATASET == Kp20k:
     tokenizer = tk.tokenizers.nltk
@@ -95,8 +95,9 @@ elif DATASET == Krapivin2009:
     MAX_VOCABULARY_SIZE = 20000
     MAX_ANSWER_LENGTH = 12
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 64
-    #PREDICT_BATCH_SIZE = 2048
+    ENC_CANDIDATE_POOL_SIZE = 3
+    BATCH_SIZE = 256
+    PREDICT_BATCH_SIZE = 2048
     EPOCHS = 13
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
@@ -361,6 +362,16 @@ output = model.predict(x=test_x, verbose=1, batch_size=PREDICT_BATCH_SIZE)
 logging.debug("Shape of output array: %s", np.shape(output))
 
 obtained_words = postprocessing.get_answers(test_candidates, test_x, output, dictionary)
+
+'''
+f_1 = open('data/obtained_words.txt', 'w')
+f_1.write(str(obtained_words))
+f_1.close()
+
+f_2 = open('data/test_answer.txt', 'w')
+f_2.write(str(test_answer))
+f_2.close()
+'''
 
 precision = metrics.precision(test_answer, obtained_words)
 recall = metrics.recall(test_answer, obtained_words)
