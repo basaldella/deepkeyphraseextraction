@@ -1,2 +1,5 @@
-src/*
-data/*
+src
+data
+figures
+models
+venv
