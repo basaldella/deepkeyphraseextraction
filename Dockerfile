@@ -13,6 +13,13 @@ WORKDIR "/"
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
+ARG UNAME=docker-user
+ARG GNAME=docker-grp
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID $GNAME
+RUN useradd -m -u $UID -g $GID -s /bin/bash $UNAME
+
 # Prepare the environment
 COPY requirements.txt /tmp/requirements.txt
 RUN bash -c "pip install -r /tmp/requirements.txt && \
@@ -28,4 +35,5 @@ ENTRYPOINT [ "/usr/bin/tini", "--" ]
 # Remove tensorflow default notebooks
 RUN bash -c "rm -rf /notebooks"
 
+USER $UNAME
 CMD ["/bin/bash"]
