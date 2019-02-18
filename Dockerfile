@@ -15,7 +15,11 @@ ENV LC_ALL C.UTF-8
 
 # Prepare the environment
 COPY requirements.txt /tmp/requirements.txt
-RUN bash -c "pip install -r /tmp/requirements.txt && \
+# NOTE: we remove eventual conflicting versions of tensorflow-gpu specified in
+# the requirements file. If you want to update tensorflow please specify a new
+# version in the 'FROM tensorflow ... ' line.
+RUN awk '!/tensorflow-gpu==.*/' /tmp/requirements.txt > /tmp/requirements.clean.txt
+RUN bash -c "pip install -r /tmp/requirements.clean.txt && \
             rm /tmp/requirements.txt"
 
 RUN bash -c "python -m nltk.downloader -d /usr/local/share/nltk_data popular"
