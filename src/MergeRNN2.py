@@ -45,7 +45,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "../models/mergernn2.h5"
 SHOW_PLOTS = True
 
@@ -54,6 +54,7 @@ SHOW_PLOTS = True
 # Dataset and hyperparameters for each dataset
 
 DATASET = Krapivin2009
+DROPOUT = 0.5
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -71,6 +72,7 @@ elif DATASET == Hulth:
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32
     EPOCHS = 43
+    DROPOUT = 0.3
 elif DATASET == Marujo2012:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Marujo2012"
@@ -90,11 +92,12 @@ elif DATASET == Kp20k:
 elif DATASET == Krapivin2009:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Krapivin2009"
-    MAX_DOCUMENT_LENGTH = 550  # gl: was 454
+    MAX_DOCUMENT_LENGTH = 550
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 32  # gl: was 32
-    EPOCHS = 13  # gl: was 10
+    BATCH_SIZE = 64
+    EPOCHS = 50
+    DROPOUT = 0.5
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -192,9 +195,9 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
     merged = layers.add([encoded_summary, encoded_document])
     merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/2), return_sequences=True))(merged)
-    merged = layers.Dropout(0.3)(merged)
+    merged = layers.Dropout(DROPOUT)(merged)
     merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/4), return_sequences=True))(merged)
-    merged = layers.Dropout(0.3)(merged)
+    merged = layers.Dropout(DROPOUT)(merged)
     prediction = layers.TimeDistributed(layers.Dense(3, activation='softmax'))(merged)
 
     model = Model([document, summary], prediction)
