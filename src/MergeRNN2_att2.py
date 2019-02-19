@@ -92,7 +92,7 @@ elif DATASET == Kp20k:
 elif DATASET == Krapivin2009:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Krapivin2009"
-    MAX_DOCUMENT_LENGTH = 454  # gl: was 454
+    MAX_DOCUMENT_LENGTH = 550  # gl: was 454
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
     ATT_DIM = 50  # dim. of attentive output; best: 50
@@ -186,8 +186,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                         input_length=MAX_DOCUMENT_LENGTH,
                                         trainable=False)(document)
 
-    print(np.shape(encoded_summary))  # gl: intermed. values
-    print(np.shape(encoded_document))  # gl: intermed. values
+    logging.debug("Shape of encoded_summary: %s", encoded_summary)
+    logging.debug("Shape of encoded_document: %s", encoded_document)
 
     # start of attentive branch
     words = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
@@ -202,33 +202,28 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                     recurrent_activation='tanh',
                     return_sequences=True))(embedded_words)
 
-    print('context_vectors')
-    print(context_vectors)
-    print('embedded_words')
-    print(embedded_words)
+    logging.debug("Tensor context_vectors: %s", context_vectors)
+    logging.debug("Tensor embedded_words: %s", embedded_words)
     # attentive module for document
     attentive = layers.dot([context_vectors, embedded_words], 2)
     # attentive = backend.permute_dimensions(attentive, (0, 2, 1))  # gl: eliminate, just an attempt
-    attentive = layers.Softmax()(attentive)
-    print('attentive')
-    print(attentive)
+    attentive = layers.Softmax(axis=0)(attentive)
+    logging.debug("Tensor attentive (1): %s", attentive)
     attentive = layers.dot([attentive, embedded_words], 1)
-    print(attentive)
+    logging.debug("Tensor attentive (2): %s", attentive)
     attentive = layers.Dense(int(ATT_DIM))(attentive)
-    print(attentive)
+    logging.debug("Tensor attentive (3): %s", attentive)
     # encoded_document = layers.Concatenate(axis=2)([embedded_words, attentive])
     # print(encoded_document)
 
     # start of merged branch
     # merged = layers.add([encoded_summary, encoded_document])
     added = layers.add([encoded_summary, encoded_document])
-    print('added')
-    print(added)
+    logging.debug("Tensor added: %s", added)
 
     # merged = layers.Concatenate([added, attentive])
     merged = layers.concatenate([added, attentive])
-    print('merged')
-    print(merged)
+    logging.debug("Tensor merged: %s", merged)
 
     merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/2), return_sequences=True))(merged)  # gl:
     # merged = layers.Bidirectional(layers.LSTM(int((EMBEDDINGS_SIZE + ATT_DIM)/2), return_sequences=True))(merged)
