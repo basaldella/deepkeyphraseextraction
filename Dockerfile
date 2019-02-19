@@ -52,4 +52,5 @@ RUN useradd -m -u $UID -g $GID -s /bin/bash $UNAME
 RUN bash -c "rm -rf /notebooks"
 
 USER $UNAME
+WORKDIR /home/$UNAME
 CMD ["/bin/bash"]
