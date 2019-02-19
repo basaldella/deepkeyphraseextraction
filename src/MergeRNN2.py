@@ -45,7 +45,7 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = False
+SAVE_MODEL = True
 MODEL_PATH = "../models/mergernn2.h5"
 SHOW_PLOTS = True
 
@@ -190,8 +190,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                         input_length=MAX_DOCUMENT_LENGTH,
                                         trainable=False)(document)
 
-    print(np.shape(encoded_summary))  # gl: intermed. values
-    print(np.shape(encoded_document))  # gl: intermed. values
+    logging.debug("Shape of encoded summary: %s", np.shape(encoded_summary))
+    logging.debug("Shape of encoded document: %s", np.shape(encoded_document))
 
     merged = layers.add([encoded_summary, encoded_document])
     merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/2), return_sequences=True))(merged)
