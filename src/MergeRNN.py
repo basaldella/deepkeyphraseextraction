@@ -44,24 +44,26 @@ info.log_versions()
 
 # GLOBAL VARIABLES
 
-SAVE_MODEL = True
+SAVE_MODEL = False
 MODEL_PATH = "../models/mergernn.h5"
 SHOW_PLOTS = True
+WRITE_KPS = True
 
 # END GLOBAL VARIABLES
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Semeval2017
+DATASET = Kp20k
+DROPOUT = 0.5
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Semeval2017"
     MAX_DOCUMENT_LENGTH = 350
     MAX_VOCABULARY_SIZE = 12000  # gl: was 20000
-    EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 32
-    EPOCHS = 10
+    EMBEDDINGS_SIZE = 50
+    BATCH_SIZE = 64
+    EPOCHS = 40
 elif DATASET == Hulth:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Hulth2003"
@@ -73,11 +75,20 @@ elif DATASET == Hulth:
 elif DATASET == Kp20k:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Kp20k"
-    MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
+    MAX_DOCUMENT_LENGTH = 1900
+    MAX_VOCABULARY_SIZE = 200000
+    EMBEDDINGS_SIZE = 300
+    BATCH_SIZE = 16
+    EPOCHS = 10  # gl: was 10
+elif DATASET == Krapivin2009:
+    tokenizer = tk.tokenizers.nltk
+    DATASET_FOLDER = "../data/Krapivin2009"
+    MAX_DOCUMENT_LENGTH = 550
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 64  # gl: was 32
-    EPOCHS = 10  # gl: was 10
+    BATCH_SIZE = 128
+    EPOCHS = 40
+
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
@@ -109,9 +120,10 @@ train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix = preprocessing
 
 # weigh training examples: everything that's not class 0 (not kp)
 # gets a heavier score
-# train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
-#  train_y_weights[train_y_weights > 0] = 20
-# train_y_weights[train_y_weights < 1] = 1
+
+#train_y_weights = np.argmax(train_y,axis=2) # this removes the one-hot representation
+#train_y_weights[train_y_weights > 0] = 40
+#train_y_weights[train_y_weights < 1] = 1
 
 from sklearn.utils import class_weight
 train_y_weights = np.argmax(train_y, axis=2)
@@ -135,8 +147,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                        input_length=MAX_DOCUMENT_LENGTH,
                                        trainable=False)(summary)
 
-    encoded_summary = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/2)))(encoded_summary)
-    encoded_summary = layers.Dropout(0.25)(encoded_summary)
+    encoded_summary = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE*2)))(encoded_summary)
+    encoded_summary = layers.Dropout(DROPOUT)(encoded_summary)
     encoded_summary = layers.Dense(EMBEDDINGS_SIZE)(encoded_summary)
     encoded_summary = layers.RepeatVector(MAX_DOCUMENT_LENGTH)(encoded_summary)
 
@@ -148,10 +160,10 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
                                         trainable=False)(document)
 
     merged = layers.add([encoded_summary, encoded_document])
-    merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/2), return_sequences=True))(merged)
-    merged = layers.Dropout(0.3)(merged)
-    merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE/4), return_sequences=True))(merged)
-    merged = layers.Dropout(0.3)(merged)
+    merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE*2), return_sequences=True))(merged)
+    merged = layers.Dropout(DROPOUT)(merged)
+    merged = layers.Bidirectional(layers.LSTM(int(EMBEDDINGS_SIZE), return_sequences=True))(merged)
+    merged = layers.Dropout(DROPOUT)(merged)
     merged = layers.Dense(int(EMBEDDINGS_SIZE / 2))(merged)
     merged = layers.Dropout(0.3)(merged)
     prediction = layers.TimeDistributed(layers.Dense(3, activation='softmax'))(merged)
@@ -366,6 +378,17 @@ print("### Precision : %.4f" % precision_top)
 print("### Recall    : %.4f" % recall_top)
 print("### F1        : %.4f" % f1_top)
 print("###                       ###")
+
+
+if WRITE_KPS:
+    from eval import anno_generator
+    from data.Semeval2017 import eval
+    import shutil
+
+    tmp_path = '../tmp/mergeRNN'
+    shutil.rmtree(tmp_path, ignore_errors=True)
+    anno_generator.write_anno(tmp_path, test_doc_str, obtained_words)
+
 
 if DATASET == Semeval2017:
     from eval import anno_generator

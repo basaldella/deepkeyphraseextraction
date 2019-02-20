@@ -510,6 +510,10 @@ def make_sequential(documents, answers):
         doc_answers_seq = [0] * len(document)
 
         for answer in doc_answers_set:
+
+            if not answer:
+                continue
+
             # Find where the first word the KP appears
             # print('doc_answers_set: ' + str(doc_answers_set))
             # print('len(answer): ' + str(len(answer)) + '; key: ' + key)

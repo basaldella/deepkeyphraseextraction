@@ -155,14 +155,9 @@ class Hulth(Dataset):
         documents = {}
 
         for doc in os.listdir("%s/%s" % (self.path, folder)):
-            # print(self.path)
-            # print(folder)
             if doc.endswith(".abstr"):
                 content = open(("%s/%s/%s" % (self.path, folder, doc)), "r").read()
                 documents[doc[:doc.find('.')]] = content
-                # print(doc)
-                # print(doc.find('.'))
-        # print(documents)  # gl:
         return documents
 
     def __load_answers(self, folder):
@@ -254,13 +249,6 @@ class Kp20k(Dataset):
                     # print(str(count_doc))
                     # print(documents)
                     count_doc = count_doc + 1
-        print(folder.lower() + ': records ' + str(len(documents)))
-
-        # f_1 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/documents.txt', 'w')
-        f_1 = open(
-            '/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/documents_' + folder.lower() + '.txt', 'w')
-        f_1.write(str(documents))
-        f_1.close()
 
         return documents
 
@@ -295,18 +283,11 @@ class Kp20k(Dataset):
                     answers[str(count_doc)] = notnull_answers
                     # print(count_doc)
                     count_doc = count_doc + 1
-        print(folder.lower() + ': records ' + str(len(answers)))
-
-        # f_2 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/answers.txt', 'w')
-        f_2 = open('/home/glancioni/PycharmProjects/deepkeyphraseextraction-master/answers_' + folder.lower() + '.txt',
-                   'w')
-        f_2.write(str(answers))
-        f_2.close()
 
         return answers
 
     def _load_test_documents(self):
-        return self.__load_documents("Test")
+        return self.__load_documents("Testing")
 
     def _load_train_documents(self):
         return self.__load_documents("Training")
@@ -315,7 +296,7 @@ class Kp20k(Dataset):
         return self.__load_documents("Validation")
 
     def _load_test_answers(self):
-        return self.__load_answers("Test")
+        return self.__load_answers("Testing")
 
     def _load_train_answers(self):
         return self.__load_answers("Training")
