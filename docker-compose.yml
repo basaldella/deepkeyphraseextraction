@@ -1,11 +1,12 @@
 version: '3'
 services:
-  dke:
+  dke-compose:
     build: .
     volumes:
-     - ./src:/opt/proj/src
-     - ./data:/opt/proj/data
-     - ./models:/opt/proj/models
-    user: 9999:1000
+     - ./src:/home/docker-user/src
+     - ./data:/home/docker-user/data
+     - ./models:/home/docker-user/models
+     - ./tmp:/home/docker-user/tmp
+    user: 1008:1000
     ports:
       - "59311:59311"

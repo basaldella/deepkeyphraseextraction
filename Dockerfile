@@ -13,6 +13,9 @@ WORKDIR "/"
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
+RUN apt-get update && \
+    apt-get install -y git
+
 # Prepare the environment
 COPY requirements.txt /tmp/requirements.txt
 # NOTE: we remove eventual conflicting versions of tensorflow-gpu specified in

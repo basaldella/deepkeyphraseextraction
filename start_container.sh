@@ -7,8 +7,6 @@ mkdir -p /tmp/$IMAGE_NAME
 WORKDIR="/home/$DOCKER_USER"
 VOLUMES="-v $(pwd)/src:${WORKDIR}/src -v $(pwd)/data:${WORKDIR}/data -v $(pwd)/models:${WORKDIR}/models -v /tmp/${IMAGE_NAME}/:${WORKDIR}/tmp"
 
-echo ${VOLUMES}
-
 if [ $# -eq 0 ]; then
 
     ${DOCKER_BIN} run -it --rm --user $(id -u):$(id -g) ${VOLUMES} --name ${CONTAINER_NAME} ${IMAGE_NAME}

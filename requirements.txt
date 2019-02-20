@@ -1,6 +1,6 @@
 Theano==1.0.0
 nltk==3.4.0
-Keras==2.2.4
+git+git://github.com/keras-team/keras@555d2124e74e19d3300e480cb39d9e96b76d055d
 tensorflow-gpu==1.12.0
 tensorflow_hub==0.2.0
 matplotlib==3.0.2

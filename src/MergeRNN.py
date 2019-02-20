@@ -26,6 +26,7 @@ import logging
 import numpy as np
 from keras import layers
 from keras.models import Model, load_model
+from keras.utils import multi_gpu_model
 
 from data.datasets import *
 from eval import keras_metrics, metrics
@@ -78,7 +79,7 @@ elif DATASET == Kp20k:
     MAX_DOCUMENT_LENGTH = 1900
     MAX_VOCABULARY_SIZE = 200000
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 16
+    BATCH_SIZE = 64
     EPOCHS = 10  # gl: was 10
 elif DATASET == Krapivin2009:
     tokenizer = tk.tokenizers.nltk
@@ -169,6 +170,13 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     prediction = layers.TimeDistributed(layers.Dense(3, activation='softmax'))(merged)
 
     model = Model([document, summary], prediction)
+
+    try:
+        model = multi_gpu_model(model, gpus=2)
+        logging.info("Running on all GPUs...")
+    except Exception as e:
+        logging.debug('Unable to use all GPUs: ' + str(e))
+        logging.info("Running on a single GPU/CPU...")
 
     logging.info("Compiling the network...")
     model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'],
