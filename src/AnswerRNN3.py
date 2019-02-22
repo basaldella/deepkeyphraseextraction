@@ -53,7 +53,7 @@ KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NO
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Krapivin2009
+DATASET = Semeval2017
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -101,6 +101,17 @@ elif DATASET == Krapivin2009:
     EPOCHS = 13
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
+
+logging.info("Architecture parameters for AnswerRNN3:")
+logging.info("Tokenizer: %s", str(tk.tokenizers.nltk))
+logging.info("DATASET_FOLDER: %s", DATASET_FOLDER)
+logging.info("MAX_DOCUMENT_LENGTH: %s", MAX_DOCUMENT_LENGTH)
+logging.info("MAX_VOCABULARY_SIZE: %s", MAX_VOCABULARY_SIZE)
+logging.info("EMBEDDINGS_SIZE: %s", EMBEDDINGS_SIZE)
+logging.info("ENC_CANDIDATE_POOL_SIZE: %s", ENC_CANDIDATE_POOL_SIZE)
+logging.info("BATCH_SIZE: %s", BATCH_SIZE)
+logging.info("PREDICT_BATCH_SIZE: %s", BATCH_SIZE)
+logging.info("EPOCHS: %s", EPOCHS)
 
 # END PARAMETERS
 
