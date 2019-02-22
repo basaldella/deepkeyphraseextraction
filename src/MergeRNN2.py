@@ -53,7 +53,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Krapivin2009
+DATASET = Kp20k
 DROPOUT = 0.5
 
 if DATASET == Semeval2017:
@@ -84,8 +84,8 @@ elif DATASET == Marujo2012:
 elif DATASET == Kp20k:
     tokenizer = tk.tokenizers.nltk
     DATASET_FOLDER = "../data/Kp20k"
-    MAX_DOCUMENT_LENGTH = 1912  # gl: was 540
-    MAX_VOCABULARY_SIZE = 400000
+    MAX_DOCUMENT_LENGTH = 1407  # gl: was 1912
+    MAX_VOCABULARY_SIZE = 170000
     EMBEDDINGS_SIZE = 300
     BATCH_SIZE = 32  # gl: was 32
     EPOCHS = 13  # gl: was 10
@@ -101,6 +101,15 @@ elif DATASET == Krapivin2009:
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
+logging.info("Architecture parameters for MergeRNN2:")
+logging.info("Tokenizer: %s", str(tk.tokenizers.nltk))
+logging.info("DATASET_FOLDER: %s", DATASET_FOLDER)
+logging.info("MAX_DOCUMENT_LENGTH: %s", MAX_DOCUMENT_LENGTH)
+logging.info("MAX_VOCABULARY_SIZE: %s", MAX_VOCABULARY_SIZE)
+logging.info("EMBEDDINGS_SIZE: %s", EMBEDDINGS_SIZE)
+logging.info("BATCH_SIZE: %s", BATCH_SIZE)
+logging.info("EPOCHS: %s", EPOCHS)
+logging.info("DROPOUT: %s", DROPOUT)
 
 # END PARAMETERS
 
