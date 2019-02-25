@@ -581,3 +581,21 @@ def stem_dataset(dataset):
         dataset[key] = stemmed_tokens
 
     return dataset
+
+
+def words_in_documents(documents, answers):
+
+    found_tokens = 0
+    not_found_tokens = 0
+    tokens_in_documents = 0
+    for doc_id, answer in answers.items():
+        tokens_in_documents += len(documents[doc_id])
+        for kp in answer:
+            for token in kp:
+                if token in documents[doc_id]:
+                    found_tokens += 1
+                else:
+                    not_found_tokens += 1
+
+    # return (found_tokens * 1.0) / tokens_in_documents
+    return found_tokens, not_found_tokens
