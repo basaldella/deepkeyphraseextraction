@@ -53,7 +53,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Kp20k
+DATASET = Krapivin2009  # Semeval2017, Hulth, Kp20k, Krapivin2009
 DROPOUT = 0.5
 
 if DATASET == Semeval2017:
@@ -157,6 +157,12 @@ logging.info("Data preprocessing complete.")
 logging.info("Maximum possible recall: %s",
              metrics.recall(test_answer,
                             postprocessing.get_words(test_doc, postprocessing.undo_sequential(test_y))))
+logging.info("Answers words (found, not found) in documents (Train): %s",
+             preprocessing.words_in_documents(train_doc, train_answer))
+logging.info("Answers words (found, not found) in documents (Test): %s",
+             preprocessing.words_in_documents(test_doc, test_answer))
+logging.info("Answers words (found, not found) in documents (Validation): %s",
+             preprocessing.words_in_documents(val_doc, val_answer))
 
 if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
 
