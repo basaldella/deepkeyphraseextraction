@@ -473,6 +473,116 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, 
     return train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix
 
 
+def prepare_sequential_elmo(train_doc, train_answer, test_doc, test_answer, val_doc, val_answer,
+                            max_document_length=1000,
+                            stem_test=False):
+    """
+        Prepares a dataset for use by a sequential, categorical model.
+
+        :param train_doc: the training documents
+        :param train_answer: the KPs for the training documents
+        :param test_doc: the test documents
+        :param test_answer: the KPs for the test documents
+        :param val_doc: the validation documents (can be None)
+        :param val_answer: the KPs for the validation documents (can be None)
+        :param max_document_length: the maximum length of the documents (shorter documents will be truncated!)
+        (i.e. we keep only the top max_vocabulary_size words)
+        :param stem_test: set the value to True if the test set answers are stemmed
+        :return: a tuple (train_x_e, train_y, test_x_e, test_y, val_x_e, val_y) containing the training,
+        test and validation set
+        """
+
+    train_answer_seq = make_sequential(train_doc, train_answer)
+
+    if not stem_test:
+        test_answer_seq = make_sequential(test_doc, test_answer)
+    else:
+        import copy
+        stemmed_test_doc = copy.deepcopy(test_doc)
+        stemmed_test_doc = stem_dataset(stemmed_test_doc)
+        test_answer_seq = make_sequential(stemmed_test_doc,test_answer)
+
+    # Prepare validation return data
+    # val_x = None
+    val_y = None
+
+    if val_doc and val_answer:
+        val_answer_seq = make_sequential(val_doc, val_answer)
+
+    # Transform the documents to sequence
+    documents_full = []
+    train_y = []
+    test_y = []
+
+    if val_doc and val_answer:
+        val_y = []
+
+    for key, doc in train_doc.items():
+        documents_full.append(token for token in doc)
+        train_y.append(train_answer_seq[key])
+    for key, doc in test_doc.items():
+        documents_full.append(token for token in doc)
+        test_y.append(test_answer_seq[key])
+
+    if val_doc and val_answer:
+        for key, doc in val_doc.items():
+            documents_full.append(token for token in doc)
+            val_y.append(val_answer_seq[key])
+
+    # train_x = np.asarray(pad_sequences(train_x, maxlen=max_document_length, padding='post', truncating='post'))
+    train_x_e = list(train_doc.values())
+    train_x_e = np.asarray(pad_sequences(train_x_e,
+                                         maxlen=max_document_length,
+                                         dtype='object',
+                                         padding='post',
+                                         truncating='post'))
+    train_x_e = train_x_e.astype(str)
+    train_x_e = np.where(train_x_e == '0.0', '', train_x_e)
+    train_y = pad_sequences(train_y, maxlen=max_document_length, padding='post', truncating='post')
+    train_y = make_categorical(train_y)
+
+    # test_x = np.asarray(pad_sequences(test_x, maxlen=max_document_length, padding='post', truncating='post'))
+    test_x_e = list(test_doc.values())
+    test_x_e = np.asarray(pad_sequences(test_x_e,
+                                        maxlen=max_document_length,
+                                        dtype='object',
+                                        padding='post',
+                                        truncating='post'))
+    test_x_e = test_x_e.astype(str)
+    test_x_e = np.where(test_x_e == '0.0', '', test_x_e)
+    test_y = pad_sequences(test_y, maxlen=max_document_length, padding='post', truncating='post')
+    test_y = make_categorical(test_y)
+
+    if val_doc and val_answer:
+        # val_x = np.asarray(pad_sequences(val_x, maxlen=max_document_length, padding='post', truncating='post'))
+        val_x_e = list(val_doc.values())
+        val_x_e = np.asarray(pad_sequences(val_x_e,
+                                           maxlen=max_document_length,
+                                           dtype='object',
+                                           padding='post',
+                                           truncating='post'))
+        val_x_e = val_x_e.astype(str)
+        val_x_e = np.where(val_x_e == '0.0', '', val_x_e)
+        val_y = pad_sequences(val_y, maxlen=max_document_length, padding='post', truncating='post')
+        val_y = make_categorical(val_y)
+
+    logging.debug("Longest training document : %s tokens" % len(max(train_x_e, key=len)))
+    logging.debug("Longest test document :     %s tokens" % len(max(test_x_e, key=len)))
+    if val_doc and val_answer:
+        logging.debug("Longest validation document : %s tokens" % len(max(val_x_e, key=len)))
+
+    logging.debug("Training set samples size   : %s", np.shape(train_x_e))
+    logging.debug("Training set answers size   : %s", np.shape(train_y))
+    logging.debug("Test set samples size       : %s", np.shape(test_x_e))
+    logging.debug("Test set answers size       : %s ", np.shape(test_y))
+
+    if val_doc and val_answer:
+        logging.debug("Validation set samples size : %s", np.shape(val_x_e))
+        logging.debug("Validation set answers size : %s ", np.shape(val_y))
+
+    return train_x_e, train_y, test_x_e, test_y, val_x_e, val_y
+
+
 def make_sequential(documents, answers):
     """
     Transform an answer-based dataset (i.e. with a list of
@@ -598,4 +708,4 @@ def words_in_documents(documents, answers):
                     not_found_tokens += 1
 
     # return (found_tokens * 1.0) / tokens_in_documents
-    return found_tokens, not_found_tokens
+    return found_tokens, not_found_tokens, tokens_in_documents
