@@ -53,7 +53,7 @@ SHOW_PLOTS = True
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Krapivin2009  # Semeval2017, Hulth, Kp20k, Krapivin2009
+DATASET = Kp20k  # Semeval2017, Hulth, Kp20k, Krapivin2009
 DROPOUT = 0.5
 
 if DATASET == Semeval2017:
@@ -87,7 +87,7 @@ elif DATASET == Kp20k:
     MAX_DOCUMENT_LENGTH = 1407  # gl: was 1912
     MAX_VOCABULARY_SIZE = 170000
     EMBEDDINGS_SIZE = 300
-    BATCH_SIZE = 32  # gl: was 32
+    BATCH_SIZE = 128  # gl: was 32
     EPOCHS = 13  # gl: was 10
 elif DATASET == Krapivin2009:
     tokenizer = tk.tokenizers.nltk
@@ -157,11 +157,11 @@ logging.info("Data preprocessing complete.")
 logging.info("Maximum possible recall: %s",
              metrics.recall(test_answer,
                             postprocessing.get_words(test_doc, postprocessing.undo_sequential(test_y))))
-logging.info("Answers words (found, not found) in documents (Train): %s",
+logging.info("Answers words in Train documents (found, not found, tot. doc. length)      : %s",
              preprocessing.words_in_documents(train_doc, train_answer))
-logging.info("Answers words (found, not found) in documents (Test): %s",
+logging.info("Answers words in Test documents (found, not found, tot. doc. length)       : %s",
              preprocessing.words_in_documents(test_doc, test_answer))
-logging.info("Answers words (found, not found) in documents (Validation): %s",
+logging.info("Answers words in Validation documents (found, not found, tot. doc. length) : %s",
              preprocessing.words_in_documents(val_doc, val_answer))
 
 if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
@@ -181,6 +181,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
         encoded_summary = layers.Conv1D(filters=128, kernel_size=32, strides=4, activation='relu')(encoded_summary)
     elif DATASET == Semeval2017:
         encoded_summary = layers.Conv1D(filters=128, kernel_size=25, strides=3, activation='relu')(encoded_summary)
+    elif DATASET == Kp20k:
+        encoded_summary = layers.Conv1D(filters=128, kernel_size=128, strides=10, activation='relu')(encoded_summary)
     # Size: 131
     encoded_summary = layers.MaxPool1D(pool_size=2)(encoded_summary)
     encoded_summary = layers.Activation('relu')(encoded_summary)
@@ -197,6 +199,8 @@ if not SAVE_MODEL or not os.path.isfile(MODEL_PATH):
     # Size: 5
     encoded_summary = layers.Flatten()(encoded_summary)
     encoded_summary = layers.RepeatVector(MAX_DOCUMENT_LENGTH)(encoded_summary)
+
+    print((Model(summary, encoded_summary)).summary())
 
     document = layers.Input(shape=(MAX_DOCUMENT_LENGTH,))
     encoded_document = layers.Embedding(np.shape(embedding_matrix)[0],
