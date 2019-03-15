@@ -53,7 +53,7 @@ KP_CLASS_WEIGHT = 1.  # weight of positives samples while training the model. NO
 
 # Dataset and hyperparameters for each dataset
 
-DATASET = Krapivin2009
+DATASET = Kp20k
 
 if DATASET == Semeval2017:
     tokenizer = tk.tokenizers.nltk
@@ -81,7 +81,7 @@ elif DATASET == Kp20k:
     MAX_DOCUMENT_LENGTH = 1407
     MAX_VOCABULARY_SIZE = 170000
     MAX_ANSWER_LENGTH = 100
-    EMBEDDINGS_SIZE = 200  # gl: was 50
+    EMBEDDINGS_SIZE = 300  # gl: was 50
     BATCH_SIZE = 256
     PREDICT_BATCH_SIZE = 2048
     EPOCHS = 9
