@@ -473,6 +473,110 @@ def prepare_sequential(train_doc, train_answer, test_doc, test_answer, val_doc, 
     return train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix
 
 
+def prepare_sequential_elmo3(train_doc, train_answer, test_doc, test_answer, val_doc, val_answer,
+                             max_document_length=1000,
+                             max_vocabulary_size=50000,
+                             stem_test=False):
+    """
+        Prepares a dataset for use by a sequential, categorical model.
+
+        :param train_doc: the training documents
+        :param train_answer: the KPs for the training documents
+        :param test_doc: the test documents
+        :param test_answer: the KPs for the test documents
+        :param val_doc: the validation documents (can be None)
+        :param val_answer: the KPs for the validation documents (can be None)
+        :param max_document_length: the maximum length of the documents (shorter documents will be truncated!)
+        :param max_vocabulary_size: the maximum size of the vocabulary to use
+        (i.e. we keep only the top max_vocabulary_size words)
+        :param stem_test: set the value to True if the test set answers are stemmed
+        :return: a tuple (train_x, train_y, test_x, test_y, val_x, val_y, embedding_matrix) containing the training,
+        test and validation set, and an embedding matrix for an Embedding layer
+        """
+
+    train_answer_seq = make_sequential(train_doc, train_answer)
+
+    if not stem_test:
+        test_answer_seq = make_sequential(test_doc, test_answer)
+    else:
+        import copy
+        stemmed_test_doc = copy.deepcopy(test_doc)
+        stemmed_test_doc = stem_dataset(stemmed_test_doc)
+        test_answer_seq = make_sequential(stemmed_test_doc, test_answer)
+
+    # Prepare validation return data
+    val_x = None
+    val_y = None
+
+    if val_doc and val_answer:
+        val_answer_seq = make_sequential(val_doc, val_answer)
+
+    # Transform the documents to sequence
+    documents_full = []
+    train_y = []
+    test_y = []
+
+    if val_doc and val_answer:
+        val_y = []
+
+    for key, doc in train_doc.items():
+        documents_full.append(token for token in doc)
+        train_y.append(train_answer_seq[key])
+    for key, doc in test_doc.items():
+        documents_full.append(token for token in doc)
+        test_y.append(test_answer_seq[key])
+
+    if val_doc and val_answer:
+        for key, doc in val_doc.items():
+            documents_full.append(token for token in doc)
+            val_y.append(val_answer_seq[key])
+
+    logging.debug("Fitting dictionary on %s documents..." % len(documents_full))
+
+    dictionary = dict.Dictionary(num_words=max_vocabulary_size)
+    dictionary.fit_on_texts(documents_full)
+
+    logging.debug("Dictionary fitting completed. Found %s unique tokens" % len(dictionary.word_index))
+
+    # Now we can prepare the actual input
+    train_x = dictionary.texts_to_sequences(train_doc.values())
+    test_x = dictionary.texts_to_sequences(test_doc.values())
+    if val_doc and val_answer:
+        val_x = dictionary.texts_to_sequences(val_doc.values())
+
+    logging.debug("Longest training document : %s tokens" % len(max(train_x, key=len)))
+    logging.debug("Longest test document :     %s tokens" % len(max(test_x, key=len)))
+    if val_doc and val_answer:
+        logging.debug("Longest validation document : %s tokens" % len(max(val_x, key=len)))
+
+    train_x = np.asarray(pad_sequences(train_x, maxlen=max_document_length, padding='post', truncating='post'))
+    train_y = pad_sequences(train_y, maxlen=max_document_length, padding='post', truncating='post')
+    train_y = make_categorical(train_y)
+
+    test_x = np.asarray(pad_sequences(test_x, maxlen=max_document_length, padding='post', truncating='post'))
+    test_y = pad_sequences(test_y, maxlen=max_document_length, padding='post', truncating='post')
+    test_y = make_categorical(test_y)
+
+    if val_doc and val_answer:
+        val_x = np.asarray(pad_sequences(val_x, maxlen=max_document_length, padding='post', truncating='post'))
+        val_y = pad_sequences(val_y, maxlen=max_document_length, padding='post', truncating='post')
+        val_y = make_categorical(val_y)
+
+    logging.debug("Training set samples size   : %s", np.shape(train_x))
+    logging.debug("Training set answers size   : %s", np.shape(train_y))
+    logging.debug("Test set samples size       : %s", np.shape(test_x))
+    logging.debug("Test set answers size       : %s ", np.shape(test_y))
+
+    if val_doc and val_answer:
+        logging.debug("Validation set samples size : %s", np.shape(val_x))
+        logging.debug("Validation set answers size : %s ", np.shape(val_y))
+
+    # prepare the matrix for the embedding layer
+    word2index = dictionary.word_index
+
+    return train_x, train_y, test_x, test_y, val_x, val_y, word2index
+
+
 def prepare_sequential_elmo(train_doc, train_answer, test_doc, test_answer, val_doc, val_answer,
                             max_document_length=1000,
                             stem_test=False):
