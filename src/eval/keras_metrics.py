@@ -5,18 +5,19 @@ import logging
 
 class MetricsCallback(keras.callbacks.Callback):
 
-    def __init__(self,val_x,val_y):
+    def __init__(self, val_x, val_y, batch_size=128):
         self.val_x = val_x
         self.val_y = val_y
         self.epoch = []
         self.history = {}
+        self.batch_size = batch_size
 
     def on_epoch_end(self, epoch, logs={}):
 
         # Predict on the validation data
-        y_pred = self.model.predict(self.val_x)
+        y_pred = self.model.predict(self.val_x, batch_size=self.batch_size, verbose=1)
 
-        precision = keras_precision(self.val_y,y_pred)
+        precision = keras_precision(self.val_y, y_pred)
         recall = keras_recall(self.val_y, y_pred)
         f1 = keras_f1(self.val_y, y_pred)
 
