@@ -46,7 +46,7 @@ info.log_versions()
 # GLOBAL VARIABLES
 
 SAVE_MODEL = True
-MODEL_PATH = "../models/mergernn2_elmo3.h5"
+MODEL_PATH = "../models/mergernn2_elmo_doc.h5"
 SHOW_PLOTS = True
 
 # END GLOBAL VARIABLES
@@ -71,7 +71,7 @@ elif DATASET == Hulth:
     MAX_DOCUMENT_LENGTH = 550
     MAX_VOCABULARY_SIZE = 20000
     EMBEDDINGS_SIZE = 1024
-    BATCH_SIZE = 10  # gl: was 32; be sure it divides evenly the train sample
+    BATCH_SIZE = 15  # gl: was 32; be sure it divides evenly the train sample
     EPOCHS = 43
 elif DATASET == Marujo2012:
     tokenizer = tk.tokenizers.nltk
@@ -92,6 +92,17 @@ elif DATASET == Kp20k:
 else:
     raise NotImplementedError("Can't set the hyperparameters: unknown dataset")
 
+logging.info("Architecture parameters for MergeRNN2_ELMo_doc:")
+logging.info("Tokenizer              : %s", str(tk.tokenizers.nltk))
+logging.info("DATASET_FOLDER         : %s", DATASET_FOLDER)
+logging.info("MAX_DOCUMENT_LENGTH    : %s", MAX_DOCUMENT_LENGTH)
+# logging.info("MAX_SENTENCES_IN_DOC   : %s", MAX_SENTENCES_IN_DOC)
+# logging.info("MAX_TOKENS_IN_SENTENCE : %s", MAX_TOKENS_IN_SENTENCE)
+logging.info("MAX_VOCABULARY_SIZE    : %s", MAX_VOCABULARY_SIZE)
+logging.info("EMBEDDINGS_SIZE        : %s", EMBEDDINGS_SIZE)
+logging.info("BATCH_SIZE             : %s", BATCH_SIZE)
+logging.info("EPOCHS                 : %s", EPOCHS)
+logging.info("DROPOUT                : %s", DROPOUT)
 
 # END PARAMETERS
 
@@ -457,7 +468,7 @@ if DATASET == Semeval2017:
     from data.Semeval2017 import eval
     import shutil
 
-    tmp_path = '/tmp/mergernn2_elmo3'
+    tmp_path = '../data/Semeval2017/tmp/mergernn2_elmo_doc'
     shutil.rmtree(tmp_path, ignore_errors=True)
     anno_generator.write_anno(tmp_path, test_doc_str, clean_words)
-    eval.calculateMeasures("data/Semeval2017/test", tmp_path, remove_anno=["types"])
+    eval.calculateMeasures("../data/Semeval2017/test", tmp_path, remove_anno=["types"])
